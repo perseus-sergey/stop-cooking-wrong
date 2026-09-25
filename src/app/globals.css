@@ -128,3 +128,50 @@
     @apply font-sans;
   }
 }
+
+/* М'яка зміна фонів без смикання та розмиття шрифтів */
+body,
+header,
+footer,
+main,
+nav,
+article,
+div {
+  transition-property: background-color, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* ========================================================================== */
+/* Плавна анімація шторки Base UI (iOS-style cubic-bezier)                    */
+/* ========================================================================== */
+
+/* Затемнення фону (Overlay) */
+[data-slot='sheet-overlay'] {
+  transition: opacity 400ms ease-out;
+  opacity: 1;
+}
+[data-slot='sheet-overlay'][data-starting-style],
+[data-slot='sheet-overlay'][data-ending-style] {
+  opacity: 0;
+}
+
+/* Виїзд самої шторки з правого боку */
+[data-slot='sheet-content'][data-side='right'] {
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(0);
+}
+[data-slot='sheet-content'][data-side='right'][data-starting-style],
+[data-slot='sheet-content'][data-side='right'][data-ending-style] {
+  transform: translateX(100%);
+}
+
+/* Якщо шторка відкривається зліва */
+[data-slot='sheet-content'][data-side='left'] {
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(0);
+}
+[data-slot='sheet-content'][data-side='left'][data-starting-style],
+[data-slot='sheet-content'][data-side='left'][data-ending-style] {
+  transform: translateX(-100%);
+}

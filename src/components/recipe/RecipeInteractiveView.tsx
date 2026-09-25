@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Recipe } from '@/types/recipe';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
@@ -17,6 +16,7 @@ import {
   XCircle,
   Sparkles,
 } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 
 interface Props {
   recipe: Recipe;
@@ -33,214 +33,204 @@ export default function RecipeInteractiveView({ recipe }: Props) {
   };
 
   return (
-    <div className="space-y-10">
-      {/* Швидка статистика */}
-      <div className="grid grid-cols-2 gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 sm:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="flex items-center gap-3">
-          <Clock className="h-5 w-5 text-orange-500" />
+    <div className="space-y-10 print:space-y-4">
+      {/* 1. Швидка статистика (компактна на друці) */}
+      <div className="grid grid-cols-2 gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 sm:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-900 print:border-zinc-300 print:bg-transparent print:p-2">
+        <div className="flex items-center gap-3 print:gap-1.5">
+          <Clock className="h-5 w-5 text-orange-500 print:h-4 print:w-4" />
           <div>
-            <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase">
-              Prep Time
+            <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase print:text-[10px]">
+              Prep
             </p>
-            <p className="text-sm font-semibold">
+            <p className="text-sm font-semibold print:text-xs">
               {recipe.prepTimeMinutes} mins
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Flame className="h-5 w-5 text-orange-500" />
+        <div className="flex items-center gap-3 print:gap-1.5">
+          <Flame className="h-5 w-5 text-orange-500 print:h-4 print:w-4" />
           <div>
-            <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase">
-              Air Fry Time
+            <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase print:text-[10px]">
+              Air Fry
             </p>
-            <p className="text-sm font-semibold">
+            <p className="text-sm font-semibold print:text-xs">
               {recipe.cookTimeMinutes} mins
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Users className="h-5 w-5 text-orange-500" />
+        <div className="flex items-center gap-3 print:gap-1.5">
+          <Users className="h-5 w-5 text-orange-500 print:h-4 print:w-4" />
           <div>
-            <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase">
+            <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase print:text-[10px]">
               Servings
             </p>
-            <p className="text-sm font-semibold">{recipe.servings} people</p>
+            <p className="text-sm font-semibold print:text-xs">
+              {recipe.servings} people
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Sparkles className="h-5 w-5 text-orange-500" />
+        <div className="flex items-center gap-3 print:gap-1.5">
+          <Sparkles className="h-5 w-5 text-orange-500 print:h-4 print:w-4" />
           <div>
-            <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase">
+            <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase print:text-[10px]">
               Calories
             </p>
-            <p className="text-sm font-semibold">
+            <p className="text-sm font-semibold print:text-xs">
               {recipe.caloriesPerServing ?? 'N/A'} kcal
             </p>
           </div>
         </div>
       </div>
 
-      {/* Блок каналу "Stop Cooking Wrong" */}
-      <Card className="overflow-hidden border-orange-500/30 bg-orange-50/40 shadow-sm dark:bg-orange-950/20">
-        <div className="flex items-center gap-1.5 bg-orange-500 px-4 py-2 text-xs font-medium tracking-wider text-white uppercase">
-          <Sparkles className="h-4 w-4" /> Stop Cooking Wrong: Pro Secret
+      {/* 2. Stop Cooking Wrong (на друці компактна рамка) */}
+      <Card className="overflow-hidden border-orange-500/30 bg-orange-50/40 shadow-sm dark:bg-orange-950/20 print:break-inside-avoid print:border-zinc-300 print:bg-zinc-50 print:shadow-none">
+        <div className="flex items-center gap-1.5 bg-orange-500 px-4 py-1.5 text-xs font-medium tracking-wider text-white uppercase print:bg-zinc-800 print:py-1 print:text-[10px]">
+          <Sparkles className="h-4 w-4" /> {siteConfig.brand.secretBadge}
         </div>
-        <CardContent className="grid gap-4 p-6 sm:grid-cols-2">
-          <div className="space-y-1.5">
+        <CardContent className="grid gap-3 p-4 text-xs leading-relaxed sm:grid-cols-2 print:p-2.5">
+          <div className="space-y-1">
             <div className="flex items-center gap-2 text-sm font-semibold text-red-600 dark:text-red-400">
               <XCircle className="h-4 w-4" />
-              <span>Common Mistake</span>
+              <span>{siteConfig.brand.commonMistakeLabel}</span>
             </div>
-            <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+            <p className="text-zinc-600 dark:text-zinc-300 print:text-zinc-700">
               {recipe.mistakeToAvoid}
             </p>
           </div>
 
-          <div className="space-y-1.5 sm:border-l sm:border-orange-200 sm:pl-4 dark:sm:border-orange-900/50">
+          <div className="space-y-1 sm:border-l sm:border-orange-200 sm:pl-3 dark:sm:border-orange-900/40 print:border-zinc-300">
             <div className="flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
               <CheckCircle2 className="h-4 w-4" />
-              <span>The Right Move</span>
+              <span>{siteConfig.brand.theRightMoveLabel}</span>
             </div>
-            <p className="text-sm leading-relaxed font-medium text-zinc-800 dark:text-zinc-100">
+            <p className="font-medium text-zinc-800 dark:text-zinc-100 print:text-black">
               {recipe.theRightMove}
             </p>
           </div>
         </CardContent>
       </Card>
 
-      {/* Інгредієнти та Кроки */}
-      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
+      {/* 3. Двоколонковий макет для друку (Інгредієнти зліва, Кроки справа) */}
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 print:grid-cols-12 print:gap-4">
         {/* Ліва колонка: Інгредієнти */}
-        <div className="space-y-4 lg:sticky lg:top-6 lg:col-span-5">
-          <Card className="shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-              <CardTitle className="text-xl font-bold">Ingredients</CardTitle>
+        <div className="space-y-4 lg:sticky lg:top-6 lg:col-span-5 print:col-span-5 print:break-inside-avoid print:space-y-2">
+          <Card className="shadow-sm print:border-zinc-300 print:shadow-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 print:p-2 print:pb-1.5">
+              <CardTitle className="text-xl font-bold print:text-base">
+                Ingredients
+              </CardTitle>
 
-              {/* Тогл систем мір */}
-              <div className="flex items-center rounded-lg border border-zinc-200 bg-zinc-100 p-1 dark:border-zinc-700 dark:bg-zinc-800">
+              {/* Ховаємо перемикач на друці */}
+              <div className="flex items-center rounded-lg bg-zinc-100 p-1 print:hidden">
                 <Button
                   size="sm"
-                  type="button"
                   variant={unitSystem === 'us' ? 'default' : 'ghost'}
-                  className="h-7 px-2.5 text-xs font-medium"
+                  className="h-7 px-2 text-xs"
                   onClick={() => setUnitSystem('us')}
                 >
-                  US Standard
+                  US
                 </Button>
                 <Button
                   size="sm"
-                  type="button"
                   variant={unitSystem === 'metric' ? 'default' : 'ghost'}
-                  className="h-7 px-2.5 text-xs font-medium"
+                  className="h-7 px-2 text-xs"
                   onClick={() => setUnitSystem('metric')}
                 >
                   Metric
                 </Button>
               </div>
             </CardHeader>
-            <Separator />
-            <CardContent className="space-y-3 pt-4">
-              {recipe.ingredients.map((ing) => {
-                const isChecked = checkedIngredients.includes(ing.id);
-                return (
-                  <div
-                    key={ing.id}
-                    onClick={() => toggleIngredient(ing.id)}
-                    className="flex cursor-pointer items-start gap-3 rounded-lg p-2 transition-colors select-none hover:bg-zinc-50 dark:hover:bg-zinc-900"
-                  >
-                    <Checkbox checked={isChecked} className="mt-0.5" />
-                    <div className="flex-1 text-sm leading-snug">
-                      <span
-                        className={
-                          isChecked
-                            ? 'text-zinc-400 line-through dark:text-zinc-500'
-                            : 'text-zinc-900 dark:text-zinc-100'
-                        }
-                      >
-                        <strong className="mr-1.5 font-semibold text-orange-600 dark:text-orange-400">
-                          {unitSystem === 'us'
-                            ? ing.amountUS
-                            : ing.amountMetric}
-                        </strong>
-                        {ing.name}
+            <Separator className="print:hidden" />
+            <CardContent className="space-y-2 pt-4 print:space-y-1.5 print:p-2 print:pt-1">
+              {recipe.ingredients.map((ing) => (
+                <div
+                  key={ing.id}
+                  onClick={() => toggleIngredient(ing.id)}
+                  className="flex cursor-pointer items-start gap-2.5 text-sm leading-tight print:text-xs"
+                >
+                  {/* Квадратик для відмітки ручкою на папері */}
+                  <div className="mt-0.5 hidden h-3 w-3 shrink-0 rounded-sm border border-zinc-400 print:block" />
+                  <Checkbox
+                    checked={checkedIngredients.includes(ing.id)}
+                    className="mt-0.5 print:hidden"
+                  />
+
+                  <div>
+                    <span className="mr-1 font-semibold text-orange-600 print:text-black">
+                      {unitSystem === 'us' ? ing.amountUS : ing.amountMetric}
+                    </span>
+                    <span>{ing.name}</span>
+                    {ing.notes && (
+                      <span className="block text-xs text-zinc-500 print:text-[10px]">
+                        ({ing.notes})
                       </span>
-                      {ing.notes && (
-                        <span className="mt-0.5 block text-xs text-zinc-500">
-                          ({ing.notes})
-                        </span>
-                      )}
-                    </div>
+                    )}
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </CardContent>
           </Card>
         </div>
 
-        {/* Права колонка: Кроки приготування */}
-        <div className="space-y-6 lg:col-span-7">
-          <h2 className="text-2xl font-bold tracking-tight">
-            Step-by-Step Instructions
+        {/* Права колонка: Кроки */}
+        <div className="space-y-4 lg:col-span-7 print:col-span-7 print:space-y-2">
+          <h2 className="text-2xl font-bold tracking-tight print:text-base">
+            Instructions
           </h2>
 
-          <div className="space-y-6">
+          <div className="space-y-4 print:space-y-2">
             {recipe.steps.map((step) => (
               <Card
                 key={step.stepNumber}
-                className="relative overflow-hidden shadow-sm"
+                className="overflow-hidden shadow-sm print:break-inside-avoid print:border-zinc-300 print:shadow-none"
               >
-                <CardHeader className="pb-2">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-xs font-bold text-white dark:bg-zinc-100 dark:text-zinc-900">
+                <CardHeader className="pb-1.5 print:p-2 print:pb-0.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-[10px] font-bold text-white">
                         {step.stepNumber}
                       </span>
-                      <h3 className="text-base font-semibold">{step.title}</h3>
+                      <h3 className="text-sm font-semibold print:text-xs">
+                        {step.title}
+                      </h3>
                     </div>
 
                     {(step.tempF || step.durationMinutes) && (
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1 font-mono text-[10px]">
                         {step.tempF && (
-                          <Badge
-                            variant="secondary"
-                            className="border-none bg-orange-100 font-mono text-xs text-orange-700 dark:bg-orange-950/40 dark:text-orange-300"
-                          >
+                          <span className="rounded bg-orange-100 px-1.5 py-0.5 font-semibold text-orange-800 print:border print:bg-zinc-100 print:text-black">
                             {unitSystem === 'us'
                               ? `${step.tempF}°F`
                               : `${step.tempC}°C`}
-                          </Badge>
+                          </span>
                         )}
                         {step.durationMinutes && (
-                          <Badge
-                            variant="outline"
-                            className="font-mono text-xs"
-                          >
-                            {step.durationMinutes} min
-                          </Badge>
+                          <span className="rounded border border-zinc-200 px-1.5 py-0.5">
+                            {step.durationMinutes}m
+                          </span>
                         )}
                       </div>
                     )}
                   </div>
                 </CardHeader>
 
-                <CardContent className="space-y-3 pt-1">
-                  <p className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
+                <CardContent className="space-y-1.5 pt-1 text-xs leading-relaxed print:p-2 print:pt-1 print:text-[11px]">
+                  <p className="text-zinc-700 print:text-black">
                     {step.instruction}
                   </p>
 
                   {step.isShakePoint && (
-                    <div className="inline-flex items-center gap-1.5 rounded-md border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-400">
-                      <RotateCw className="h-3.5 w-3.5" />
-                      Shake the basket thoroughly
+                    <div className="inline-flex items-center gap-1 rounded border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 print:border-zinc-400 print:bg-transparent print:text-black">
+                      <RotateCw className="h-3 w-3" /> Shake basket
                     </div>
                   )}
 
                   {step.tip && (
-                    <div className="flex items-start gap-2 rounded-lg border border-zinc-100 bg-zinc-50 p-2.5 text-xs text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
-                      <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+                    <div className="flex items-start gap-1.5 rounded border border-zinc-100 bg-zinc-50 p-1.5 text-[10px] text-zinc-600 print:border-zinc-300 print:bg-zinc-50 print:text-zinc-800">
+                      <Lightbulb className="mt-0.5 h-3 w-3 shrink-0 text-amber-500" />
                       <span>{step.tip}</span>
                     </div>
                   )}
