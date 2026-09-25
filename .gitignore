@@ -39,3 +39,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Turbopack кеш (ви обрали Turbopack при створенні)
+.turbo/
+
+# Дозволити зразок файлу оточення (якщо колись створите .env.example)
+!.env.example
+
+# Сміттєві файли macOS (крім .DS_Store, Mac іноді створює префікси ._*)
+._*
+.AppleDouble
+.Spotlight-V100
+.Trashes
+
+# Налаштування редактора
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
