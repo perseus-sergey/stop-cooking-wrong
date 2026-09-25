@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { mockRecipe } from '@/data/mock-recipe';
+import { mockRecipes } from '@/data/mock-recipe';
 import RecipeInteractiveView from '@/components/recipe/RecipeInteractiveView';
 import { Badge } from '@/components/ui/badge';
 import { siteConfig, ROUTES } from '@/config/site';
 import { toIsoDuration } from '@/lib/utils';
 import PrintModal from '@/components/recipe/PrintModal';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -13,11 +14,20 @@ interface PageProps {
 
 export const revalidate = 86400; // invalidate cache every 24h
 
+const getRecipeBySlug = (slug: string) =>
+  mockRecipes.find((r) => r.slug === slug);
+
+export async function generateStaticParams() {
+  return mockRecipes.map((recipe) => ({
+    slug: recipe.slug,
+  }));
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const recipe = mockRecipe;
+  const recipe = getRecipeBySlug(slug) ?? notFound();
 
   const { title, description, tags, featuredImage, publishedAt } = recipe;
   const { name, url } = siteConfig;
@@ -56,7 +66,10 @@ export async function generateMetadata({
 }
 
 export default async function RecipePage({ params }: PageProps) {
-  const recipe = mockRecipe;
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  //   throw new Error('Test database crash: Air fryer overheated!');
+  const { slug } = await params;
+  const recipe = getRecipeBySlug(slug) ?? notFound();
   const {
     title,
     youtubeId,
@@ -72,6 +85,7 @@ export default async function RecipePage({ params }: PageProps) {
     tags,
     featuredImage,
     publishedAt,
+    theRightMove,
   } = recipe;
 
   const recipeJsonLd = {
@@ -142,9 +156,9 @@ export default async function RecipePage({ params }: PageProps) {
               <p className="text-[10px] font-bold tracking-widest text-zinc-600 uppercase">
                 Stop Cooking Wrong • Air Fryer Recipe
               </p>
-              <h1 className="mt-0.5 text-xl font-black">{recipe.title}</h1>
+              <h1 className="mt-0.5 text-xl font-black">{title}</h1>
               <p className="mt-0.5 text-[11px] text-zinc-700 italic">
-                {recipe.description}
+                {description}
               </p>
             </div>
             <div className="ml-4 shrink-0 text-right text-[10px]">
@@ -156,24 +170,23 @@ export default async function RecipePage({ params }: PageProps) {
           {/* Параметри в один рядок */}
           <div className="mb-3 flex justify-between rounded border border-zinc-300 bg-zinc-100 p-2 text-[11px] font-medium">
             <span>
-              <strong>Prep:</strong> {recipe.prepTimeMinutes} mins
+              <strong>Prep:</strong> {prepTimeMinutes} mins
             </span>
             <span>
-              <strong>Air Fry:</strong> {recipe.cookTimeMinutes} mins
+              <strong>Air Fry:</strong> {cookTimeMinutes} mins
             </span>
             <span>
-              <strong>Servings:</strong> {recipe.servings}
+              <strong>Servings:</strong> {servings}
             </span>
             <span>
-              <strong>Calories:</strong> {recipe.caloriesPerServing ?? 'N/A'}{' '}
-              kcal
+              <strong>Calories:</strong> {caloriesPerServing ?? 'N/A'} kcal
             </span>
           </div>
 
           {/* Секрет каналу */}
           <div className="mb-3 rounded border border-black bg-zinc-50 p-2">
             <p className="text-[11px] font-bold">💡 The Right Move:</p>
-            <p className="text-[10px] text-zinc-800">{recipe.theRightMove}</p>
+            <p className="text-[10px] text-zinc-800">{theRightMove}</p>
           </div>
 
           {/* Дві компактні колонки: Інгредієнти та Кроки */}
@@ -184,7 +197,7 @@ export default async function RecipePage({ params }: PageProps) {
                 Ingredients
               </h2>
               <ul className="space-y-1.5 text-[11px]">
-                {recipe.ingredients.map((ing) => (
+                {ingredients.map((ing) => (
                   <li key={ing.id} className="flex items-start gap-1.5">
                     <span className="mt-0.5 inline-block h-2.5 w-2.5 shrink-0 rounded-sm border border-zinc-500" />
                     <span>
@@ -207,7 +220,7 @@ export default async function RecipePage({ params }: PageProps) {
                 Instructions
               </h2>
               <ol className="space-y-2 text-[11px]">
-                {recipe.steps.map((step) => (
+                {steps.map((step) => (
                   <li key={step.stepNumber} className="leading-snug">
                     <div className="flex items-baseline justify-between gap-1">
                       <span className="font-bold">
@@ -245,9 +258,9 @@ export default async function RecipePage({ params }: PageProps) {
           <div className="flex items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-2">
               <Badge className="bg-orange-600 font-medium text-white hover:bg-orange-700">
-                {recipe.category}
+                {category}
               </Badge>
-              {recipe.subCategories.map((sub) => (
+              {subCategories.map((sub) => (
                 <Badge
                   key={sub}
                   variant="outline"
@@ -263,17 +276,17 @@ export default async function RecipePage({ params }: PageProps) {
 
           <header className="space-y-4">
             <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
-              {recipe.title}
+              {title}
             </h1>
             <p className="text-base leading-relaxed text-zinc-600 sm:text-lg dark:text-zinc-400">
-              {recipe.description}
+              {description}
             </p>
           </header>
 
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-zinc-200 shadow-sm dark:border-zinc-800">
+          <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-zinc-200 shadow-sm dark:border-zinc-800">
             <Image
-              src={recipe.featuredImage}
-              alt={recipe.title}
+              src={featuredImage}
+              alt={title}
               fill
               priority
               className="object-cover"
@@ -282,15 +295,15 @@ export default async function RecipePage({ params }: PageProps) {
 
           <RecipeInteractiveView recipe={recipe} />
 
-          {recipe.youtubeId && (
+          {youtubeId && (
             <section className="space-y-4 pt-6">
               <h2 className="text-2xl font-bold tracking-tight">
                 Watch the ASMR Recipe
               </h2>
               <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
                 <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${recipe.youtubeId}`}
-                  title={recipe.title}
+                  src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
+                  title={title}
                   className="absolute inset-0 h-full w-full border-0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen

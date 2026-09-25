@@ -58,3 +58,4 @@ next-env.d.ts
 !.vscode/extensions.json
 
 skills.md
+/src/generated/prisma

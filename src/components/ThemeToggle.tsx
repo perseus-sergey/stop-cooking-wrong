@@ -9,6 +9,7 @@ export function ThemeToggle() {
 
   return (
     <Button
+      type="button"
       variant="ghost"
       size="icon"
       className="h-9 w-9"

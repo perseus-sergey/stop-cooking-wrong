@@ -126,6 +126,7 @@ export default function RecipeInteractiveView({ recipe }: Props) {
               {/* Ховаємо перемикач на друці */}
               <div className="flex items-center rounded-lg bg-zinc-100 p-1 print:hidden">
                 <Button
+                  type="button"
                   size="sm"
                   variant={unitSystem === 'us' ? 'default' : 'ghost'}
                   className="h-7 px-2 text-xs"
@@ -134,6 +135,7 @@ export default function RecipeInteractiveView({ recipe }: Props) {
                   US
                 </Button>
                 <Button
+                  type="button"
                   size="sm"
                   variant={unitSystem === 'metric' ? 'default' : 'ghost'}
                   className="h-7 px-2 text-xs"

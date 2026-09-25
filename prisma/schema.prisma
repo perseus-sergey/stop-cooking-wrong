@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// 1. Головна таблиця рецептів
+model Recipe {
+  id                 String       @id @default(cuid())
+  slug               String       @unique
+  title              String
+  description        String
+  category           String
+  subCategories      String[]
+  tags               String[]
+  prepTimeMinutes    Int
+  cookTimeMinutes    Int
+  servings           Int
+  caloriesPerServing Int?
+  featuredImage      String
+  youtubeId          String?
+  publishedAt        DateTime     @default(now())
+
+  mistakeToAvoid     String
+  theRightMove       String
+
+  ingredients        Ingredient[]
+  steps              Step[]
+
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+// 2. Інгредієнти
+model Ingredient {
+  id           String  @id @default(cuid())
+  name         String
+  amountUS     String
+  amountMetric String
+  notes        String?
+  order        Int     @default(0)
+
+  recipeId     String
+  recipe       Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
+
+// 3. Кроки аерогриля
+model Step {
+  id              String   @id @default(cuid())
+  stepNumber      Int
+  title           String
+  instruction     String
+  tempF           Int?
+  tempC           Int?
+  durationMinutes Int?
+  isShakePoint    Boolean  @default(false)
+  tip             String?
+
+  recipeId        String
+  recipe          Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
