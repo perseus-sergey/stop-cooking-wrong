@@ -1,351 +1,473 @@
+// pnpm prisma db seed
+
 import { Recipe } from '@/types/recipe';
 
 export const mockRecipes: Recipe[] = [
   // --------------------------------------------------------------------------
-  // РЕЦЕПТ 1: Запіканка з рису, овочів та сиру Гауда
+  // РЕЦЕПТ 1: Середземноморська яєчна запіканка з червоною цибулею,
+  // цуккіні та фетою
   // --------------------------------------------------------------------------
   {
-    id: 'rec_rice_bake_01',
-    slug: 'cheesy-air-fryer-rice-veggie-bake',
-    title: 'Cheesy Air Fryer Rice & Veggie Bake',
+    id: 'rec_feta_zucchini_frittata_01',
+    slug: 'mediterranean-egg-bake-red-onion-zucchini-feta',
+    title: 'Mediterranean Egg Bake with Red Onion, Zucchini & Feta',
     description:
-      'The ultimate one-pan air fryer casserole using cooked rice, tender roasted veggies, and melted Gouda cheese with a golden, bubbly Parmesan crust.',
-    category: 'Dinner',
-    subCategories: ['Quick & Easy', 'Vegetarian', 'Budget Friendly'],
-    tags: [
-      'air fryer dinner',
-      'easy dinner recipes',
-      'simple recipes',
-      'vegetable recipes',
-      'air fryer recipes healthy',
-      'asmr food',
-    ],
-    prepTimeMinutes: 10,
-    cookTimeMinutes: 32,
-    servings: 3,
-    caloriesPerServing: 340,
-    featuredImage:
-      'https://res.cloudinary.com/bttfno8p/image/upload/v1790358095/rice-bake.jpg',
-    youtubeId: 'ZvNnxkkCVIU',
-    publishedAt: '2026-09-24',
-
-    mistakeToAvoid:
-      'Pouring raw eggs immediately into sizzling hot vegetables straight out of the air fryer — the residual heat scrambles the eggs before you can mix them evenly with the rice.',
-    theRightMove:
-      'Let the roasted vegetables rest for 3 to 5 minutes to cool down slightly before cracking in the eggs, then finish with a 3-minute high-heat Parmesan broil for a crunchy diner-style crust.',
-
-    ingredients: [
-      {
-        id: 'rb_1',
-        name: 'Cooked White Rice',
-        amountUS: '2 cups',
-        amountMetric: '300 g',
-        notes: 'from approx. 1/2 cup (110–120 g) dry rice',
-      },
-      {
-        id: 'rb_2',
-        name: 'Gouda Cheese',
-        amountUS: '1 cup',
-        amountMetric: '100 g',
-        notes: 'coarsely shredded',
-      },
-      {
-        id: 'rb_3',
-        name: 'White Button or Cremini Mushrooms',
-        amountUS: '3–4 medium',
-        amountMetric: '85 g',
-        notes: 'sliced',
-      },
-      {
-        id: 'rb_4',
-        name: 'Carrot',
-        amountUS: '1 small',
-        amountMetric: '50 g',
-        notes: 'finely diced',
-      },
-      {
-        id: 'rb_5',
-        name: 'Zucchini',
-        amountUS: '1 small',
-        amountMetric: '130 g',
-        notes: 'diced into 1/2-inch cubes',
-      },
-      {
-        id: 'rb_6',
-        name: 'Bell Pepper',
-        amountUS: '1 small',
-        amountMetric: '75 g',
-        notes: 'diced into cubes',
-      },
-      {
-        id: 'rb_7',
-        name: 'Large Eggs',
-        amountUS: '4 eggs',
-        amountMetric: '4 eggs',
-      },
-      {
-        id: 'rb_8',
-        name: 'Grated Parmesan Cheese',
-        amountUS: '2 tbsp',
-        amountMetric: '15 g',
-        notes: 'or sharp Cheddar',
-      },
-      {
-        id: 'rb_9',
-        name: 'Olive Oil',
-        amountUS: '1 tbsp',
-        amountMetric: '15 ml',
-      },
-      {
-        id: 'rb_10',
-        name: 'Kosher Salt',
-        amountUS: '1/2 tsp',
-        amountMetric: '3 g',
-      },
-      {
-        id: 'rb_11',
-        name: 'Freshly Ground Black Pepper',
-        amountUS: '1/3 tsp',
-        amountMetric: '1 g',
-      },
-      {
-        id: 'rb_12',
-        name: 'Garlic Powder',
-        amountUS: '1/2 tsp',
-        amountMetric: '1.5 g',
-      },
-      {
-        id: 'rb_13',
-        name: 'Fresh Parsley',
-        amountUS: '2–3 sprigs',
-        amountMetric: '4 g',
-        notes: 'finely chopped, for garnish',
-      },
-    ],
-
-    steps: [
-      {
-        stepNumber: 1,
-        title: 'Roast the Vegetables & Mushrooms',
-        instruction:
-          'Place a silicone or parchment liner directly into your air fryer basket. Add the finely diced carrot, zucchini, bell pepper, and sliced mushrooms. Drizzle with 1 tbsp olive oil, a pinch of salt, and black pepper. Toss gently with a spatula.',
-        tempF: 375,
-        tempC: 190,
-        durationMinutes: 15,
-        tip: 'Roasting first releases excess water from mushrooms and zucchini so your casserole stays firm, not soggy.',
-      },
-      {
-        stepNumber: 2,
-        title: 'The Cool-Down Move',
-        instruction:
-          'Pull out the basket and let the roasted veggies sit undisturbed for 3 to 5 minutes so the steam calms down.',
-        tip: 'Never add raw eggs to scorching hot veggies or they will scramble prematurely.',
-      },
-      {
-        stepNumber: 3,
-        title: 'Mix Rice, Cheese & Eggs in the Pan',
-        instruction:
-          'Directly into the warm liner, add 2 cups cooked rice, shredded Gouda, 1/2 tsp salt, 1/3 tsp black pepper, and 1/2 tsp garlic powder. Crack in 4 whole eggs. Using a soft spatula, gently fold everything together until completely uniform, then level the surface.',
-      },
-      {
-        stepNumber: 4,
-        title: 'Bake the Casserole',
-        instruction:
-          'Slide the basket back into the air fryer and bake until the egg-rice mixture is fully set, firm, and bouncy to the touch.',
-        tempF: 355,
-        tempC: 180,
-        durationMinutes: 13,
-      },
-      {
-        stepNumber: 5,
-        title: 'The Golden Parmesan Finish',
-        instruction:
-          'Evenly sprinkle 2 tbsp grated Parmesan cheese over the top. Air fry for a final blast until the cheese is melted and deep golden-brown.',
-        tempF: 375,
-        tempC: 190,
-        durationMinutes: 3,
-      },
-      {
-        stepNumber: 6,
-        title: 'Rest & Garnish',
-        instruction:
-          'Let the casserole rest in the pan for 5 minutes to stabilize for clean slicing. Sprinkle with freshly chopped parsley and serve.',
-      },
-    ],
-  },
-
-  // --------------------------------------------------------------------------
-  // РЕЦЕПТ 2: Грибна фріттата зі шпинатом та сирною шапочкою
-  // --------------------------------------------------------------------------
-  {
-    id: 'rec_frittata_02',
-    slug: 'fluffy-air-fryer-mushroom-spinach-frittata',
-    title: 'Fluffy Air Fryer Mushroom & Spinach Frittata',
-    description:
-      'Velvety, café-style Italian frittata packed with thyme-roasted mushrooms and wilted baby spinach, topped with a rich cream cheese and mozzarella crust.',
+      'A colorful Mediterranean-style air fryer egg bake with roasted red onion, tender zucchini, creamy feta, juicy cherry tomatoes, fresh dill, oregano, and a bright finish of roasted lemon juice.',
     category: 'Breakfast',
-    subCategories: ['Healthy & Low Carb', 'Quick Recipes', 'High-Protein'],
+    subCategories: ['Healthy & Low Carb', 'Vegetarian', 'High-Protein'],
     tags: [
       'air fryer eggs',
+      'egg bake',
+      'frittata',
+      'Mediterranean breakfast',
+      'zucchini recipes',
+      'feta recipes',
       'healthy breakfast ideas',
-      'breakfast',
       'air fryer recipes healthy',
-      'simple cooking',
-      'asmr food',
     ],
     prepTimeMinutes: 10,
     cookTimeMinutes: 32,
     servings: 2,
-    caloriesPerServing: 280,
+    caloriesPerServing: 320,
     featuredImage:
-      'https://res.cloudinary.com/bttfno8p/image/upload/v1790359075/Mushroom-Spinach-Frittata.jpg',
-    youtubeId: 'g5C_CEX31ok',
-    publishedAt: '2026-09-22',
+      'https://res.cloudinary.com/bttfno8p/image/upload/v1790408251/Feta-Zucchini-Frittata.jpg',
+    youtubeId: 'cBIr0Q06ma0',
+    publishedAt: '2026-09-26',
 
     mistakeToAvoid:
-      'Pouring raw, wet mushrooms and spinach directly into beaten eggs. As they bake, they release moisture, creating a watery, rubbery frittata.',
+      'Adding the raw eggs to vegetables that are still extremely hot. The residual heat can partially scramble the eggs before they are evenly mixed, resulting in an uneven, rubbery texture.',
     theRightMove:
-      'Pre-roast mushrooms with thyme, wilt the spinach using residual heat, and crown with a cream cheese-mozzarella blend during the last 8 minutes for a bakery-grade melted crust.',
+      'Let the roasted vegetables release some steam, then gently fold the warm onion and zucchini into the seasoned egg mixture before baking. Finish with feta, cherry tomatoes, oregano, olive oil, and fresh roasted-lemon juice.',
 
     ingredients: [
       {
-        id: 'fr_1',
-        name: 'Cremini (Baby Bella) or White Button Mushrooms',
-        amountUS: '4 medium',
-        amountMetric: '115 g',
-        notes: 'thickly sliced (1/4-inch / 6 mm); reserve 3–4 slices for top',
+        id: 'fz_1',
+        name: 'Red Onion',
+        amountUS: '1 medium',
+        amountMetric: '150 g',
+        notes: 'cut into thick half-moons, approximately 7 mm thick',
       },
       {
-        id: 'fr_2',
-        name: 'Yellow Onion',
-        amountUS: '1/2 medium',
-        amountMetric: '60 g',
-        notes: 'sliced into half-moons',
+        id: 'fz_2',
+        name: 'Lemon',
+        amountUS: '1/2 lemon',
+        amountMetric: '1/2 lemon',
+        notes: 'cut in half; roasted and squeezed over the finished bake',
       },
       {
-        id: 'fr_3',
-        name: 'Fresh Baby Spinach',
-        amountUS: '1 generous handful',
-        amountMetric: '30 g',
-        notes: 'roughly chopped',
-      },
-      {
-        id: 'fr_4',
-        name: 'Fresh Garlic',
-        amountUS: '1 clove',
-        amountMetric: '1 clove',
-        notes: 'finely grated',
-      },
-      {
-        id: 'fr_5',
-        name: 'Olive Oil (for mushrooms)',
-        amountUS: '1 tsp',
-        amountMetric: '5 ml',
-      },
-      {
-        id: 'fr_6',
-        name: 'Dried Thyme',
-        amountUS: '1/3 tsp',
-        amountMetric: '0.5 g',
-        notes: 'crushed between fingers',
-      },
-      {
-        id: 'fr_7',
+        id: 'fz_3',
         name: 'Large Eggs',
-        amountUS: '4 eggs',
-        amountMetric: '4 eggs',
+        amountUS: '5 eggs',
+        amountMetric: '5 eggs',
       },
       {
-        id: 'fr_8',
+        id: 'fz_4',
         name: 'Heavy Cream',
         amountUS: '1.5 tbsp',
         amountMetric: '22 ml',
       },
       {
-        id: 'fr_9',
+        id: 'fz_5',
+        name: 'Fresh Dill',
+        amountUS: '1 small bunch',
+        amountMetric: '10–15 g',
+        notes: 'finely chopped',
+      },
+      {
+        id: 'fz_6',
+        name: 'Zucchini',
+        amountUS: '1/2 medium',
+        amountMetric: '100 g',
+        notes: 'cut into quarter-round slices approximately 5 mm thick',
+      },
+      {
+        id: 'fz_7',
         name: 'Ground Nutmeg',
         amountUS: '1 pinch',
         amountMetric: '1 pinch',
       },
       {
-        id: 'fr_10',
-        name: 'Cream Cheese (Philadelphia style)',
-        amountUS: '3 tbsp / 1.5 oz',
-        amountMetric: '40 g',
-        notes: 'room temperature',
+        id: 'fz_8',
+        name: 'Ground Turmeric',
+        amountUS: '1/3 tsp',
+        amountMetric: '1/3 tsp',
       },
       {
-        id: 'fr_11',
-        name: 'Shredded Mozzarella',
-        amountUS: '1/3 cup',
-        amountMetric: '40 g',
-        notes: 'or Cheddar',
+        id: 'fz_9',
+        name: 'Fresh Garlic',
+        amountUS: '1 small clove',
+        amountMetric: '1 small clove',
+        notes: 'finely grated',
       },
       {
-        id: 'fr_12',
-        name: 'Extra Virgin Olive Oil (for sheen)',
-        amountUS: '1 tsp',
-        amountMetric: '5 ml',
-      },
-      {
-        id: 'fr_13',
-        name: 'Kosher Salt & Black Pepper',
+        id: 'fz_10',
+        name: 'Salt',
         amountUS: 'to taste',
         amountMetric: 'to taste',
+      },
+      {
+        id: 'fz_11',
+        name: 'Ground Black Pepper',
+        amountUS: 'to taste',
+        amountMetric: 'to taste',
+      },
+      {
+        id: 'fz_12',
+        name: 'Feta Cheese',
+        amountUS: '2.1 oz',
+        amountMetric: '60 g',
+        notes: 'cut into approximately 1 cm cubes',
+      },
+      {
+        id: 'fz_13',
+        name: 'Cherry Tomatoes',
+        amountUS: '5 tomatoes',
+        amountMetric: '50 g',
+        notes: 'halved',
+      },
+      {
+        id: 'fz_14',
+        name: 'Dried Oregano',
+        amountUS: '1/2 tsp',
+        amountMetric: '1/2 tsp',
+      },
+      {
+        id: 'fz_15',
+        name: 'Olive Oil',
+        amountUS: 'as needed',
+        amountMetric: 'as needed',
+        notes: 'for drizzling and greasing the baking dish',
       },
     ],
 
     steps: [
       {
         stepNumber: 1,
-        title: 'Roast Mushrooms & Onions',
+        title: 'Roast the Red Onion & Zucchini',
         instruction:
-          'Cut mushrooms into thick 1/4-inch (6 mm) slices. Place in the air fryer basket with sliced onion, 1 tsp oil, a pinch of salt, and dried thyme crushed between your fingers. Toss well directly in the basket.',
-        tempF: 355,
+          'Place a small air fryer basket on the counter. Arrange the thickly sliced red onion in the right half of the basket and the quarter-round zucchini slices in the left half. Drizzle both sides evenly with a little vegetable or olive oil and season with a pinch of salt.',
+        tempF: 356,
         tempC: 180,
-        durationMinutes: 10,
+        durationMinutes: 15,
+        tip: 'Keeping the onion and zucchini separated makes it easier to control their roasting and helps preserve their individual textures.',
       },
       {
         stepNumber: 2,
-        title: 'Residual Steam Spinach Wilt',
+        title: 'Roast the Lemon Halfway Through',
         instruction:
-          'Open the basket immediately after cooking. Drop the roughly chopped baby spinach directly over the sizzling mushrooms. Give it a gentle shake and let sit for 1–2 minutes; residual heat will wilt the greens without overcooking them. Pick out 4 beautiful mushroom slices and set aside on a plate for garnish.',
+          'Cut the lemon in half. Halfway through the 15-minute roasting program, open the air fryer and place one lemon half next to the red onion with the cut side facing upward. Return the basket and continue cooking for the remaining 7 minutes.',
+        tempF: 356,
+        tempC: 180,
+        durationMinutes: 7,
+        tip: 'Roasting the lemon softens its acidity and gives the final dish a sweeter, more aromatic citrus finish.',
       },
       {
         stepNumber: 3,
-        title: 'Mix the Cheesy Crown Paste',
+        title: 'Prepare the Egg Mixture',
         instruction:
-          'In a small bowl, combine 40 g (1.5 oz) softened cream cheese and 40 g shredded mozzarella. Mash thoroughly with a fork into a smooth, thick spread.',
+          'Crack 5 eggs into a deep bowl. Add 1.5 tbsp heavy cream, salt, black pepper, 1/3 tsp turmeric, a pinch of ground nutmeg, and 1 finely grated small garlic clove. Finely chop the fresh dill and add it to the bowl. Whisk everything thoroughly until smooth and evenly combined.',
       },
       {
         stepNumber: 4,
-        title: 'Whisk the Custardy Egg Base',
+        title: 'Combine the Roasted Vegetables with the Eggs',
         instruction:
-          'In a bowl, whisk 4 eggs with 1.5 tbsp heavy cream, 1/2 tsp salt, freshly cracked black pepper, a pinch of nutmeg, and 1 grated garlic clove until smooth and frothy. Gently fold the warm roasted mushroom, onion, and spinach mixture into the eggs.',
+          'Remove the roasted red onion and zucchini from the air fryer. Set the roasted lemon half aside for serving. Add the hot roasted red onion and zucchini to the egg mixture and gently fold everything together with a spoon.',
+        tip: 'Do not leave the vegetables sitting in the hot basket for too long; transfer them to the egg mixture while they are still warm but no longer aggressively steaming.',
       },
       {
         stepNumber: 5,
-        title: 'First Bake',
+        title: 'Prepare the Feta & Cherry Tomatoes',
         instruction:
-          'Lightly brush a small silicone or parchment liner with 1 tsp oil. Pour in the egg mixture. Bake in the air fryer until the eggs are about 80% set on top.',
-        tempF: 355,
-        tempC: 180,
-        durationMinutes: 14,
+          'Cut 60 g feta cheese into small approximately 1 cm cubes. Cut 50 g cherry tomatoes in half, keeping the cut sides intact for the topping.',
       },
       {
         stepNumber: 6,
-        title: 'Apply the Cheesy Crown',
+        title: 'Bake the Egg Casserole',
         instruction:
-          'Open the air fryer. Spoon the prepared cheese paste evenly across the surface of the frittata. Gently press the 4 reserved mushroom slices into the cheese layer. Continue air frying for the remaining 8 minutes until bubbling and golden.',
-        tempF: 355,
-        tempC: 180,
-        durationMinutes: 8,
+          'Take a small paper parchment baking dish suitable for the air fryer and lightly grease the inside with olive oil. Pour in the egg mixture with the roasted onion and zucchini. Place the dish into the air fryer and bake until the eggs are mostly set.',
+        tempF: 338,
+        tempC: 170,
+        durationMinutes: 17,
       },
       {
         stepNumber: 7,
-        title: 'Restaurant Sheen & Rest',
+        title: 'Add the Feta & Tomatoes',
         instruction:
-          'Remove from the air fryer and lightly drizzle with 1 tsp extra virgin olive oil for a glossy, professional finish. Let rest for 2–3 minutes before slicing.',
+          'At the 9-minute mark, open the air fryer. Evenly distribute the feta cubes over the partially baked egg mixture. Arrange the halved cherry tomatoes between the pieces of feta, cut side facing upward. Sprinkle everything with 1/2 tsp dried oregano and drizzle lightly with olive oil.',
+        tempF: 338,
+        tempC: 170,
+        durationMinutes: 8,
+        tip: 'Adding the feta and tomatoes partway through baking keeps them visible on the surface while allowing the egg base to set first.',
+      },
+      {
+        stepNumber: 8,
+        title: 'Finish with Roasted Lemon',
+        instruction:
+          'Close the air fryer and finish baking for the remaining 8 minutes. Remove the finished casserole and immediately squeeze the juice from the roasted lemon half directly over the hot egg bake before serving.',
+      },
+    ],
+  },
+
+  // --------------------------------------------------------------------------
+  // РЕЦЕПТ 2: Соковита глазурована куряча грудка та хрустка картопля
+  // під сирними слайсами
+  // --------------------------------------------------------------------------
+  {
+    id: 'rec_glazed_chicken_cheesy_potatoes_02',
+    slug: 'glazed-chicken-breast-crispy-cheesy-baby-potatoes-air-fryer',
+    title: 'Juicy Glazed Chicken Breast & Crispy Cheesy Baby Potatoes',
+    description:
+      'Juicy air fryer chicken breast strips coated in a sweet-spicy soy glaze, served with crispy smashed baby potatoes finished with melted slices of Cheddar, Gouda, or Edam.',
+    category: 'Dinner',
+    subCategories: ['High-Protein', 'Family Friendly', 'Air Fryer'],
+    tags: [
+      'air fryer chicken',
+      'chicken breast recipes',
+      'crispy potatoes',
+      'cheesy potatoes',
+      'air fryer dinner',
+      'easy chicken dinner',
+      'high protein dinner',
+      'sriracha chicken',
+    ],
+    prepTimeMinutes: 15,
+    cookTimeMinutes: 42,
+    servings: 3,
+    caloriesPerServing: 590,
+    featuredImage:
+      'https://res.cloudinary.com/bttfno8p/image/upload/v1790409115/Chicken-Breast-sticks-Baby-Potatoes.jpg',
+    youtubeId: 'oicgddTL9x0',
+    publishedAt: '2026-09-26',
+
+    mistakeToAvoid:
+      'Glazing the chicken too early or cooking the sweet glaze for too long. The honey and chili sauce can burn before the chicken is fully cooked, leaving a bitter coating.',
+    theRightMove:
+      'Cook the seasoned chicken almost completely first, then brush it generously with the glaze and finish briefly at high heat so the soy, honey, chili, garlic, ginger, and lime caramelize without burning.',
+
+    ingredients: [
+      {
+        id: 'cp_1',
+        name: 'Chicken Breast',
+        amountUS: '14 oz',
+        amountMetric: '400 g',
+        notes: 'cut into long strips 2–3 cm thick',
+      },
+      {
+        id: 'cp_2',
+        name: 'Salt',
+        amountUS: '1/2 tsp',
+        amountMetric: '4 g',
+        notes: 'for dry brining the chicken',
+      },
+      {
+        id: 'cp_3',
+        name: 'Ground Black Pepper',
+        amountUS: '1/2 tsp',
+        amountMetric: '1–2 g',
+        notes: 'for chicken',
+      },
+      {
+        id: 'cp_4',
+        name: 'Garlic Powder',
+        amountUS: '1/2 tsp',
+        amountMetric: '1.5 g',
+        notes: 'for chicken',
+      },
+      {
+        id: 'cp_5',
+        name: 'Smoked Paprika',
+        amountUS: '1/2 tsp',
+        amountMetric: '1 g',
+        notes: 'for chicken',
+      },
+      {
+        id: 'cp_6',
+        name: 'Dried Oregano',
+        amountUS: '1/3 tsp',
+        amountMetric: '0.5 g',
+        notes: 'for chicken',
+      },
+      {
+        id: 'cp_7',
+        name: 'Olive Oil',
+        amountUS: '1/2 tbsp',
+        amountMetric: '7 ml',
+        notes: 'for marinating the chicken',
+      },
+      {
+        id: 'cp_8',
+        name: 'Soy Sauce',
+        amountUS: '1 tbsp',
+        amountMetric: '15 ml',
+        notes: 'for the glaze',
+      },
+      {
+        id: 'cp_9',
+        name: 'Honey',
+        amountUS: '1/2 tbsp',
+        amountMetric: '10 g',
+        notes: 'for the glaze',
+      },
+      {
+        id: 'cp_10',
+        name: 'Hot Chili Sauce',
+        amountUS: '1 tbsp',
+        amountMetric: '15 ml',
+        notes: 'such as Sriracha; for the glaze',
+      },
+      {
+        id: 'cp_11',
+        name: 'Fresh Garlic',
+        amountUS: '1 small clove',
+        amountMetric: '1 small clove',
+        notes: 'for the glaze',
+      },
+      {
+        id: 'cp_12',
+        name: 'Ground Dried Ginger',
+        amountUS: '1/4 tsp',
+        amountMetric: '0.5 g',
+        notes: 'for the glaze',
+      },
+      {
+        id: 'cp_13',
+        name: 'Lime Juice',
+        amountUS: '1 tsp',
+        amountMetric: '5 ml',
+        notes: 'juice from approximately 1/2 lime',
+      },
+      {
+        id: 'cp_14',
+        name: 'Small Baby Potatoes',
+        amountUS: '6–7 potatoes',
+        amountMetric: '300–350 g',
+        notes: 'small young potatoes',
+      },
+      {
+        id: 'cp_15',
+        name: 'Olive Oil',
+        amountUS: '1 tsp',
+        amountMetric: '5 ml',
+        notes: 'for first potato bake',
+      },
+      {
+        id: 'cp_16',
+        name: 'Olive Oil or Melted Butter',
+        amountUS: '1 tbsp',
+        amountMetric: '15 ml',
+        notes: 'for the second potato bake',
+      },
+      {
+        id: 'cp_17',
+        name: 'Salt',
+        amountUS: 'to taste',
+        amountMetric: 'to taste',
+        notes: 'for potatoes',
+      },
+      {
+        id: 'cp_18',
+        name: 'Ground Black Pepper',
+        amountUS: 'to taste',
+        amountMetric: 'to taste',
+        notes: 'for potatoes',
+      },
+      {
+        id: 'cp_19',
+        name: 'Smoked Paprika',
+        amountUS: 'to taste',
+        amountMetric: 'to taste',
+        notes: 'for potatoes',
+      },
+      {
+        id: 'cp_20',
+        name: 'Semi-Hard Cheese Slices',
+        amountUS: '4–5 slices',
+        amountMetric: '100 g',
+        notes: 'Cheddar, Gouda, or Edam',
+      },
+      {
+        id: 'cp_21',
+        name: 'Sesame Seeds',
+        amountUS: 'as needed',
+        amountMetric: 'as needed',
+        notes: 'white or a black-and-white mixture, for serving',
+      },
+    ],
+
+    steps: [
+      {
+        stepNumber: 1,
+        title: 'First Bake the Baby Potatoes',
+        instruction:
+          'Thoroughly wash 6–7 small baby potatoes under running water. Pierce each potato 2–3 times with a fork. Drizzle with 1 tsp olive oil and toss with your hands until evenly coated. Place the potatoes in the air fryer basket.',
+        tempF: 356,
+        tempC: 180,
+        durationMinutes: 20,
+        tip: 'The potatoes need to be completely tender before smashing. Test them with a toothpick or thin knife.',
+      },
+      {
+        stepNumber: 2,
+        title: 'Smash & Season the Potatoes',
+        instruction:
+          'Remove the tender potatoes from the basket and place them on parchment. Gently flatten each potato using the flat bottom of a glass or cup. In a small bowl, mix 1 tbsp olive oil or melted butter with salt, black pepper, and smoked paprika. Brush the seasoned oil evenly over every smashed potato.',
+      },
+      {
+        stepNumber: 3,
+        title: 'Crisp the Smashed Potatoes',
+        instruction:
+          'Return the seasoned smashed potatoes to the air fryer and cook until the surfaces become deeply golden and crispy.',
+        tempF: 392,
+        tempC: 200,
+        durationMinutes: 10,
+        tip: 'Leave some space between the potatoes so hot air can circulate around their edges.',
+      },
+      {
+        stepNumber: 4,
+        title: 'Flip & Add the Cheese',
+        instruction:
+          'Carefully flip each crispy potato using culinary tongs. Arrange 4–5 slices of semi-hard cheese in a single layer over the potatoes.',
+        tempF: 392,
+        tempC: 200,
+        durationMinutes: 4,
+        tip: 'Use Cheddar, Gouda, or Edam depending on the flavor and melting texture you prefer.',
+      },
+      {
+        stepNumber: 5,
+        title: 'Prepare the Spicy Soy Glaze',
+        instruction:
+          'In a small bowl, combine 1 tbsp soy sauce, 1/2 tbsp honey, 1 tbsp hot chili sauce, 1 finely pressed fresh garlic clove, 1/4 tsp ground dried ginger, and 1 tsp lime juice. Whisk or stir thoroughly until smooth and uniform.',
+      },
+      {
+        stepNumber: 6,
+        title: 'Prepare the Chicken Breast',
+        instruction:
+          'Cut 400 g chicken breast into long strips approximately 2–3 cm thick. Pat the chicken completely dry with paper towels. Season evenly with 1/2 tsp salt, 1/2 tsp black pepper, 1/2 tsp garlic powder, 1/2 tsp smoked paprika, and 1/3 tsp dried oregano. Add 1/2 tbsp olive oil and mix thoroughly with your hands until every strip is evenly coated.',
+      },
+      {
+        stepNumber: 7,
+        title: 'Air Fry the Chicken',
+        instruction:
+          'Arrange the seasoned chicken strips in a single layer in the air fryer basket, leaving small gaps between them. Cook until the chicken is nearly fully cooked.',
+        tempF: 374,
+        tempC: 190,
+        durationMinutes: 7,
+        tip: 'Chicken should reach a safe internal temperature before serving; cooking time can vary with the thickness of the strips and the air fryer.',
+      },
+      {
+        stepNumber: 8,
+        title: 'Glaze & Caramelize the Chicken',
+        instruction:
+          'Remove the basket with the partially cooked chicken. Generously brush every chicken strip with the prepared soy-honey-chili glaze. Return to the air fryer and cook briefly at high heat until the glaze becomes glossy and caramelized.',
+        tempF: 392,
+        tempC: 200,
+        durationMinutes: 2,
+        tip: 'Watch closely during this final stage because the honey can caramelize very quickly.',
+      },
+      {
+        stepNumber: 9,
+        title: 'Rest & Serve',
+        instruction:
+          'Transfer the glazed chicken to a plate and loosely cover with foil for 3–5 minutes. Sprinkle the finished chicken with white sesame seeds or a black-and-white sesame mixture. Serve alongside the crispy baby potatoes covered with melted cheese.',
       },
     ],
   },

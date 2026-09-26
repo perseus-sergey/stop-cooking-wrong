@@ -9,58 +9,102 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
   console.log('🌱 Starting database seed...');
 
-  // Очищаємо старі дані (якщо є)
-  await prisma.step.deleteMany();
-  await prisma.ingredient.deleteMany();
-  await prisma.recipe.deleteMany();
+  let createdCount = 0;
+  let skippedCount = 0;
 
-  for (const recipe of mockRecipes) {
+  for (const {
+    slug,
+    title,
+    description,
+    category,
+    subCategories,
+    tags,
+    prepTimeMinutes,
+    cookTimeMinutes,
+    servings,
+    caloriesPerServing,
+    featuredImage,
+    youtubeId,
+    mistakeToAvoid,
+    theRightMove,
+    ingredients,
+    steps,
+  } of mockRecipes) {
+    // Перевіряємо, чи рецепт уже існує
+    const existingRecipe = await prisma.recipe.findUnique({ where: { slug } });
+
+    if (existingRecipe) {
+      console.log(`⏭️ Skipping existing recipe: ${title}`);
+      skippedCount++;
+      continue;
+    }
+
+    // Створюємо тільки новий рецепт
     await prisma.recipe.create({
       data: {
-        slug: recipe.slug,
-        title: recipe.title,
-        description: recipe.description,
-        category: recipe.category,
-        subCategories: recipe.subCategories,
-        tags: recipe.tags,
-        prepTimeMinutes: recipe.prepTimeMinutes,
-        cookTimeMinutes: recipe.cookTimeMinutes,
-        servings: recipe.servings,
-        caloriesPerServing: recipe.caloriesPerServing,
-        featuredImage: recipe.featuredImage,
-        youtubeId: recipe.youtubeId,
-        mistakeToAvoid: recipe.mistakeToAvoid,
-        theRightMove: recipe.theRightMove,
+        slug,
+        title,
+        description,
+        category,
+        subCategories,
+        tags,
+        prepTimeMinutes,
+        cookTimeMinutes,
+        servings,
+        caloriesPerServing,
+        featuredImage,
+        youtubeId,
+        mistakeToAvoid,
+        theRightMove,
 
         // Створюємо інгредієнти
         ingredients: {
-          create: recipe.ingredients.map((ing, index) => ({
-            name: ing.name,
-            amountUS: ing.amountUS,
-            amountMetric: ing.amountMetric,
-            notes: ing.notes,
-            order: index,
-          })),
+          create: (ingredients ?? []).map(
+            ({ name, amountMetric, amountUS, notes }, index) => ({
+              name,
+              amountUS,
+              amountMetric,
+              notes,
+              order: index,
+            })
+          ),
         },
 
         // Створюємо кроки
         steps: {
-          create: recipe.steps.map((step) => ({
-            stepNumber: step.stepNumber,
-            title: step.title,
-            instruction: step.instruction,
-            tempF: step.tempF,
-            tempC: step.tempC,
-            durationMinutes: step.durationMinutes,
-            isShakePoint: step.isShakePoint ?? false,
-            tip: step.tip,
-          })),
+          create: (steps ?? []).map(
+            ({
+              stepNumber,
+              title,
+              instruction,
+              tempF,
+              tempC,
+              durationMinutes,
+              isShakePoint,
+              tip,
+            }) => ({
+              stepNumber,
+              title,
+              instruction,
+              tempF,
+              tempC,
+              durationMinutes,
+              isShakePoint: isShakePoint ?? false,
+              tip,
+            })
+          ),
         },
       },
     });
+
+    console.log(`✅ Added recipe: ${title}`);
+    createdCount++;
   }
 
-  console.log(`✅ Successfully seeded ${mockRecipes.length} recipes!`);
+  console.log('');
+  console.log('🌱 Seed completed!');
+  console.log(`✅ Added: ${createdCount}`);
+  console.log(`⏭️ Skipped existing: ${skippedCount}`);
 }
 
 main()
