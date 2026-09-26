@@ -1,33 +1,44 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { mockRecipes } from '@/data/mock-recipe';
 import RecipeInteractiveView from '@/components/recipe/RecipeInteractiveView';
 import { Badge } from '@/components/ui/badge';
 import { siteConfig, ROUTES } from '@/config/site';
 import { toIsoDuration } from '@/lib/utils';
 import PrintModal from '@/components/recipe/PrintModal';
 import { notFound } from 'next/navigation';
+import { prisma } from '@/lib/prisma';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+//---
+async function getRecipe(slug: string) {
+  return await prisma.recipe.findUnique({
+    where: { slug },
+    include: {
+      ingredients: { orderBy: { order: 'asc' } },
+      steps: { orderBy: { stepNumber: 'asc' } },
+    },
+  });
+}
+//---
+
 export const revalidate = 86400; // invalidate cache every 24h
 
-const getRecipeBySlug = (slug: string) =>
-  mockRecipes.find((r) => r.slug === slug);
-
 export async function generateStaticParams() {
-  return mockRecipes.map((recipe) => ({
-    slug: recipe.slug,
-  }));
+  const recipes = await prisma.recipe.findMany({
+    select: { slug: true },
+  });
+  return recipes.map((r) => ({ slug: r.slug }));
 }
 
+//---
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const recipe = getRecipeBySlug(slug) ?? notFound();
+  const recipe = (await getRecipe(slug)) ?? notFound();
 
   const { title, description, tags, featuredImage, publishedAt } = recipe;
   const { name, url } = siteConfig;
@@ -54,7 +65,7 @@ export async function generateMetadata({
         },
       ],
       type: 'article',
-      publishedTime: publishedAt,
+      publishedTime: new Date(publishedAt).toISOString(),
     },
     twitter: {
       card: 'summary_large_image',
@@ -66,10 +77,10 @@ export async function generateMetadata({
 }
 
 export default async function RecipePage({ params }: PageProps) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  //   await new Promise((resolve) => setTimeout(resolve, 1000));
   //   throw new Error('Test database crash: Air fryer overheated!');
   const { slug } = await params;
-  const recipe = getRecipeBySlug(slug) ?? notFound();
+  const recipe = (await getRecipe(slug)) ?? notFound();
   const {
     title,
     youtubeId,

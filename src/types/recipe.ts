@@ -1,20 +1,22 @@
 export interface Ingredient {
   id: string;
   name: string;
-  amountUS: string; // e.g. "1 lb", "1 tbsp"
-  amountMetric: string; // e.g. "450 g", "15 ml"
-  notes?: string; // e.g. "cut into 3/4-inch cubes"
+  amountUS: string;
+  amountMetric: string;
+  notes?: string | null;
+  order?: number;
 }
 
 export interface CookingStep {
+  id?: string;
   stepNumber: number;
   title: string;
   instruction: string;
-  tempF?: number;
-  tempC?: number;
-  durationMinutes?: number;
-  isShakePoint?: boolean; // Прапорець для струшування кошика
-  tip?: string; // Лаконічна авторська порада
+  tempF?: number | null;
+  tempC?: number | null;
+  durationMinutes?: number | null;
+  isShakePoint?: boolean;
+  tip?: string | null;
 }
 
 export interface Recipe {
@@ -22,21 +24,24 @@ export interface Recipe {
   slug: string;
   title: string;
   description: string;
-  category: 'Breakfast' | 'Dinner' | 'Sides' | 'Snacks';
+  category: string;
   subCategories: string[];
   tags: string[];
   prepTimeMinutes: number;
   cookTimeMinutes: number;
   servings: number;
-  caloriesPerServing?: number;
+  caloriesPerServing?: number | null;
   featuredImage: string;
-  youtubeId: string; // Для ембеду відео вашого каналу
-  publishedAt: string;
-
-  // Фірмовий блок каналу "Stop Cooking Wrong"
+  youtubeId?: string | null;
+  publishedAt: Date | string;
   mistakeToAvoid: string;
   theRightMove: string;
+  ingredients?: Ingredient[];
+  steps?: CookingStep[];
+}
 
+// Повний рецепт з усіма зв'язками (для окремої сторінки /recipes/[slug])
+export type FullRecipe = Recipe & {
   ingredients: Ingredient[];
   steps: CookingStep[];
-}
+};

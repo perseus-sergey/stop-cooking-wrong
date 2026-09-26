@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Recipe } from '@/types/recipe';
+import { FullRecipe } from '@/types/recipe';
 import {
   Dialog,
   DialogContent,
@@ -16,7 +16,7 @@ import { Printer, Eye } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 
 interface Props {
-  recipe: Recipe;
+  recipe: FullRecipe;
 }
 
 type FontSize = 'sm' | 'base' | 'lg';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Recipe } from '@/types/recipe';
+import { FullRecipe } from '@/types/recipe';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -19,7 +19,7 @@ import {
 import { siteConfig } from '@/config/site';
 
 interface Props {
-  recipe: Recipe;
+  recipe: FullRecipe;
 }
 
 export default function RecipeInteractiveView({ recipe }: Props) {

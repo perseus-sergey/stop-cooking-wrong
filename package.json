@@ -6,14 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint",
     "prepare": "husky",
     "postinstall": "prisma skills sync || exit 0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "eslint --fix"
     ],
     "*.{json,css,md}": [
       "prettier --write"
