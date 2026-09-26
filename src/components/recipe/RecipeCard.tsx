@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Recipe } from '@/types/recipe';
+import { RecipeCardData } from '@/types/recipe';
 import { ROUTES } from '@/config/site';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Clock, Flame, Sparkles } from 'lucide-react';
 
 interface Props {
-  recipe: Recipe;
+  recipe: RecipeCardData;
 }
 
 export default function RecipeCard({ recipe }: Props) {
@@ -24,7 +24,7 @@ export default function RecipeCard({ recipe }: Props) {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <Badge className="absolute top-3 left-3 border-none bg-zinc-950/80 text-xs font-medium text-white backdrop-blur-md">
-            {recipe.category}
+            {recipe.categories[0].category.name}
           </Badge>
         </div>
 

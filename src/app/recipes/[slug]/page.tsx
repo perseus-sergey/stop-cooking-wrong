@@ -7,21 +7,40 @@ import { toIsoDuration } from '@/lib/utils';
 import PrintModal from '@/components/recipe/PrintModal';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
+import { cache } from 'react';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 //---
-async function getRecipe(slug: string) {
+const getRecipe = cache(async (slug: string) => {
   return await prisma.recipe.findUnique({
     where: { slug },
+
     include: {
-      ingredients: { orderBy: { order: 'asc' } },
-      steps: { orderBy: { stepNumber: 'asc' } },
+      ingredients: {
+        orderBy: { order: 'asc' },
+      },
+
+      steps: {
+        orderBy: { stepNumber: 'asc' },
+      },
+
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
     },
   });
-}
+});
 //---
 
 export const revalidate = 86400; // invalidate cache every 24h
@@ -46,11 +65,12 @@ export async function generateMetadata({
   const pageTitle = `${title} (Air Fryer) | ${name}`;
 
   const pageUrl = `${url}${ROUTES.recipe(slug)}`;
+  const tagNames = tags.map((item) => item.tag.name);
 
   return {
     title: pageTitle,
     description,
-    keywords: tags,
+    keywords: tagNames.join(', '),
     openGraph: {
       title: pageTitle,
       description,
@@ -84,20 +104,22 @@ export default async function RecipePage({ params }: PageProps) {
   const {
     title,
     youtubeId,
-    category,
     prepTimeMinutes,
     cookTimeMinutes,
     servings,
     caloriesPerServing,
     steps,
-    subCategories,
     ingredients,
     description,
     tags,
     featuredImage,
     publishedAt,
     theRightMove,
+    categories,
   } = recipe;
+
+  const categoryNames = categories.map((item) => item.category.name);
+  const tagNames = tags.map((item) => item.tag.name);
 
   const recipeJsonLd = {
     '@context': 'https://schema.org',
@@ -105,7 +127,7 @@ export default async function RecipePage({ params }: PageProps) {
     name: title,
     image: [featuredImage],
     description: description,
-    keywords: tags.join(', '),
+    keywords: tagNames.join(', '),
     author: {
       '@type': 'Person',
       name: 'Stop Cooking Wrong',
@@ -115,7 +137,7 @@ export default async function RecipePage({ params }: PageProps) {
     prepTime: toIsoDuration(prepTimeMinutes),
     cookTime: toIsoDuration(cookTimeMinutes),
     totalTime: toIsoDuration(prepTimeMinutes + cookTimeMinutes),
-    recipeCategory: category,
+    recipeCategory: categoryNames,
     recipeCuisine: 'American',
     recipeYield: `${servings} servings`,
     nutrition: caloriesPerServing
@@ -268,10 +290,7 @@ export default async function RecipePage({ params }: PageProps) {
         <article className="mx-auto max-w-4xl space-y-8 px-4 sm:px-6 print:hidden">
           <div className="flex items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-2">
-              <Badge className="bg-orange-600 font-medium text-white hover:bg-orange-700">
-                {category}
-              </Badge>
-              {subCategories.map((sub) => (
+              {categoryNames.map((sub) => (
                 <Badge
                   key={sub}
                   variant="outline"

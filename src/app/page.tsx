@@ -15,12 +15,24 @@ import {
 import { YoutubeIcon } from '@/components/icons/YoutubeIcon';
 import { prisma } from '@/lib/prisma';
 
+const getRecipes = async () =>
+  await prisma.recipe.findMany({
+    orderBy: { publishedAt: 'desc' },
+
+    include: {
+      categories: {
+        include: { category: true },
+        orderBy: {
+          category: { order: 'asc' },
+        },
+      },
+    },
+  });
+
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const recipes = await prisma.recipe.findMany({
-    orderBy: { publishedAt: 'desc' },
-  });
+  const recipes = await getRecipes();
 
   const featuredRecipe = recipes[0];
   const recentRecipes = recipes.slice(1);
@@ -167,7 +179,9 @@ export default async function HomePage() {
                   •
                 </li>
 
-                <li className="text-zinc-300">{featuredRecipe.category}</li>
+                <li className="text-zinc-300">
+                  {featuredRecipe.categories[0].category.name}
+                </li>
               </ul>
             </div>
           </div>

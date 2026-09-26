@@ -6,34 +6,118 @@ datasource db {
   provider = "postgresql"
 }
 
-// 1. Головна таблиця рецептів
+
+// =====================================================
+// RECIPE
+// =====================================================
+
 model Recipe {
-  id                 String       @id @default(cuid())
-  slug               String       @unique
+  id                 String   @id @default(cuid())
+  slug               String   @unique
   title              String
   description        String
-  category           String
-  subCategories      String[]
-  tags               String[]
+
   prepTimeMinutes    Int
   cookTimeMinutes    Int
   servings           Int
   caloriesPerServing Int?
+
   featuredImage      String
   youtubeId          String?
-  publishedAt        DateTime     @default(now())
+  publishedAt        DateTime @default(now())
 
   mistakeToAvoid     String
-  theRightMove       String
+  theRightMove      String
 
+  categories         RecipeCategory[]
+  tags               RecipeTag[]
   ingredients        Ingredient[]
   steps              Step[]
 
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([publishedAt])
 }
 
-// 2. Інгредієнти
+
+// =====================================================
+// CATEGORY
+// =====================================================
+
+model Category {
+  id          String       @id @default(cuid())
+  slug        String       @unique
+  name        String
+  type        CategoryType
+
+  description String?
+  image       String?
+  order       Int          @default(0)
+  isActive    Boolean      @default(true)
+
+  recipes     RecipeCategory[]
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([type])
+  @@index([isActive])
+}
+
+
+// =====================================================
+// RECIPE <-> CATEGORY
+// =====================================================
+
+model RecipeCategory {
+  recipeId   String
+  categoryId String
+
+  recipe   Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([recipeId, categoryId])
+  @@index([categoryId])
+}
+
+
+// =====================================================
+// TAG
+// =====================================================
+
+model Tag {
+  id      String      @id @default(cuid())
+  slug    String      @unique
+  name    String
+
+  recipes RecipeTag[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+// =====================================================
+// RECIPE <-> TAG
+// =====================================================
+
+model RecipeTag {
+  recipeId String
+  tagId    String
+
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([recipeId, tagId])
+  @@index([tagId])
+}
+
+
+// =====================================================
+// INGREDIENT
+// =====================================================
+
 model Ingredient {
   id           String  @id @default(cuid())
   name         String
@@ -42,22 +126,44 @@ model Ingredient {
   notes        String?
   order        Int     @default(0)
 
-  recipeId     String
-  recipe       Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@index([recipeId])
 }
 
-// 3. Кроки аерогриля
+
+// =====================================================
+// STEP
+// =====================================================
+
 model Step {
   id              String   @id @default(cuid())
   stepNumber      Int
   title           String
   instruction     String
+
   tempF           Int?
   tempC           Int?
   durationMinutes Int?
+
   isShakePoint    Boolean  @default(false)
   tip             String?
 
-  recipeId        String
-  recipe          Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@index([recipeId])
+  @@unique([recipeId, stepNumber])
+}
+
+
+// =====================================================
+// ENUMS
+// =====================================================
+
+enum CategoryType {
+  MEAL
+  DIET
+  STYLE
 }

@@ -1,29 +1,27 @@
 // pnpm prisma db seed
 
-import { Recipe } from '@/types/recipe';
+import { MocRecipe } from '@/types/recipe';
 
-export const mockRecipes: Recipe[] = [
+export const mockRecipes: MocRecipe[] = [
   // --------------------------------------------------------------------------
   // РЕЦЕПТ 1: Середземноморська яєчна запіканка з червоною цибулею,
   // цуккіні та фетою
   // --------------------------------------------------------------------------
   {
-    id: 'rec_feta_zucchini_frittata_01',
     slug: 'mediterranean-egg-bake-red-onion-zucchini-feta',
     title: 'Mediterranean Egg Bake with Red Onion, Zucchini & Feta',
     description:
       'A colorful Mediterranean-style air fryer egg bake with roasted red onion, tender zucchini, creamy feta, juicy cherry tomatoes, fresh dill, oregano, and a bright finish of roasted lemon juice.',
-    category: 'Breakfast',
-    subCategories: ['Healthy & Low Carb', 'Vegetarian', 'High-Protein'],
-    tags: [
-      'air fryer eggs',
-      'egg bake',
-      'frittata',
-      'Mediterranean breakfast',
-      'zucchini recipes',
-      'feta recipes',
-      'healthy breakfast ideas',
-      'air fryer recipes healthy',
+    categorySlugs: ['breakfast', 'vegetarian', 'high-protein', 'air-fryer'],
+
+    tagSlugs: [
+      'eggs',
+      'feta',
+      'zucchini',
+      'red-onion',
+      'garlic',
+      'cheesy',
+      'fluffy',
     ],
     prepTimeMinutes: 10,
     cookTimeMinutes: 32,
@@ -41,98 +39,83 @@ export const mockRecipes: Recipe[] = [
 
     ingredients: [
       {
-        id: 'fz_1',
         name: 'Red Onion',
         amountUS: '1 medium',
         amountMetric: '150 g',
         notes: 'cut into thick half-moons, approximately 7 mm thick',
       },
       {
-        id: 'fz_2',
         name: 'Lemon',
         amountUS: '1/2 lemon',
         amountMetric: '1/2 lemon',
         notes: 'cut in half; roasted and squeezed over the finished bake',
       },
       {
-        id: 'fz_3',
         name: 'Large Eggs',
         amountUS: '5 eggs',
         amountMetric: '5 eggs',
       },
       {
-        id: 'fz_4',
         name: 'Heavy Cream',
         amountUS: '1.5 tbsp',
         amountMetric: '22 ml',
       },
       {
-        id: 'fz_5',
         name: 'Fresh Dill',
         amountUS: '1 small bunch',
         amountMetric: '10–15 g',
         notes: 'finely chopped',
       },
       {
-        id: 'fz_6',
         name: 'Zucchini',
         amountUS: '1/2 medium',
         amountMetric: '100 g',
         notes: 'cut into quarter-round slices approximately 5 mm thick',
       },
       {
-        id: 'fz_7',
         name: 'Ground Nutmeg',
         amountUS: '1 pinch',
         amountMetric: '1 pinch',
       },
       {
-        id: 'fz_8',
         name: 'Ground Turmeric',
         amountUS: '1/3 tsp',
         amountMetric: '1/3 tsp',
       },
       {
-        id: 'fz_9',
         name: 'Fresh Garlic',
         amountUS: '1 small clove',
         amountMetric: '1 small clove',
         notes: 'finely grated',
       },
       {
-        id: 'fz_10',
         name: 'Salt',
         amountUS: 'to taste',
         amountMetric: 'to taste',
       },
       {
-        id: 'fz_11',
         name: 'Ground Black Pepper',
         amountUS: 'to taste',
         amountMetric: 'to taste',
       },
       {
-        id: 'fz_12',
         name: 'Feta Cheese',
         amountUS: '2.1 oz',
         amountMetric: '60 g',
         notes: 'cut into approximately 1 cm cubes',
       },
       {
-        id: 'fz_13',
         name: 'Cherry Tomatoes',
         amountUS: '5 tomatoes',
         amountMetric: '50 g',
         notes: 'halved',
       },
       {
-        id: 'fz_14',
         name: 'Dried Oregano',
         amountUS: '1/2 tsp',
         amountMetric: '1/2 tsp',
       },
       {
-        id: 'fz_15',
         name: 'Olive Oil',
         amountUS: 'as needed',
         amountMetric: 'as needed',
@@ -213,22 +196,25 @@ export const mockRecipes: Recipe[] = [
   // під сирними слайсами
   // --------------------------------------------------------------------------
   {
-    id: 'rec_glazed_chicken_cheesy_potatoes_02',
     slug: 'glazed-chicken-breast-crispy-cheesy-baby-potatoes-air-fryer',
     title: 'Juicy Glazed Chicken Breast & Crispy Cheesy Baby Potatoes',
     description:
       'Juicy air fryer chicken breast strips coated in a sweet-spicy soy glaze, served with crispy smashed baby potatoes finished with melted slices of Cheddar, Gouda, or Edam.',
-    category: 'Dinner',
-    subCategories: ['High-Protein', 'Family Friendly', 'Air Fryer'],
-    tags: [
-      'air fryer chicken',
-      'chicken breast recipes',
-      'crispy potatoes',
-      'cheesy potatoes',
-      'air fryer dinner',
-      'easy chicken dinner',
-      'high protein dinner',
-      'sriracha chicken',
+    categorySlugs: ['dinner', 'high-protein', 'quick-easy', 'air-fryer'],
+
+    tagSlugs: [
+      'chicken',
+      'chicken-breast',
+      'baby-potatoes',
+      'potatoes',
+      'garlic',
+      'lime',
+      'sesame',
+      'crispy',
+      'juicy',
+      'cheesy',
+      'weeknight',
+      'family-friendly',
     ],
     prepTimeMinutes: 15,
     cookTimeMinutes: 42,
@@ -246,147 +232,126 @@ export const mockRecipes: Recipe[] = [
 
     ingredients: [
       {
-        id: 'cp_1',
         name: 'Chicken Breast',
         amountUS: '14 oz',
         amountMetric: '400 g',
         notes: 'cut into long strips 2–3 cm thick',
       },
       {
-        id: 'cp_2',
         name: 'Salt',
         amountUS: '1/2 tsp',
         amountMetric: '4 g',
         notes: 'for dry brining the chicken',
       },
       {
-        id: 'cp_3',
         name: 'Ground Black Pepper',
         amountUS: '1/2 tsp',
         amountMetric: '1–2 g',
         notes: 'for chicken',
       },
       {
-        id: 'cp_4',
         name: 'Garlic Powder',
         amountUS: '1/2 tsp',
         amountMetric: '1.5 g',
         notes: 'for chicken',
       },
       {
-        id: 'cp_5',
         name: 'Smoked Paprika',
         amountUS: '1/2 tsp',
         amountMetric: '1 g',
         notes: 'for chicken',
       },
       {
-        id: 'cp_6',
         name: 'Dried Oregano',
         amountUS: '1/3 tsp',
         amountMetric: '0.5 g',
         notes: 'for chicken',
       },
       {
-        id: 'cp_7',
         name: 'Olive Oil',
         amountUS: '1/2 tbsp',
         amountMetric: '7 ml',
         notes: 'for marinating the chicken',
       },
       {
-        id: 'cp_8',
         name: 'Soy Sauce',
         amountUS: '1 tbsp',
         amountMetric: '15 ml',
         notes: 'for the glaze',
       },
       {
-        id: 'cp_9',
         name: 'Honey',
         amountUS: '1/2 tbsp',
         amountMetric: '10 g',
         notes: 'for the glaze',
       },
       {
-        id: 'cp_10',
         name: 'Hot Chili Sauce',
         amountUS: '1 tbsp',
         amountMetric: '15 ml',
         notes: 'such as Sriracha; for the glaze',
       },
       {
-        id: 'cp_11',
         name: 'Fresh Garlic',
         amountUS: '1 small clove',
         amountMetric: '1 small clove',
         notes: 'for the glaze',
       },
       {
-        id: 'cp_12',
         name: 'Ground Dried Ginger',
         amountUS: '1/4 tsp',
         amountMetric: '0.5 g',
         notes: 'for the glaze',
       },
       {
-        id: 'cp_13',
         name: 'Lime Juice',
         amountUS: '1 tsp',
         amountMetric: '5 ml',
         notes: 'juice from approximately 1/2 lime',
       },
       {
-        id: 'cp_14',
         name: 'Small Baby Potatoes',
         amountUS: '6–7 potatoes',
         amountMetric: '300–350 g',
         notes: 'small young potatoes',
       },
       {
-        id: 'cp_15',
         name: 'Olive Oil',
         amountUS: '1 tsp',
         amountMetric: '5 ml',
         notes: 'for first potato bake',
       },
       {
-        id: 'cp_16',
         name: 'Olive Oil or Melted Butter',
         amountUS: '1 tbsp',
         amountMetric: '15 ml',
         notes: 'for the second potato bake',
       },
       {
-        id: 'cp_17',
         name: 'Salt',
         amountUS: 'to taste',
         amountMetric: 'to taste',
         notes: 'for potatoes',
       },
       {
-        id: 'cp_18',
         name: 'Ground Black Pepper',
         amountUS: 'to taste',
         amountMetric: 'to taste',
         notes: 'for potatoes',
       },
       {
-        id: 'cp_19',
         name: 'Smoked Paprika',
         amountUS: 'to taste',
         amountMetric: 'to taste',
         notes: 'for potatoes',
       },
       {
-        id: 'cp_20',
         name: 'Semi-Hard Cheese Slices',
         amountUS: '4–5 slices',
         amountMetric: '100 g',
         notes: 'Cheddar, Gouda, or Edam',
       },
       {
-        id: 'cp_21',
         name: 'Sesame Seeds',
         amountUS: 'as needed',
         amountMetric: 'as needed',

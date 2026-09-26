@@ -23,7 +23,7 @@ import {
   Cookie,
 } from 'lucide-react';
 import { YoutubeIcon } from '../icons/YoutubeIcon';
-import { cn } from 'cn'; // або '@/lib/utils'
+import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
   {
@@ -73,13 +73,13 @@ export default function Navbar() {
 
         {/* Навігація для комп'ютерів (Desktop) */}
         <nav className="hidden items-center gap-6 text-sm font-medium text-zinc-600 md:flex dark:text-zinc-300">
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.map(({ href, name }) => (
             <Link
-              key={link.href}
-              href={link.href}
+              key={href}
+              href={href}
               className="transition-colors hover:text-orange-600 dark:hover:text-orange-400"
             >
-              {link.name}
+              {name}
             </Link>
           ))}
         </nav>

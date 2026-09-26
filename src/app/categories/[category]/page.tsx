@@ -1,78 +1,98 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { mockRecipes } from '@/data/mock-recipe';
 import RecipeCard from '@/components/recipe/RecipeCard';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { siteConfig, ROUTES } from '@/config/site';
 import { Flame, ArrowLeft } from 'lucide-react';
+import { prisma } from '@/lib/prisma';
 
 interface PageProps {
   params: Promise<{ category: string }>;
 }
 
-// Список допустимих категорій та їхній гарний опис для людей та SEO
-const CATEGORY_INFO: Record<string, { title: string; desc: string }> = {
-  breakfast: {
-    title: 'Air Fryer Breakfast Recipes',
-    desc: 'Quick, crispy, and protein-packed morning meals made simple with your air fryer.',
-  },
-  dinner: {
-    title: 'Easy Air Fryer Dinners',
-    desc: 'Tender on the inside, crispy on the outside. Weeknight dinners with minimal cleanup.',
-  },
-  sides: {
-    title: 'Crispy Sides & Potatoes',
-    desc: 'The crunchiest diner-style potatoes, roasted veggies, and unforgettable side dishes.',
-  },
-  snacks: {
-    title: 'Air Fryer Snacks & Appetizers',
-    desc: 'Quick bites, party finger foods, and crispy comfort snacks made in minutes.',
-  },
-};
-
-// 1. Статична генерація (SSG) для миттєвого завантаження на Vercel
 export async function generateStaticParams() {
-  return Object.keys(CATEGORY_INFO).map((cat) => ({
-    category: cat,
+  const categories = await prisma.category.findMany({
+    where: {
+      isActive: true,
+    },
+    select: {
+      slug: true,
+    },
+  });
+
+  return categories.map((category) => ({
+    category: category.slug,
   }));
 }
 
-// 2. SEO-метадані для кожної категорії
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { category } = await params;
-  const info = CATEGORY_INFO[category.toLowerCase()];
 
-  if (!info) return {};
+  const categoryData = await prisma.category.findUnique({
+    where: {
+      slug: category.toLowerCase(),
+      isActive: true,
+    },
+    select: {
+      name: true,
+      description: true,
+    },
+  });
+
+  if (!categoryData) return {};
 
   return {
-    title: `${info.title} | ${siteConfig.name}`,
-    description: info.desc,
+    title: `${categoryData.name} | ${siteConfig.name}`,
+    description: categoryData.description ?? undefined,
   };
 }
 
 export default async function CategoryPage({ params }: PageProps) {
   const { category } = await params;
-  const categoryKey = category.toLowerCase();
-  const info = CATEGORY_INFO[categoryKey];
+  const categoryData = await prisma.category.findUnique({
+    where: {
+      slug: category.toLowerCase(),
+      isActive: true,
+    },
+    include: {
+      recipes: {
+        include: {
+          recipe: {
+            include: {
+              categories: {
+                include: {
+                  category: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!categoryData) notFound();
+
+  const filteredRecipes = categoryData.recipes.map(({ recipe }) => recipe);
+
+  //   const info = CATEGORY_INFO[categoryKey];
 
   // Якщо такої категорії немає в списку — показуємо акуратну 404
-  if (!info) {
-    notFound();
-  }
+  //   if (!info) notFound();
 
-  // Фільтруємо рецепти за категорією
-  const filteredRecipes = mockRecipes.filter((r) => {
-    if (categoryKey === 'sides') {
-      return (
-        r.category.toLowerCase().includes('side') ||
-        r.subCategories.some((sub) => sub.toLowerCase().includes('side'))
-      );
-    }
-    return r.category.toLowerCase() === categoryKey;
-  });
+  //   // Фільтруємо рецепти за категорією
+  //   const filteredRecipes = mockRecipes.filter((r) => {
+  //     if (categoryKey === 'sides') {
+  //       return (
+  //         r.category.toLowerCase().includes('side') ||
+  //         r.subCategories.some((sub) => sub.toLowerCase().includes('side'))
+  //       );
+  //     }
+  //     return r.category.toLowerCase() === categoryKey;
+  //   });
 
   return (
     <main className="mx-auto max-w-6xl space-y-10 px-4 py-12 sm:px-6">
@@ -97,10 +117,10 @@ export default async function CategoryPage({ params }: PageProps) {
           <Flame className="h-3.5 w-3.5 fill-current" /> Category
         </div>
         <h1 className="text-3xl font-black tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-50">
-          {info.title}
+          {categoryData.name}
         </h1>
         <p className="max-w-2xl text-base leading-relaxed text-zinc-600 sm:text-lg dark:text-zinc-400">
-          {info.desc}
+          {categoryData.description}
         </p>
       </header>
 
