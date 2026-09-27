@@ -8,6 +8,7 @@ import PrintModal from '@/components/recipe/PrintModal';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { cache } from 'react';
+import Link from 'next/link';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -131,7 +132,7 @@ export default async function RecipePage({ params }: PageProps) {
     author: {
       '@type': 'Person',
       name: 'Stop Cooking Wrong',
-      url: 'https://www.youtube.com/@StopCookingWrong',
+      url: siteConfig.links.youtube,
     },
     datePublished: publishedAt,
     prepTime: toIsoDuration(prepTimeMinutes),
@@ -280,7 +281,7 @@ export default async function RecipePage({ params }: PageProps) {
           {/* Копірайт внизу */}
           <div className="mt-4 border-t border-zinc-200 pt-2 text-center text-[9px] text-zinc-500">
             For full ASMR cooking video and visual steps, visit:
-            https://www.youtube.com/@StopCookingWrong
+            {siteConfig.links.youtube}
           </div>
         </section>
 
@@ -290,14 +291,20 @@ export default async function RecipePage({ params }: PageProps) {
         <article className="mx-auto max-w-4xl space-y-8 px-4 sm:px-6 print:hidden">
           <div className="flex items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-2">
-              {categoryNames.map((sub) => (
-                <Badge
-                  key={sub}
-                  variant="outline"
-                  className="text-zinc-600 dark:text-zinc-400"
+              {categories.map((cat) => (
+                <Link
+                  key={cat.categoryId}
+                  href={ROUTES.category(cat.category.slug)}
+                  aria-label={`View ${cat.category.name} recipes`}
+                  className="group"
                 >
-                  {sub}
-                </Badge>
+                  <Badge
+                    variant="outline"
+                    className="cursor-pointer text-zinc-600 transition-colors group-hover:border-zinc-950 group-hover:bg-zinc-950 group-hover:text-white dark:text-zinc-400 dark:group-hover:border-white dark:group-hover:bg-white dark:group-hover:text-zinc-950"
+                  >
+                    {cat.category.name}
+                  </Badge>
+                </Link>
               ))}
             </div>
 
