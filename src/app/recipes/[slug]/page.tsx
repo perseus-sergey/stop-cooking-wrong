@@ -63,17 +63,15 @@ export async function generateMetadata({
   const { title, description, tags, featuredImage, publishedAt } = recipe;
   const { name, url } = siteConfig;
 
-  const pageTitle = `${title} (Air Fryer) | ${name}`;
-
   const pageUrl = `${url}${ROUTES.recipe(slug)}`;
   const tagNames = tags.map((item) => item.tag.name);
 
   return {
-    title: pageTitle,
+    title,
     description,
     keywords: tagNames.join(', '),
     openGraph: {
-      title: pageTitle,
+      title,
       description,
       url: pageUrl,
       siteName: name,
@@ -90,7 +88,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: pageTitle,
+      title,
       description,
       images: [featuredImage],
     },
