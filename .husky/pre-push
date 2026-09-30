@@ -1,0 +1,4 @@
+# .husky/pre-push
+
+echo "Building the project..."
+pnpm build
