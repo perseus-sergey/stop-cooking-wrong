@@ -8,9 +8,10 @@ import { Clock, Flame, Sparkles } from 'lucide-react';
 
 interface Props {
   recipe: RecipeCardData;
+  priority: boolean;
 }
 
-export default function RecipeCard({ recipe }: Props) {
+export default function RecipeCard({ recipe, priority }: Props) {
   return (
     <Link href={ROUTES.recipe(recipe.slug)} className="group block h-full">
       <Card className="flex h-full flex-col overflow-hidden border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
@@ -20,6 +21,7 @@ export default function RecipeCard({ recipe }: Props) {
             src={recipe.featuredImage}
             alt={recipe.title}
             fill
+            loading={priority ? 'eager' : 'lazy'}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />

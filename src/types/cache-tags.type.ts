@@ -3,4 +3,5 @@ export const CACHE_TAGS = {
   navCategories: 'navCategories',
 
   recipe: (slug: string) => `recipe:${slug}`,
+  category: (slug: string) => `category:${slug}`,
 } as const;

@@ -42,6 +42,11 @@ export async function generateMetadata({
     title,
     description,
     keywords: tagNames.join(', '),
+
+    alternates: {
+      canonical: pageUrl,
+    },
+
     openGraph: {
       title,
       description,

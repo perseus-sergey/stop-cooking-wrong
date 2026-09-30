@@ -7,7 +7,7 @@ export const siteConfig = {
     'Master your air fryer with simple, restaurant-quality recipes and the right cooking moves.',
   description:
     'Easy, beginner-friendly air fryer recipes made with simple ingredients. Learn the right moves to transform everyday cooking into restaurant-quality meals.',
-  url: process.env.SITE_URL || 'https://stopcookingwrong.com',
+  url: process.env.NEXT_PUBLIC_SITE_URL!,
 
   // Посилання та канали зв'язку
   links: {

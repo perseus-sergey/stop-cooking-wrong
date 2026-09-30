@@ -37,3 +37,32 @@ export async function getNavCategories() {
     },
   });
 }
+
+export async function getCategoryPageData(slug: string) {
+  'use cache';
+
+  cacheTag(CACHE_TAGS.category(slug));
+  cacheLife('hours');
+
+  return prisma.category.findUnique({
+    where: {
+      slug,
+      isActive: true,
+    },
+    include: {
+      recipes: {
+        include: {
+          recipe: {
+            include: {
+              categories: {
+                include: {
+                  category: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+}

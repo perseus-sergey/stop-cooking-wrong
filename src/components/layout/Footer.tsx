@@ -3,8 +3,17 @@ import { siteConfig, ROUTES } from '@/config/site';
 import { Flame } from 'lucide-react';
 import { YoutubeIcon } from '../icons/YoutubeIcon';
 import { cacheLife } from 'next/cache';
+import { getNavCategories } from '@/queries/categories.query';
 
-export default function Footer() {
+const CAT_QUANTITY = 3;
+
+export default async function Footer() {
+  const categories = await getNavCategories();
+
+  const exploreCategories = [...categories]
+    .sort((a, b) => b._count.recipes - a._count.recipes)
+    .slice(0, CAT_QUANTITY);
+
   return (
     <footer className="border-t border-zinc-200 bg-zinc-50 py-12 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400 print:hidden">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-4">
@@ -30,30 +39,16 @@ export default function Footer() {
             Explore
           </p>
           <ul className="space-y-1.5 text-xs">
-            <li>
-              <Link
-                href={ROUTES.category('breakfast')}
-                className="hover:text-orange-600"
-              >
-                Breakfast Ideas
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={ROUTES.category('dinner')}
-                className="hover:text-orange-600"
-              >
-                Quick Dinners
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={ROUTES.category('sides')}
-                className="hover:text-orange-600"
-              >
-                Crispy Sides & Potatoes
-              </Link>
-            </li>
+            {exploreCategories.map(({ id, slug, name }) => (
+              <li key={id}>
+                <Link
+                  href={ROUTES.category(slug)}
+                  className="hover:text-orange-600"
+                >
+                  {name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 

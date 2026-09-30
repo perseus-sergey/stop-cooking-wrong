@@ -34,3 +34,23 @@ export const getRecipe = async (slug: string) => {
     },
   });
 };
+
+export const getRecipes = async () => {
+  'use cache';
+
+  cacheTag(CACHE_TAGS.recipes);
+  cacheLife('hours');
+
+  return await prisma.recipe.findMany({
+    orderBy: { publishedAt: 'desc' },
+
+    include: {
+      categories: {
+        include: { category: true },
+        orderBy: {
+          category: { order: 'asc' },
+        },
+      },
+    },
+  });
+};

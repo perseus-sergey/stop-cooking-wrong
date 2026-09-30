@@ -13,21 +13,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { YoutubeIcon } from '@/components/icons/YoutubeIcon';
-import { prisma } from '@/lib/prisma';
-
-const getRecipes = async () =>
-  await prisma.recipe.findMany({
-    orderBy: { publishedAt: 'desc' },
-
-    include: {
-      categories: {
-        include: { category: true },
-        orderBy: {
-          category: { order: 'asc' },
-        },
-      },
-    },
-  });
+import { getRecipes } from '@/queries/recipes.query';
 
 export default async function HomePage() {
   const recipes = await getRecipes();
@@ -38,9 +24,12 @@ export default async function HomePage() {
   if (!featuredRecipe) {
     return (
       <main className="flex min-h-[60vh] items-center justify-center px-4">
-        <div className="text-center">
-          <p className="text-zinc-500">
-            No recipes found. Add some in Prisma Studio!
+        <div className="max-w-md text-center">
+          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">
+            Recipes are coming soon
+          </h1>
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+            We’re preparing delicious air fryer recipes. Check back soon!
           </p>
         </div>
       </main>
@@ -249,9 +238,9 @@ export default async function HomePage() {
           {/* Recipe list */}
           {recentRecipes.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {recentRecipes.map((recipe) => (
+              {recentRecipes.map((recipe, index) => (
                 <article key={recipe.id}>
-                  <RecipeCard recipe={recipe} />
+                  <RecipeCard recipe={recipe} priority={index === 0} />
                 </article>
               ))}
             </div>
