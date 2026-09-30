@@ -10,11 +10,36 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
+
   description: siteConfig.description,
+
+  openGraph: {
+    type: 'website',
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1280,
+        height: 720,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: ['/og-image.png'],
+  },
 };
 
 export default function RootLayout({
