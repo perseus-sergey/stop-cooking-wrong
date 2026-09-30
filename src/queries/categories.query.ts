@@ -3,10 +3,10 @@ import { CACHE_TAGS } from '@/types/cache-tags.type';
 import { cacheLife, cacheTag } from 'next/cache';
 
 export async function getNavCategories() {
-  // 'use cache';
+  'use cache';
 
-  // cacheTag(CACHE_TAGS.navCategories);
-  // cacheLife('hours');
+  cacheTag(CACHE_TAGS.navCategories);
+  cacheLife('hours');
 
   return prisma.category.findMany({
     where: {

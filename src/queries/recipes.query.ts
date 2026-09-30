@@ -3,10 +3,10 @@ import { CACHE_TAGS } from '@/types/cache-tags.type';
 import { cacheLife, cacheTag } from 'next/cache';
 
 export const getRecipe = async (slug: string) => {
-  // 'use cache';
+  'use cache';
 
-  // cacheTag(CACHE_TAGS.recipe(slug));
-  // cacheLife('days');
+  cacheTag(CACHE_TAGS.recipe(slug));
+  cacheLife('days');
 
   return await prisma.recipe.findUnique({
     where: { slug },

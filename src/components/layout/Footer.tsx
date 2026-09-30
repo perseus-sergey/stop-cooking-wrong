@@ -85,9 +85,9 @@ export default function Footer() {
 }
 
 async function CurrentYear() {
-  // 'use cache';
+  'use cache';
 
-  // cacheLife('days');
+  cacheLife('days');
 
   return new Date().getFullYear();
 }
