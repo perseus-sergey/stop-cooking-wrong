@@ -76,15 +76,7 @@ export default async function RecipePage({ params }: PageProps) {
   const { slug } = await params;
   const recipe = await getRecipe(slug);
 
-  console.log('slug:', slug);
-  console.log('recipe:', recipe);
-
-  if (!recipe) {
-    console.log('CALLING NOT FOUND');
-    notFound();
-  }
-
-  console.log('AFTER NOT FOUND');
+  if (!recipe) notFound();
 
   const {
     title,
