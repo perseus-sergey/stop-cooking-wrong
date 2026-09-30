@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { FullRecipe } from '@/types/recipe';
+import { FullRecipe } from '@/types/recipe.type';
 import {
   Dialog,
   DialogContent,

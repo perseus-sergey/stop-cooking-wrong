@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // cacheComponents: true,
+
   devIndicators: false, // вимикає чорну іконку "N" у кутку
   images: {
     remotePatterns: [

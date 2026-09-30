@@ -1,6 +1,6 @@
 // pnpm prisma db seed
 
-import { MocRecipe } from '@/types/recipe';
+import { MocRecipe } from '@/types/recipe.type';
 
 export const mockRecipes: MocRecipe[] = [
   // --------------------------------------------------------------------------

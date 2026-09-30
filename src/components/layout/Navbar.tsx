@@ -1,4 +1,6 @@
-import { getNavCategories } from '@/queries/categories';
+import 'server-only';
+
+import { getNavCategories } from '@/queries/categories.query';
 import NavbarClient from './NavbarClient';
 
 export default async function Navbar() {

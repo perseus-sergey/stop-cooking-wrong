@@ -35,7 +35,7 @@ import {
 } from 'lucide-react';
 import { YoutubeIcon } from '../icons/YoutubeIcon';
 import { capitalize, cn } from '@/lib/utils';
-import { getNavCategories } from '@/queries/categories';
+// import { getNavCategories } from '@/queries/categories.query';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -43,86 +43,11 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { Separator } from '../ui/separator';
+import type { NavCategory } from '@/types/category.type';
 
 interface NavbarProps {
-  categories: Awaited<ReturnType<typeof getNavCategories>>;
+  categories: NavCategory[];
 }
-
-// const NAV_LINKS = [
-//   {
-//     name: 'Breakfast',
-//     href: ROUTES.category('breakfast'),
-//     icon: Egg,
-//     badge: 'Quick',
-//   },
-//   {
-//     name: 'Dinner',
-//     href: ROUTES.category('dinner'),
-//     icon: UtensilsCrossed,
-//   },
-//   {
-//     name: 'Sides & Potatoes',
-//     href: ROUTES.category('sides'),
-//     icon: Sparkles,
-//     badge: 'Crispy',
-//   },
-//   {
-//     name: 'Snacks',
-//     href: ROUTES.category('snacks'),
-//     icon: Cookie,
-//   },
-// ];
-
-// const CATEGORY_UI = {
-//   breakfast: {
-//     icon: Egg,
-//     badge: 'Quick',
-//   },
-//   lunch: {
-//     icon: UtensilsCrossed,
-//     badge: 'Fresh',
-//   },
-//   dinner: {
-//     icon: UtensilsCrossed,
-//     badge: 'Family',
-//   },
-//   desserts: {
-//     icon: Cookie,
-//     badge: 'Sweet',
-//   },
-//   vegetarian: {
-//     icon: Leaf,
-//     badge: 'Plant-Based',
-//   },
-//   'high-protein': {
-//     icon: Dumbbell,
-//     badge: 'Protein',
-//   },
-//   'quick-easy': {
-//     icon: Zap,
-//     badge: 'Quick',
-//   },
-//   'budget-friendly': {
-//     icon: Wallet,
-//     badge: 'Budget',
-//   },
-//   'air-fryer': {
-//     icon: Wind,
-//     badge: 'Crispy',
-//   },
-//   baking: {
-//     icon: CakeSlice,
-//     badge: 'Homemade',
-//   },
-//   festive: {
-//     icon: PartyPopper,
-//     badge: 'Special',
-//   },
-//   authentic: {
-//     icon: Globe2,
-//     badge: 'Classic',
-//   },
-// } as const;
 
 const CATEGORY_UI = {
   breakfast: {

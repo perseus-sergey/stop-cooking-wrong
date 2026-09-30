@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { siteConfig, ROUTES } from '@/config/site';
 import { Flame } from 'lucide-react';
 import { YoutubeIcon } from '../icons/YoutubeIcon';
+import { cacheLife } from 'next/cache';
 
 export default function Footer() {
   return (
@@ -14,7 +15,7 @@ export default function Footer() {
               <Flame className="h-4 w-4 fill-current" />
             </div>
             <span className="font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">
-              STOP COOKING WRONG
+              {siteConfig.name.toUpperCase()}
             </span>
           </div>
           <p className="max-w-sm text-xs leading-relaxed">
@@ -77,8 +78,16 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto mt-10 max-w-6xl border-t border-zinc-200 px-4 pt-6 text-center text-xs text-zinc-400 sm:px-6 dark:border-zinc-800">
-        © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+        © <CurrentYear /> {siteConfig.name}. All rights reserved.
       </div>
     </footer>
   );
+}
+
+async function CurrentYear() {
+  // 'use cache';
+
+  // cacheLife('days');
+
+  return new Date().getFullYear();
 }
