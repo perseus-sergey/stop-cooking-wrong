@@ -4,7 +4,7 @@ function RecipeCardSkeleton() {
   return (
     <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
       {/* Фото */}
-      <Skeleton className="aspect-[4/3] w-full rounded-none" />
+      <Skeleton className="aspect-4/3 w-full rounded-none" />
 
       {/* Контент картки */}
       <div className="space-y-3 p-5">

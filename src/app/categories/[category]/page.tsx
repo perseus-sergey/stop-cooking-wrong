@@ -5,7 +5,6 @@ import RecipeCard from '@/components/recipe/RecipeCard';
 import { buttonVariants } from '@/components/ui/button';
 import { siteConfig, ROUTES } from '@/config/site';
 import { Flame, ArrowLeft } from 'lucide-react';
-import { prisma } from '@/lib/prisma';
 import {
   getCategoryPageData,
   getNavCategories,
