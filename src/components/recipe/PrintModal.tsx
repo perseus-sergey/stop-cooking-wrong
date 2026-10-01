@@ -13,7 +13,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Printer, Eye } from 'lucide-react';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/config/site.config';
 
 interface Props {
   recipe: FullRecipe;

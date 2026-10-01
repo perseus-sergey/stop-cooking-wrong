@@ -4,4 +4,4 @@ export { cn } from 'cn';
 export const toIsoDuration = (minutes: number) => `PT${minutes}M`;
 
 export const capitalize = (value: string) =>
-  `${value[0].toUpperCase()}${value.slice(1).toLowerCase()}`;
+  value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();

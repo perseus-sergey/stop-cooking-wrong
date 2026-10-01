@@ -3,7 +3,7 @@ import Image from 'next/image';
 import RecipeCard from '@/components/recipe/RecipeCard';
 import { buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { siteConfig, ROUTES } from '@/config/site';
+import { siteConfig, ROUTES } from '@/config/site.config';
 import {
   Flame,
   Sparkles,

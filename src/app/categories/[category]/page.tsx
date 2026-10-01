@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import RecipeCard from '@/components/recipe/RecipeCard';
 import { buttonVariants } from '@/components/ui/button';
-import { siteConfig, ROUTES } from '@/config/site';
+import { siteConfig, ROUTES } from '@/config/site.config';
 import { Flame, ArrowLeft } from 'lucide-react';
 import {
   getCategoryPageData,

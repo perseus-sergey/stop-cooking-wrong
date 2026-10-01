@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { siteConfig, ROUTES } from '@/config/site';
+import { siteConfig, ROUTES } from '@/config/site.config';
 import { Flame } from 'lucide-react';
 import { YoutubeIcon } from '../icons/YoutubeIcon';
 import { cacheLife } from 'next/cache';

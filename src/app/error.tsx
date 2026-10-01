@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { ROUTES } from '@/config/site';
+import { ROUTES } from '@/config/site.config';
 import { AlertCircle, RotateCcw, Home } from 'lucide-react';
 
 export default function GlobalError({

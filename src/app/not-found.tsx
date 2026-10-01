@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
-import { ROUTES } from '@/config/site';
+import { ROUTES } from '@/config/site.config';
 import { Flame, Home } from 'lucide-react';
 import { getNavCategories } from '@/queries/categories.query';
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import RecipeInteractiveView from '@/components/recipe/RecipeInteractiveView';
 import { Badge } from '@/components/ui/badge';
-import { siteConfig, ROUTES } from '@/config/site';
+import { siteConfig, ROUTES } from '@/config/site.config';
 import { toIsoDuration } from '@/lib/utils';
 import PrintModal from '@/components/recipe/PrintModal';
 import { notFound } from 'next/navigation';

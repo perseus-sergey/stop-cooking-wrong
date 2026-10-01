@@ -16,7 +16,7 @@ import {
   XCircle,
   Sparkles,
 } from 'lucide-react';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/config/site.config';
 
 interface Props {
   recipe: FullRecipe;
