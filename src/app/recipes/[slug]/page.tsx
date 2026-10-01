@@ -115,7 +115,6 @@ export default async function RecipePage({ params }: PageProps) {
     cookTime: toIsoDuration(cookTimeMinutes),
     totalTime: toIsoDuration(prepTimeMinutes + cookTimeMinutes),
     recipeCategory: categoryNames,
-    recipeCuisine: 'American',
     recipeYield: `${servings} servings`,
     nutrition: caloriesPerServing
       ? {
