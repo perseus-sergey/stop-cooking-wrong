@@ -9,7 +9,7 @@ export type Ingredient = MocIngredient & {
   id: string;
 };
 
-export interface CookingStep {
+export interface ICookingStep {
   id?: string;
   stepNumber: number;
   title: string;
@@ -37,7 +37,7 @@ export interface MocRecipe {
   mistakeToAvoid: string;
   theRightMove: string;
   ingredients?: MocIngredient[];
-  steps?: CookingStep[];
+  steps?: ICookingStep[];
 }
 
 export interface Recipe {
@@ -93,9 +93,11 @@ export type RecipeCardData = Recipe & {
 };
 
 // Повний рецепт з усіма зв'язками (для окремої сторінки /recipes/[slug])
-export type FullRecipe = Recipe & {
+export type TFullRecipe = Recipe & {
   ingredients: Ingredient[];
-  steps: CookingStep[];
+  steps: ICookingStep[];
   categories: RecipeCategory[];
   tags: RecipeTag[];
 };
+
+export type TUnitSystem = 'us' | 'metric';

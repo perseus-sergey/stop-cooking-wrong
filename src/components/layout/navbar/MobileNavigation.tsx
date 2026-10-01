@@ -55,7 +55,7 @@ export default function MobileNavigation({
 
               <div className="flex min-w-0 flex-col">
                 <span className="truncate text-base leading-none font-black tracking-tight text-zinc-900 dark:text-zinc-100">
-                  STOP COOKING WRONG
+                  {siteConfig.name.toUpperCase()}
                 </span>
 
                 <span className="mt-0.5 text-[9px] font-bold tracking-widest text-orange-600 uppercase dark:text-orange-400">
@@ -171,7 +171,7 @@ export default function MobileNavigation({
                 'w-full gap-2 bg-red-600 py-5 text-sm font-semibold text-white shadow-md hover:bg-red-700'
               )}
             >
-              <YoutubeIcon className="h-4 w-4 fill-current" />
+              <YoutubeIcon className="h-4 w-4" aria-hidden="true" />
               Subscribe on YouTube
             </a>
           </div>

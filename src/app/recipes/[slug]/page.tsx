@@ -107,7 +107,7 @@ export default async function RecipePage({ params }: PageProps) {
     keywords: tagNames.join(', '),
     author: {
       '@type': 'Person',
-      name: 'Stop Cooking Wrong',
+      name: siteConfig.name,
       url: siteConfig.links.youtube,
     },
     datePublished: publishedAt,
@@ -163,7 +163,7 @@ export default async function RecipePage({ params }: PageProps) {
           <div className="mb-3 flex items-start justify-between border-b-2 border-black pb-2">
             <div>
               <p className="text-[10px] font-bold tracking-widest text-zinc-600 uppercase">
-                Stop Cooking Wrong • Air Fryer Recipe
+                {siteConfig.name} • Air Fryer Recipe
               </p>
               <h1 className="mt-0.5 text-xl font-black">{title}</h1>
               <p className="mt-0.5 text-[11px] text-zinc-700 italic">

@@ -127,7 +127,7 @@ export default async function HomePage() {
                   id="hero-heading"
                   className="text-5xl leading-[0.98] font-black tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl xl:text-8xl"
                 >
-                  Stop Cooking Wrong.
+                  {siteConfig.name}.
                   <br />
                   <span className="text-orange-400">
                     Master Your Air Fryer.

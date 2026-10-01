@@ -66,7 +66,7 @@ export default async function Footer() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 pt-1 text-xs font-semibold text-red-600 hover:text-red-700"
           >
-            <YoutubeIcon className="h-4 w-4 fill-current" />
+            <YoutubeIcon className="h-4 w-4" aria-hidden="true" />
             Visit YouTube Channel →
           </a>
         </div>

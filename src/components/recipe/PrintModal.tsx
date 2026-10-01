@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { FullRecipe } from '@/types/recipe.type';
+import type { TFullRecipe } from '@/types/recipe.type';
 import {
   Dialog,
   DialogContent,
@@ -16,7 +16,7 @@ import { Printer, Eye } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
 
 interface Props {
-  recipe: FullRecipe;
+  recipe: TFullRecipe;
 }
 
 type FontSize = 'sm' | 'base' | 'lg';
@@ -171,7 +171,7 @@ export default function PrintModal({ recipe }: Props) {
         <div className="flex flex-1 justify-center overflow-y-auto bg-white p-0 sm:bg-zinc-100 sm:p-6 dark:bg-zinc-950 print:overflow-visible print:bg-white print:p-0">
           <div
             id="printable-card"
-            className={`min-h-full w-full max-w-185 rounded-none border-0 bg-white p-4 pb-12 text-zinc-900 shadow-none sm:rounded-lg sm:border sm:border-zinc-200 sm:p-8 sm:shadow-xs print:w-full print:max-w-none print:border-none print:p-0 print:shadow-none ${fontStyles.body}`}
+            className={`min-h-fit w-full max-w-185 rounded-none border-0 bg-white p-4 pb-12 text-zinc-900 shadow-none sm:rounded-lg sm:border sm:border-zinc-200 sm:p-8 sm:shadow-xs print:w-full print:max-w-none print:border-none print:p-0 print:shadow-none ${fontStyles.body}`}
           >
             {/* Шапка з назвою */}
             <div className="mb-3 flex items-start justify-between gap-3 border-b-2 border-zinc-900 pb-3">

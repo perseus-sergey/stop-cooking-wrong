@@ -1,25 +1,24 @@
 'use client';
 
 import { useState } from 'react';
-import { FullRecipe } from '@/types/recipe.type';
+import type { TFullRecipe } from '@/types/recipe.type';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import {
   Clock,
   Flame,
   Users,
-  RotateCw,
-  Lightbulb,
   CheckCircle2,
   XCircle,
   Sparkles,
 } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
+import UnitSystemToggle from './UnitSystemToggle';
+import StepCard from './StepCard';
 
 interface Props {
-  recipe: FullRecipe;
+  recipe: TFullRecipe;
 }
 
 export default function RecipeInteractiveView({ recipe }: Props) {
@@ -123,56 +122,52 @@ export default function RecipeInteractiveView({ recipe }: Props) {
                 Ingredients
               </CardTitle>
 
-              {/* Ховаємо перемикач на друці */}
-              <div className="flex items-center rounded-lg bg-zinc-100 p-1 print:hidden">
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={unitSystem === 'us' ? 'default' : 'ghost'}
-                  className="h-7 px-2 text-xs"
-                  onClick={() => setUnitSystem('us')}
-                >
-                  US
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={unitSystem === 'metric' ? 'default' : 'ghost'}
-                  className="h-7 px-2 text-xs"
-                  onClick={() => setUnitSystem('metric')}
-                >
-                  Metric
-                </Button>
-              </div>
+              <UnitSystemToggle
+                value={unitSystem}
+                onChange={setUnitSystem}
+                className="print:hidden"
+              />
             </CardHeader>
             <Separator className="print:hidden" />
             <CardContent className="space-y-2 pt-4 print:space-y-1.5 print:p-2 print:pt-1">
-              {recipe.ingredients.map((ing) => (
-                <div
-                  key={ing.id}
-                  onClick={() => toggleIngredient(ing.id)}
-                  className="flex cursor-pointer items-start gap-2.5 text-sm leading-tight print:text-xs"
-                >
-                  {/* Квадратик для відмітки ручкою на папері */}
-                  <div className="mt-0.5 hidden h-3 w-3 shrink-0 rounded-sm border border-zinc-400 print:block" />
-                  <Checkbox
-                    checked={checkedIngredients.includes(ing.id)}
-                    className="mt-0.5 print:hidden"
-                  />
+              {recipe.ingredients.map((ing) => {
+                const ingredientLabel = `${unitSystem === 'us' ? ing.amountUS : ing.amountMetric} ${ing.name}`;
 
-                  <div>
-                    <span className="mr-1 font-semibold text-orange-600 print:text-black">
-                      {unitSystem === 'us' ? ing.amountUS : ing.amountMetric}
-                    </span>
-                    <span>{ing.name}</span>
-                    {ing.notes && (
-                      <span className="block text-xs text-zinc-500 print:text-[10px]">
-                        ({ing.notes})
+                return (
+                  <div
+                    key={ing.id}
+                    className="flex items-start gap-2.5 text-sm leading-tight print:text-xs"
+                  >
+                    {/* Квадратик для друку */}
+                    <div className="mt-0.5 hidden h-3 w-3 shrink-0 rounded-sm border border-zinc-400 print:block" />
+
+                    <Checkbox
+                      id={`ingredient-${ing.id}`}
+                      checked={checkedIngredients.includes(ing.id)}
+                      onCheckedChange={() => toggleIngredient(ing.id)}
+                      className="mt-0.5 print:hidden"
+                      aria-label={`Mark ${ingredientLabel} as prepared`}
+                    />
+
+                    <label
+                      htmlFor={`ingredient-${ing.id}`}
+                      className="cursor-pointer"
+                    >
+                      <span className="mr-1 font-semibold text-orange-600 print:text-black">
+                        {unitSystem === 'us' ? ing.amountUS : ing.amountMetric}
                       </span>
-                    )}
+
+                      <span>{ing.name}</span>
+
+                      {ing.notes && (
+                        <span className="block text-xs text-zinc-500 print:text-[10px]">
+                          ({ing.notes})
+                        </span>
+                      )}
+                    </label>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </CardContent>
           </Card>
         </div>
@@ -185,59 +180,11 @@ export default function RecipeInteractiveView({ recipe }: Props) {
 
           <div className="space-y-4 print:space-y-2">
             {recipe.steps.map((step) => (
-              <Card
+              <StepCard
                 key={step.stepNumber}
-                className="overflow-hidden shadow-sm print:break-inside-avoid print:border-zinc-300 print:shadow-none"
-              >
-                <CardHeader className="pb-1.5 print:p-2 print:pb-0.5">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-[10px] font-bold text-white">
-                        {step.stepNumber}
-                      </span>
-                      <h3 className="text-sm font-semibold print:text-xs">
-                        {step.title}
-                      </h3>
-                    </div>
-
-                    {(step.tempF || step.durationMinutes) && (
-                      <div className="flex items-center gap-1 font-mono text-[10px]">
-                        {step.tempF && (
-                          <span className="rounded bg-orange-100 px-1.5 py-0.5 font-semibold text-orange-800 print:border print:bg-zinc-100 print:text-black">
-                            {unitSystem === 'us'
-                              ? `${step.tempF}°F`
-                              : `${step.tempC}°C`}
-                          </span>
-                        )}
-                        {step.durationMinutes && (
-                          <span className="rounded border border-zinc-200 px-1.5 py-0.5">
-                            {step.durationMinutes}m
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </CardHeader>
-
-                <CardContent className="space-y-1.5 pt-1 text-xs leading-relaxed print:p-2 print:pt-1 print:text-[11px]">
-                  <p className="text-zinc-700 print:text-black">
-                    {step.instruction}
-                  </p>
-
-                  {step.isShakePoint && (
-                    <div className="inline-flex items-center gap-1 rounded border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 print:border-zinc-400 print:bg-transparent print:text-black">
-                      <RotateCw className="h-3 w-3" /> Shake basket
-                    </div>
-                  )}
-
-                  {step.tip && (
-                    <div className="flex items-start gap-1.5 rounded border border-zinc-100 bg-zinc-50 p-1.5 text-[10px] text-zinc-600 print:border-zinc-300 print:bg-zinc-50 print:text-zinc-800">
-                      <Lightbulb className="mt-0.5 h-3 w-3 shrink-0 text-amber-500" />
-                      <span>{step.tip}</span>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
+                step={step}
+                unitSystem={unitSystem}
+              />
             ))}
           </div>
         </div>

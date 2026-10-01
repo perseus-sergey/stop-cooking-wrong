@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { ROUTES } from '@/config/site.config';
+import { ROUTES, siteConfig } from '@/config/site.config';
 
 export default function NavbarLogoClient() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,7 +29,7 @@ export default function NavbarLogoClient() {
     <Link href={ROUTES.home} className="group flex items-center gap-3">
       <Image
         src="/site-logo.jpeg"
-        alt="Stop Cooking Wrong"
+        alt={siteConfig.name}
         width={80}
         height={80}
         className={[
@@ -40,7 +40,7 @@ export default function NavbarLogoClient() {
 
       <div className="flex flex-col">
         <span className="text-lg leading-none font-black tracking-tight text-zinc-900 dark:text-zinc-50">
-          STOP COOKING WRONG
+          {siteConfig.name.toUpperCase()}
         </span>
 
         <span className="text-[10px] font-semibold tracking-widest text-orange-600 uppercase dark:text-orange-400">

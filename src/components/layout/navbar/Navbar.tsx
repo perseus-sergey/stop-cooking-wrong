@@ -1,7 +1,7 @@
 import { getNavCategories } from '@/queries/categories.query';
 import DesktopNavigation from './DesktopNavigation';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import MobileNavigation from './MobileNavigation.tsx';
+import MobileNavigation from './MobileNavigation';
 import NavbarLogo from './NavbarLogo';
 import YouTubeButton from './YouTubeButton';
 
