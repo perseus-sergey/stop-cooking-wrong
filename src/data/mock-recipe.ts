@@ -4,76 +4,48 @@ import { MocRecipe } from '@/types/recipe.type';
 
 export const mockRecipes: MocRecipe[] = [
   // --------------------------------------------------------------------------
-  // РЕЦЕПТ 1: Ніжна грибна фріттата зі шпинатом та сирною шапочкою
+  // РЕЦЕПТ 1: Хрустка картопля-гармошка з пармезаном
   // --------------------------------------------------------------------------
   {
-    slug: 'mushroom-spinach-frittata-cheese-crust-air-fryer',
-    title: 'Tender Mushroom & Spinach Frittata with a Cheesy Crust',
+    slug: 'crispy-accordion-potatoes-parmesan-air-fryer',
+    title: 'Crispy Accordion Potatoes with Parmesan',
     description:
-      'A tender air fryer mushroom and spinach frittata made with sautéed mushrooms, onion, fresh spinach, garlic, cream cheese, and melted mozzarella for a rich, creamy, golden cheesy topping.',
-    categorySlugs: ['breakfast', 'vegetarian', 'high-protein', 'air-fryer'],
-
-    tagSlugs: [
-      'eggs',
-      'mushrooms',
-      'spinach',
-      'cheese',
-      'garlic',
-      'creamy',
-      'fluffy',
-      'cheesy',
-    ],
-
-    prepTimeMinutes: 15,
-    cookTimeMinutes: 32,
-    servings: 2,
-    caloriesPerServing: 335,
+      'Crispy air fryer accordion potatoes made from golden Russet potatoes, lightly coated with cornstarch and finished with oregano, black pepper, and grated Parmesan.',
+    categorySlugs: ['dinner', 'air-fryer'],
+    tagSlugs: ['potatoes', 'crispy', 'cheesy', 'family-friendly'],
+    prepTimeMinutes: 45,
+    cookTimeMinutes: 20,
+    servings: 3,
+    caloriesPerServing: 300,
     featuredImage:
-      'https://res.cloudinary.com/bttfno8p/image/upload/v1790359075/Mushroom-Spinach-Frittata.jpg',
-    youtubeId: 'g5C_CEX31ok',
-    publishedAt: '2026-09-27',
+      'https://res.cloudinary.com/bttfno8p/image/upload/v1790886209/potato-accordion.jpg',
+    youtubeId: 'LOFSU3Xc49Y',
+    publishedAt: '2026-10-01',
 
     mistakeToAvoid:
-      'Adding the hot roasted mushrooms and onion directly to the eggs while they are still aggressively steaming. Excessive heat can begin scrambling the eggs unevenly and create a dense, rubbery texture.',
+      'Leaving too much moisture or excess cornstarch on the potato slices. Wet potatoes will steam instead of crisping, while a heavy layer of starch can create a powdery coating and prevent an even golden crust.',
+
     theRightMove:
-      'Let the roasted mushrooms and onion release some steam, gently wilt the spinach with the residual heat, and then fold the warm vegetables into the seasoned egg mixture. Add the creamy cheese topping only after the egg base has partially set.',
+      'Soak the sliced potato accordions in cold water, dry them extremely well, then dust both sides with a very thin layer of cornstarch. Give them enough space in the air fryer so hot air can circulate around every side.',
 
     ingredients: [
       {
-        name: 'Mushrooms',
-        amountUS: '4 medium mushrooms',
-        amountMetric: '4 medium mushrooms',
-        notes:
-          'button mushrooms or cremini mushrooms; sliced 5–7 mm thick, with 3–4 attractive cap slices reserved for decoration',
+        name: 'Large Russet Potatoes',
+        amountUS: '3 large potatoes',
+        amountMetric: '600–700 g',
+        notes: 'peeled and trimmed into rectangular blocks',
       },
       {
-        name: 'Yellow Onion',
-        amountUS: '1/2 onion',
-        amountMetric: 'about 75 g',
-        notes: 'cut into thin half-moons',
+        name: 'Cornstarch',
+        amountUS: '1 1/2–2 tbsp',
+        amountMetric: '12–16 g',
+        notes: 'for lightly coating the potato accordions',
       },
       {
-        name: 'Fresh Baby Spinach',
-        amountUS: '1 handful',
-        amountMetric: 'about 30 g',
-        notes: 'roughly chopped',
-      },
-      {
-        name: 'Fresh Garlic',
-        amountUS: '1 small clove',
-        amountMetric: '1 small clove',
-        notes: 'finely grated',
-      },
-      {
-        name: 'Olive Oil',
-        amountUS: '1 tsp',
-        amountMetric: '5 ml',
-        notes: 'for roasting the mushrooms and onion',
-      },
-      {
-        name: 'Dried Thyme',
-        amountUS: '1/3 tsp',
-        amountMetric: '1/3 tsp',
+        name: 'Vegetable Oil',
+        amountUS: 'as needed',
+        amountMetric: 'as needed',
+        notes: 'preferably in a spray bottle, for lightly coating the potatoes',
       },
       {
         name: 'Salt',
@@ -86,316 +58,275 @@ export const mockRecipes: MocRecipe[] = [
         amountMetric: 'to taste',
       },
       {
-        name: 'Large Eggs',
-        amountUS: '4 eggs',
-        amountMetric: '4 eggs',
-      },
-      {
-        name: 'Heavy Cream',
-        amountUS: '1–1.5 tbsp',
-        amountMetric: '15–22 ml',
-      },
-      {
-        name: 'Ground Nutmeg',
-        amountUS: '1 pinch',
-        amountMetric: '1 pinch',
-      },
-      {
-        name: 'Olive Oil',
+        name: 'Dried Oregano',
         amountUS: '1 tsp',
-        amountMetric: '5 ml',
-        notes: 'for greasing the baking dish',
+        amountMetric: '1 tsp',
       },
       {
-        name: 'Cream Cheese',
-        amountUS: '1.4 oz',
-        amountMetric: '40 g',
-        notes: 'such as Philadelphia; softened to room temperature',
-      },
-      {
-        name: 'Mozzarella',
-        amountUS: '1.4 oz',
-        amountMetric: '40 g',
-        notes: 'grated; Cheddar can also be used',
-      },
-      {
-        name: 'Olive Oil',
-        amountUS: '1 tsp',
-        amountMetric: '5 ml',
-        notes: 'for drizzling over the finished frittata',
+        name: 'Parmesan Cheese',
+        amountUS: '1 1/2–2 tbsp',
+        amountMetric: '10–14 g',
+        notes: 'finely grated, for finishing',
       },
     ],
 
     steps: [
       {
         stepNumber: 1,
-        title: 'Prepare the Mushrooms & Onion',
+        title: 'Prepare the Potatoes',
         instruction:
-          'Slice 4 medium mushrooms into thick 5–7 mm slices. Reserve 3–4 of the most attractive mushroom cap slices for the final decoration. Cut 1/2 yellow onion into thin half-moons. Place the remaining mushroom slices and onion into a large air fryer basket.',
+          'Wash and peel 3 large Russet potatoes. Trim the sides of each potato to create an even rectangular block. Cut each block lengthwise into slices approximately 1.2 cm thick.',
+        tip: 'Keeping the potato blocks as even as possible helps the accordion slices cook at the same rate.',
       },
       {
         stepNumber: 2,
-        title: 'Roast the Mushrooms & Onion',
+        title: 'Cut the Accordion Pattern',
         instruction:
-          'Add 1 tsp olive oil, a pinch of salt, and 1/3 tsp dried thyme to the mushrooms and onion. Rub the thyme between your fingers as you sprinkle it over the basket. Toss everything directly in the basket until evenly coated.',
-        tempF: 356,
-        tempC: 180,
-        durationMinutes: 10,
-        tip: 'Keep the reserved mushroom slices aside so they can be used as an attractive topping later.',
+          'Place one potato slice between two wooden skewers. Using a sharp knife, make straight perpendicular cuts approximately 3 mm apart across the entire length of the slice, stopping at the skewers so you do not cut all the way through. Turn the slice over and make diagonal cuts at approximately a 45-degree angle. Finally, cut each finished accordion slice lengthwise into 3–4 potato sticks.',
+        tip: 'The skewers act as a depth guide and prevent the knife from cutting completely through the potato.',
       },
       {
         stepNumber: 3,
-        title: 'Gently Wilt the Spinach',
+        title: 'Soak the Potato Accordions',
         instruction:
-          'While the mushrooms cook, roughly chop 1 handful of fresh baby spinach. When the roasting cycle is complete, scatter the spinach directly over the hot mushrooms and onion. Shake the basket gently and let it stand for 1–2 minutes so the residual heat and steam soften the spinach. Reserve 4 attractive roasted mushroom slices for the final decoration.',
-        durationMinutes: 2,
-        tip: 'The spinach only needs to soften slightly. Residual heat is enough to wilt it without making it watery.',
+          'Place all of the cut potato accordions into a large bowl. Cover completely with cold water and leave to soak for 30 minutes to remove excess surface starch.',
+        durationMinutes: 30,
+        tip: 'Removing excess starch helps the potato surfaces become noticeably crispier in the air fryer.',
       },
       {
         stepNumber: 4,
-        title: 'Prepare the Cheesy Topping',
+        title: 'Dry Thoroughly',
         instruction:
-          'Place 40 g softened cream cheese in a small bowl. Add 40 g grated mozzarella or Cheddar. Mash and mix thoroughly with a fork until a thick, uniform cheese paste forms.',
+          'Drain the potatoes and transfer them to a clean kitchen towel or several layers of paper towel. Carefully pat and dry the potato accordions from all sides until there is no visible moisture remaining.',
+        tip: 'This is one of the most important steps for achieving a crisp exterior. Do not rush the drying process.',
       },
       {
         stepNumber: 5,
-        title: 'Prepare the Egg Mixture',
+        title: 'Dust with Cornstarch',
         instruction:
-          'Crack 4 eggs into a deep bowl. Add 1–1.5 tbsp heavy cream, 1/2 tsp salt, a pinch of black pepper, and a pinch of ground nutmeg. Finely grate 1 small garlic clove directly into the bowl. Whisk thoroughly until the mixture is completely smooth and uniform.',
+          'Arrange the completely dry potato accordions in a single layer on a board or wire rack. Using a fine sieve, lightly dust the top side with 1 1/2–2 tbsp cornstarch. Turn each accordion over and lightly dust the second side. Gently tap each piece to remove excess cornstarch.',
+        tip: 'Use only a thin coating. Too much cornstarch can make the finished potatoes taste chalky.',
       },
       {
         stepNumber: 6,
-        title: 'Combine the Vegetables with the Eggs',
+        title: 'First Air Fry',
         instruction:
-          'Transfer the warm mushrooms, onion, and wilted spinach from the air fryer basket into the beaten egg mixture. Gently fold everything together with a spoon.',
-        tip: 'The vegetables should be warm but no longer aggressively steaming before they are mixed with the eggs.',
+          'Arrange the potato accordions in a single layer in the air fryer basket, leaving space between them. Lightly spray with vegetable oil.',
+        tempF: 356,
+        tempC: 180,
+        durationMinutes: 12,
+        tip: 'Avoid overcrowding the basket. Air circulation around the individual potato pieces is essential for crisp edges.',
       },
       {
         stepNumber: 7,
-        title: 'Bake the Frittata Base',
+        title: 'Flip & Crisp',
         instruction:
-          'Place a small parchment baking dish suitable for the air fryer into the basket. Lightly grease the inside with 1 tsp olive oil. Pour in the egg, mushroom, onion, and spinach mixture and place the dish into the air fryer.',
-        tempF: 356,
-        tempC: 180,
-        durationMinutes: 14,
+          'Carefully turn each potato accordion over. Lightly spray the second side with vegetable oil and return the basket to the air fryer.',
+        tempF: 392,
+        tempC: 200,
+        durationMinutes: 8,
+        tip: 'The higher temperature in the second stage creates the deeply golden, crisp exterior while the potato is already tender inside.',
       },
       {
         stepNumber: 8,
-        title: 'Add the Cheesy Crust',
+        title: 'Season with Parmesan & Oregano',
         instruction:
-          'After the first 14 minutes, open the air fryer. The egg mixture should be partially set. Carefully spread the prepared cream cheese and mozzarella mixture evenly over the entire surface. Arrange the reserved roasted mushroom slices on top and gently press them into the cheese.',
-        durationMinutes: 8,
-        tip: 'Adding the cheese topping after the egg base has partially set keeps it on the surface and creates a distinct golden cheesy layer.',
-      },
-      {
-        stepNumber: 9,
-        title: 'Finish Baking',
-        instruction:
-          'Close the air fryer and continue baking until the cheese is fully melted, bubbling, and lightly golden and the egg mixture is completely set.',
-        tempF: 356,
-        tempC: 180,
-        durationMinutes: 8,
-      },
-      {
-        stepNumber: 10,
-        title: 'Finish with Olive Oil & Rest',
-        instruction:
-          'Remove the hot frittata from the air fryer and drizzle the surface with 1 tsp olive oil for a glossy finish. Let the frittata rest for 2–3 minutes before slicing and serving.',
-        tip: 'Resting allows the hot egg structure to stabilize, making the frittata easier to slice cleanly.',
+          'Transfer the hot crispy accordion potatoes to a large bowl. Season with salt and freshly ground black pepper. Add 1 tsp dried oregano and 1 1/2–2 tbsp finely grated Parmesan. Gently toss by shaking the bowl until the seasoning and cheese coat the potatoes without breaking their accordion shape.',
+        tip: 'Add the Parmesan while the potatoes are still hot so it lightly adheres to the crispy surface.',
       },
     ],
   },
 
   // --------------------------------------------------------------------------
-  // РЕЦЕПТ 2: Запіканка з рису, овочів, печериць та сиру Гауда в аерогрилі
+  // РЕЦЕПТ 2: Запечена фрітата з беконом, томатами та двома сирами
   // --------------------------------------------------------------------------
   {
-    slug: 'rice-vegetable-mushroom-gouda-bake-air-fryer',
-    title: 'Rice, Vegetable & Mushroom Bake with Gouda',
+    slug: 'bacon-tomato-two-cheese-frittata-air-fryer',
+    title: 'Bacon, Tomato & Two-Cheese Air Fryer Frittata',
     description:
-      'A hearty air fryer rice bake packed with mushrooms, carrot, zucchini, bell pepper, eggs, and melted Gouda, finished with Parmesan for a golden cheesy crust.',
-    categorySlugs: ['dinner', 'vegetarian', 'high-protein', 'air-fryer'],
-
+      'Fluffy air fryer frittata loaded with sweet roasted onion, smoky bacon, juicy cherry tomatoes, fresh basil, Cheddar, and Mozzarella, finished with a bubbling golden cheese crust.',
+    categorySlugs: ['breakfast', 'high-protein', 'air-fryer'],
     tagSlugs: [
-      'rice',
-      'mushrooms',
-      'zucchini',
-      'vegetables',
       'eggs',
       'cheese',
-      'cheesy',
       'garlic',
+      'fluffy',
+      'cheesy',
+      'weeknight',
+      'family-friendly',
     ],
-
     prepTimeMinutes: 15,
     cookTimeMinutes: 32,
     servings: 3,
-    caloriesPerServing: 450,
+    caloriesPerServing: 390,
     featuredImage:
-      'https://res.cloudinary.com/bttfno8p/image/upload/v1790358095/rice-bake.jpg',
-    youtubeId: 'ZvNnxkkCVIU',
-    publishedAt: '2026-09-27',
+      'https://res.cloudinary.com/bttfno8p/image/upload/v1790884036/frittata-bacon-2cheese.jpg',
+    youtubeId: 'lJ1W0Vn8KII',
+    publishedAt: '2026-10-01',
 
     mistakeToAvoid:
-      'Mixing the raw eggs into vegetables and mushrooms immediately after roasting while they are still extremely hot. The eggs can begin to set unevenly, resulting in a dense or lumpy texture.',
+      'Adding all of the cheese and tomatoes to the frittata before the egg mixture has started to set. The toppings can sink into the eggs and become hidden, while the cheese may overcook before the center is ready.',
+
     theRightMove:
-      'Let the roasted vegetables and mushrooms stand for 3–5 minutes before adding the cooked rice, cheese, and eggs. Mix everything thoroughly in the baking dish, then bake until the rice and egg mixture is firm before adding the final Parmesan crust.',
+      'Roast the onion first, add the bacon and half of the cherry tomatoes partway through, then fold the roasted mixture and half of the cheese into the eggs. Add the remaining cheese and tomatoes during the final stage so they stay visible and develop a golden, bubbling crust.',
 
     ingredients: [
       {
-        name: 'Cooked Rice',
-        amountUS: '10.6 oz',
-        amountMetric: '300 g',
-        notes:
-          'cooked from approximately 110–120 g dry rice; cooled slightly before mixing',
+        name: 'Yellow Onion',
+        amountUS: '1 medium onion',
+        amountMetric: '150 g',
+        notes: 'cut into thick half-moons approximately 7 mm thick',
       },
       {
-        name: 'Gouda Cheese',
-        amountUS: '3.5 oz',
-        amountMetric: '100 g',
-        notes: 'coarsely grated',
-      },
-      {
-        name: 'Mushrooms',
-        amountUS: '3–4 medium mushrooms',
-        amountMetric: '3–4 medium mushrooms',
+        name: 'Smoked Bacon',
+        amountUS: '2–3 slices',
+        amountMetric: '50–60 g',
         notes: 'cut into small pieces',
       },
       {
-        name: 'Carrot',
-        amountUS: '1 medium carrot',
-        amountMetric: '1 medium carrot',
-        notes: 'cut into small cubes',
-      },
-      {
-        name: 'Zucchini',
-        amountUS: '1 small zucchini',
-        amountMetric: '1 small zucchini',
-        notes: 'cut into medium cubes',
-      },
-      {
-        name: 'Bell Pepper',
-        amountUS: '1 small bell pepper',
-        amountMetric: '1 small bell pepper',
-        notes: 'cut into medium cubes',
+        name: 'Cherry Tomatoes',
+        amountUS: '6–7 tomatoes',
+        amountMetric: '80–100 g',
+        notes: 'halved; divide into two portions',
       },
       {
         name: 'Large Eggs',
-        amountUS: '4 eggs',
-        amountMetric: '4 eggs',
+        amountUS: '5 eggs',
+        amountMetric: '5 eggs',
       },
       {
-        name: 'Parmesan Cheese',
-        amountUS: '2 tbsp',
-        amountMetric: 'about 15 g',
-        notes: 'finely grated; Regato or Cheddar can also be used',
+        name: 'Heavy Cream',
+        amountUS: '1 1/2 tbsp',
+        amountMetric: '22 ml',
       },
       {
-        name: 'Olive Oil',
-        amountUS: '1 tbsp',
-        amountMetric: '15 ml',
-        notes: 'for roasting the vegetables and mushrooms',
+        name: 'Fresh Basil',
+        amountUS: '1 small bunch',
+        amountMetric: '10–15 g',
+        notes: 'finely chopped, plus extra leaves for garnish',
+      },
+      {
+        name: 'Garlic Powder',
+        amountUS: '1/3 tsp',
+        amountMetric: '1 g',
       },
       {
         name: 'Salt',
-        amountUS: '1/2 tsp',
-        amountMetric: 'about 3 g',
+        amountUS: 'to taste',
+        amountMetric: 'to taste',
+        notes: 'use sparingly because the bacon and cheese are already salty',
       },
       {
         name: 'Ground Black Pepper',
-        amountUS: '1/3 tsp',
-        amountMetric: 'about 1 g',
+        amountUS: 'to taste',
+        amountMetric: 'to taste',
       },
       {
-        name: 'Dried Garlic',
-        amountUS: '1/2 tsp',
-        amountMetric: 'about 1.5 g',
+        name: 'Cheddar Cheese',
+        amountUS: '0.7 oz',
+        amountMetric: '20 g',
+        notes: 'grated; divide into two portions',
       },
       {
-        name: 'Fresh Parsley',
-        amountUS: '2–3 sprigs',
-        amountMetric: '2–3 sprigs',
-        notes: 'finely chopped for serving',
+        name: 'Mozzarella Cheese',
+        amountUS: '0.7 oz',
+        amountMetric: '20 g',
+        notes: 'grated; divide into two portions',
+      },
+      {
+        name: 'Vegetable Oil',
+        amountUS: '1 tsp',
+        amountMetric: '5 ml',
+        notes: 'for greasing the baking dish',
+      },
+      {
+        name: 'Vegetable Oil',
+        amountUS: 'as needed',
+        amountMetric: 'as needed',
+        notes: 'for lightly spraying the onion during roasting',
       },
     ],
 
     steps: [
       {
         stepNumber: 1,
-        title: 'Prepare the Vegetables & Mushrooms',
+        title: 'Prepare the Egg Mixture',
         instruction:
-          'Cut 1 carrot into small cubes, 1 small zucchini into medium cubes, and 1 small bell pepper into medium cubes. Cut 3–4 medium mushrooms into small pieces. Place a parchment or silicone baking dish directly into the air fryer basket and transfer all the prepared vegetables and mushrooms into the dish.',
+          'Crack 5 eggs into a deep bowl. Add 1 1/2 tbsp heavy cream, garlic powder, salt, and black pepper. Finely chop a small bunch of fresh basil and add it to the eggs. Whisk until the mixture is smooth and evenly combined.',
+        tip: 'Do not over-whisk the eggs into a thick foam. A smooth mixture with a little incorporated air is enough for a light, fluffy frittata.',
       },
       {
         stepNumber: 2,
-        title: 'Season & Roast the Vegetables',
+        title: 'Prepare the Two-Cheese Mixture',
         instruction:
-          'Add 1 tbsp olive oil, a pinch of salt, and a pinch of black pepper to the vegetables and mushrooms. Mix carefully with a spatula directly in the baking dish until everything is evenly coated.',
-        tempF: 374,
-        tempC: 190,
-        durationMinutes: 15,
-        tip: 'The vegetables should become lightly browned while the mushrooms and zucchini release some of their excess moisture.',
+          'Grate 20 g Cheddar and 20 g Mozzarella and combine them in a small bowl. Divide the cheese mixture into two equal portions. Reserve one portion for the final topping and add the other portion to the egg mixture.',
+        tip: 'Keeping half of the cheese for the final stage creates a more visible golden cheese crust on top.',
       },
       {
         stepNumber: 3,
-        title: 'Let the Vegetables Cool Slightly',
+        title: 'Roast the Onion',
         instruction:
-          'Remove the baking dish from the air fryer and let the roasted vegetables and mushrooms stand for 3–5 minutes. This allows excess heat and steam to escape before the eggs are added.',
-        durationMinutes: 5,
-        tip: 'Do not skip this short resting period. Extremely hot vegetables can cause the raw eggs to begin setting immediately during mixing.',
+          'Cut 1 medium yellow onion into thick half-moons approximately 7 mm thick and separate the pieces. Place them in the air fryer basket, lightly spray with vegetable oil, and season with a small pinch of salt.',
+        tempF: 356,
+        tempC: 180,
+        durationMinutes: 15,
+        tip: 'Arrange the onion in a relatively even layer so the pieces roast and soften instead of steaming.',
       },
       {
         stepNumber: 4,
-        title: 'Add the Rice & Gouda',
+        title: 'Add Bacon & Cherry Tomatoes',
         instruction:
-          'Grate 100 g Gouda cheese on a coarse grater. Add 300 g cooked rice and the grated Gouda to the warm roasted vegetables and mushrooms in the baking dish.',
+          'Cut 2–3 slices of smoked bacon into small pieces. Halve 6–7 cherry tomatoes and divide them into two portions. At the 9-minute mark of the onion roasting time, open the air fryer and add the bacon and half of the halved cherry tomatoes, keeping the tomatoes cut side facing upward. Return the basket and cook for the remaining 6 minutes.',
+        tempF: 356,
+        tempC: 180,
+        durationMinutes: 6,
+        tip: 'Adding the bacon partway through prevents it from becoming overly dry while still giving it enough time to crisp around the edges.',
       },
       {
         stepNumber: 5,
-        title: 'Season the Rice Mixture',
+        title: 'Combine the Roasted Filling with the Eggs',
         instruction:
-          'Add 1/2 tsp salt, 1/3 tsp black pepper, and 1/2 tsp dried garlic. Crack 4 eggs directly into the baking dish. Carefully mix everything with a spatula until the rice, vegetables, cheese, and eggs are evenly distributed.',
-        tip: 'Use gentle movements to avoid scraping or damaging the bottom of the baking dish.',
+          'Remove the roasted onion, bacon, and tomatoes from the air fryer. Let them release steam for a moment, then gently fold them into the prepared egg, basil, cream, and half-cheese mixture.',
+        tip: 'Letting the vegetables cool slightly prevents the hot filling from prematurely setting the eggs before they go into the baking dish.',
       },
       {
         stepNumber: 6,
-        title: 'Level the Casserole',
+        title: 'Prepare the Baking Dish',
         instruction:
-          'Spread the rice and vegetable mixture into an even layer across the baking dish. Smooth the surface with the back of a spatula so it cooks uniformly.',
+          'Lightly grease a small parchment-lined air fryer baking dish with 1 tsp vegetable oil. Pour the egg mixture with the roasted onion, bacon, tomatoes, and cheese into the dish and spread the filling into an even layer.',
       },
       {
         stepNumber: 7,
-        title: 'Bake the Rice Casserole',
+        title: 'Bake the Frittata',
         instruction:
-          'Place the baking dish back into the air fryer and cook until the egg and rice mixture is fully set and firm in the center.',
-        tempF: 356,
-        tempC: 180,
-        durationMinutes: 14,
-        tip: 'The exact cooking time can vary slightly depending on the depth of the baking dish and the air fryer model.',
+          'Place the filled baking dish into the air fryer and cook until the egg mixture is partially set but the center is still slightly soft.',
+        tempF: 338,
+        tempC: 170,
+        durationMinutes: 10,
+        tip: 'The center should still have a slight wobble at this stage because it will continue cooking after the remaining cheese and tomatoes are added.',
       },
       {
         stepNumber: 8,
-        title: 'Add the Parmesan Crust',
+        title: 'Add the Cheese Crust & Tomatoes',
         instruction:
-          'Remove the baking dish briefly and sprinkle 2 tbsp finely grated Parmesan evenly over the surface of the set rice casserole.',
+          'Open the air fryer after the first 10 minutes. Evenly sprinkle the reserved Cheddar and Mozzarella mixture over the surface. Arrange the remaining cherry tomato halves cut side facing upward between the cheese.',
+        tip: 'Distribute the cheese all the way to the edges for a golden, bubbling crust around the entire frittata.',
       },
       {
         stepNumber: 9,
-        title: 'Brown the Cheese',
+        title: 'Finish Until Golden',
         instruction:
-          'Return the dish to the air fryer and bake until the Parmesan melts and develops a lightly golden crust.',
-        tempF: 374,
-        tempC: 190,
-        durationMinutes: 3,
-        tip: 'Watch the final stage closely because grated cheese can brown quickly under the strong air fryer heat.',
+          'Return the baking dish to the air fryer and cook until the eggs are fully set, the cheese is completely melted, and the surface is golden and bubbling.',
+        tempF: 338,
+        tempC: 170,
+        durationMinutes: 7,
+        tip: 'If the cheese starts browning too quickly, loosely cover the top with a small piece of foil for the final minutes.',
       },
       {
         stepNumber: 10,
-        title: 'Rest & Garnish',
+        title: 'Garnish & Serve',
         instruction:
-          'Remove the finished casserole from the air fryer and let it stand for 5 minutes. Finely chop 2–3 sprigs of fresh parsley and sprinkle it over the casserole immediately before serving.',
-        durationMinutes: 5,
-        tip: 'The short resting period allows the hot rice and egg mixture to stabilize so the casserole cuts more cleanly.',
+          'Carefully remove the finished frittata from the air fryer and let it rest for 2–3 minutes. Garnish with fresh basil leaves, slice into portions, and serve warm.',
       },
     ],
   },
