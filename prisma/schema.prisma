@@ -113,23 +113,98 @@ model RecipeTag {
   @@index([tagId])
 }
 
+model ShoppingCategory {
+  id   String @id @default(cuid())
+
+  name String
+  slug String @unique
+
+  order    Int     @default(0)
+  isActive Boolean @default(true)
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive])
+}
+
+model Product {
+  id   String @id @default(cuid())
+
+  name String
+  slug String @unique
+
+  shoppingCategoryId String
+  shoppingCategory ShoppingCategory @relation(fields: [shoppingCategoryId], references: [id], onDelete: Restrict)
+
+  ingredients Ingredient[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([shoppingCategoryId])
+}
+
 
 // =====================================================
 // INGREDIENT
 // =====================================================
 
 model Ingredient {
-  id           String  @id @default(cuid())
-  name         String
-  amountUS     String
-  amountMetric String
-  notes        String?
-  order        Int     @default(0)
+  id String @id @default(cuid())
+
+  productId String
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  amount    Decimal?
+  amountMax Decimal?
+  unit      IngredientUnit
+
+  notes String?
+  order Int @default(0)
 
   recipeId String
-  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 
   @@index([recipeId])
+  @@index([productId])
+}
+
+enum IngredientUnit {
+  // Mass
+  GRAM
+  KILOGRAM
+  OUNCE
+  POUND
+
+  // Volume
+  MILLILITER
+  LITER
+  TEASPOON
+  TABLESPOON
+  CUP
+  FLUID_OUNCE
+  PINT
+  QUART
+  GALLON
+
+  // Count
+  PIECE
+  CLOVE
+  BULB
+  HEAD
+  BUNCH
+  CAN
+  PACKAGE
+  SLICE
+
+  // Qualitative
+  PINCH
+  DASH
+  TO_TASTE
+  AS_NEEDED
 }
 
 
