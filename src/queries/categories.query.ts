@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma';
+import { prisma } from '../lib/prisma';
 import { CACHE_TAGS } from '@/types/cache-tags.type';
 import { cacheLife, cacheTag } from 'next/cache';
 

@@ -4,329 +4,305 @@ import { MocRecipe } from '@/types/recipe.type';
 
 export const mockRecipes: MocRecipe[] = [
   // --------------------------------------------------------------------------
-  // РЕЦЕПТ 1: Хрустка картопля-гармошка з пармезаном
+  // РЕЦЕПТ 1
   // --------------------------------------------------------------------------
   {
-    slug: 'crispy-accordion-potatoes-parmesan-air-fryer',
-    title: 'Crispy Accordion Potatoes with Parmesan',
+    slug: 'air-fryer-bacon-cheddar-mozzarella-frittata',
+    title: 'Air Fryer Bacon, Cheddar & Mozzarella Frittata',
     description:
-      'Crispy air fryer accordion potatoes made from golden Russet potatoes, lightly coated with cornstarch and finished with oregano, black pepper, and grated Parmesan.',
-    categorySlugs: ['dinner', 'air-fryer'],
-    tagSlugs: ['potatoes', 'crispy', 'cheesy', 'family-friendly'],
-    prepTimeMinutes: 45,
-    cookTimeMinutes: 20,
-    servings: 3,
-    caloriesPerServing: 300,
+      'A fluffy and savory air fryer frittata made with crispy bacon, roasted onions, cherry tomatoes, fresh basil, Cheddar, and mozzarella. Easy to prepare and finished with a golden, bubbly cheese crust.',
+    categorySlugs: ['breakfast', 'high-protein', 'air-fryer', 'quick-easy'],
+    tagSlugs: ['cheesy', 'juicy', 'weeknight', 'family-friendly'],
+    prepTimeMinutes: 15,
+    cookTimeMinutes: 32,
+    servings: 4,
+    caloriesPerServing: null,
     featuredImage:
-      'https://res.cloudinary.com/bttfno8p/image/upload/v1790886209/potato-accordion.jpg',
-    youtubeId: 'LOFSU3Xc49Y',
-    publishedAt: '2026-10-01',
-
+      'https://res.cloudinary.com/bttfno8p/image/upload/v1790884036/frittata-bacon-2cheese.jpg',
+    youtubeId: 'lJ1W0Vn8KII',
+    publishedAt: '2026-10-02',
     mistakeToAvoid:
-      'Leaving too much moisture or excess cornstarch on the potato slices. Wet potatoes will steam instead of crisping, while a heavy layer of starch can create a powdery coating and prevent an even golden crust.',
-
+      'Do not add all of the cheese before baking. Reserve half for the final stage so it melts on top and creates a golden, bubbly crust.',
     theRightMove:
-      'Soak the sliced potato accordions in cold water, dry them extremely well, then dust both sides with a very thin layer of cornstarch. Give them enough space in the air fryer so hot air can circulate around every side.',
-
+      'Roast the onion first, then add the bacon and half of the cherry tomatoes halfway through cooking. This builds a flavorful base while keeping the tomatoes from becoming overly soft.',
     ingredients: [
       {
-        name: 'Large Russet Potatoes',
-        amountUS: '3 large potatoes',
-        amountMetric: '600–700 g',
-        notes: 'peeled and trimmed into rectangular blocks',
+        productSlug: 'onion',
+        amount: 1,
+        unitCode: 'PIECE',
+        notes: 'medium yellow, cut into 7 mm thick half-moons',
       },
       {
-        name: 'Cornstarch',
-        amountUS: '1 1/2–2 tbsp',
-        amountMetric: '12–16 g',
-        notes: 'for lightly coating the potato accordions',
+        productSlug: 'bacon',
+        amount: 2,
+        amountMax: 3,
+        unitCode: 'SLICE',
+        notes: 'smoked, cut into small pieces',
       },
       {
-        name: 'Vegetable Oil',
-        amountUS: 'as needed',
-        amountMetric: 'as needed',
-        notes: 'preferably in a spray bottle, for lightly coating the potatoes',
+        productSlug: 'cherry-tomato',
+        amount: 6,
+        amountMax: 7,
+        unitCode: 'PIECE',
+        notes: 'halved',
+      },
+      { productSlug: 'egg', amount: 5, unitCode: 'PIECE' },
+      {
+        productSlug: 'heavy-cream',
+        amount: 1.5,
+        unitCode: 'TABLESPOON',
       },
       {
-        name: 'Salt',
-        amountUS: 'to taste',
-        amountMetric: 'to taste',
+        productSlug: 'basil',
+        amount: 1,
+        unitCode: 'BUNCH',
+        notes: 'small, finely chopped, plus extra leaves for garnish',
       },
       {
-        name: 'Ground Black Pepper',
-        amountUS: 'to taste',
-        amountMetric: 'to taste',
+        productSlug: 'garlic-powder',
+        amount: 1 / 3,
+        unitCode: 'TEASPOON',
+      },
+      { productSlug: 'salt', unitCode: 'TO_TASTE' },
+      {
+        productSlug: 'black-pepper',
+        unitCode: 'TO_TASTE',
+        notes: 'ground',
       },
       {
-        name: 'Dried Oregano',
-        amountUS: '1 tsp',
-        amountMetric: '1 tsp',
+        productSlug: 'cheddar-cheese',
+        amount: 20,
+        unitCode: 'GRAM',
+        notes: 'grated',
       },
       {
-        name: 'Parmesan Cheese',
-        amountUS: '1 1/2–2 tbsp',
-        amountMetric: '10–14 g',
-        notes: 'finely grated, for finishing',
+        productSlug: 'mozzarella-cheese',
+        amount: 20,
+        unitCode: 'GRAM',
+        notes: 'grated',
+      },
+      {
+        productSlug: 'vegetable-oil',
+        amount: 1,
+        unitCode: 'TEASPOON',
+        notes: 'for greasing the baking dish',
       },
     ],
-
     steps: [
       {
         stepNumber: 1,
-        title: 'Prepare the Potatoes',
+        title: 'Prepare the egg mixture',
         instruction:
-          'Wash and peel 3 large Russet potatoes. Trim the sides of each potato to create an even rectangular block. Cut each block lengthwise into slices approximately 1.2 cm thick.',
-        tip: 'Keeping the potato blocks as even as possible helps the accordion slices cook at the same rate.',
+          'Crack the eggs into a large bowl. Add the heavy cream, garlic powder, salt, and black pepper. Whisk lightly until combined.',
       },
       {
         stepNumber: 2,
-        title: 'Cut the Accordion Pattern',
+        title: 'Add the basil and cheese',
         instruction:
-          'Place one potato slice between two wooden skewers. Using a sharp knife, make straight perpendicular cuts approximately 3 mm apart across the entire length of the slice, stopping at the skewers so you do not cut all the way through. Turn the slice over and make diagonal cuts at approximately a 45-degree angle. Finally, cut each finished accordion slice lengthwise into 3–4 potato sticks.',
-        tip: 'The skewers act as a depth guide and prevent the knife from cutting completely through the potato.',
+          'Finely chop the fresh basil and add it to the egg mixture. Combine the grated Cheddar and mozzarella in a separate bowl, then stir half of the cheese mixture into the eggs.',
       },
       {
         stepNumber: 3,
-        title: 'Soak the Potato Accordions',
+        title: 'Prepare the onion',
         instruction:
-          'Place all of the cut potato accordions into a large bowl. Cover completely with cold water and leave to soak for 30 minutes to remove excess surface starch.',
-        durationMinutes: 30,
-        tip: 'Removing excess starch helps the potato surfaces become noticeably crispier in the air fryer.',
+          'Cut the yellow onion into thick half-moons about 7 mm thick and separate the pieces. Place them in the air fryer basket, drizzle with vegetable oil, and season with a pinch of salt.',
+        tempF: 356,
+        tempC: 180,
+        durationMinutes: 15,
+        isShakePoint: true,
+        tip: 'Add the bacon and half of the cherry tomatoes after 9 minutes of cooking.',
       },
       {
         stepNumber: 4,
-        title: 'Dry Thoroughly',
+        title: 'Add the bacon and tomatoes',
         instruction:
-          'Drain the potatoes and transfer them to a clean kitchen towel or several layers of paper towel. Carefully pat and dry the potato accordions from all sides until there is no visible moisture remaining.',
-        tip: 'This is one of the most important steps for achieving a crisp exterior. Do not rush the drying process.',
+          'After 9 minutes, open the air fryer. Add the chopped bacon and half of the halved cherry tomatoes, cut side up. Return the basket to the air fryer and cook for the remaining 6 minutes.',
+        tempF: 356,
+        tempC: 180,
+        durationMinutes: 6,
+        isShakePoint: false,
       },
       {
         stepNumber: 5,
-        title: 'Dust with Cornstarch',
+        title: 'Combine the filling',
         instruction:
-          'Arrange the completely dry potato accordions in a single layer on a board or wire rack. Using a fine sieve, lightly dust the top side with 1 1/2–2 tbsp cornstarch. Turn each accordion over and lightly dust the second side. Gently tap each piece to remove excess cornstarch.',
-        tip: 'Use only a thin coating. Too much cornstarch can make the finished potatoes taste chalky.',
+          'Remove the roasted onion, bacon, and tomatoes from the air fryer. Add them to the egg and cheese mixture and gently stir until evenly combined.',
       },
       {
         stepNumber: 6,
-        title: 'First Air Fry',
+        title: 'Fill the baking dish',
         instruction:
-          'Arrange the potato accordions in a single layer in the air fryer basket, leaving space between them. Lightly spray with vegetable oil.',
-        tempF: 356,
-        tempC: 180,
-        durationMinutes: 12,
-        tip: 'Avoid overcrowding the basket. Air circulation around the individual potato pieces is essential for crisp edges.',
+          'Lightly grease a parchment baking dish with 1 teaspoon of vegetable oil. Pour in the egg mixture and spread the ingredients evenly.',
       },
       {
         stepNumber: 7,
-        title: 'Flip & Crisp',
+        title: 'Bake the frittata',
         instruction:
-          'Carefully turn each potato accordion over. Lightly spray the second side with vegetable oil and return the basket to the air fryer.',
-        tempF: 392,
-        tempC: 200,
-        durationMinutes: 8,
-        tip: 'The higher temperature in the second stage creates the deeply golden, crisp exterior while the potato is already tender inside.',
+          'Place the baking dish in the air fryer and cook until the eggs are mostly set.',
+        tempF: 338,
+        tempC: 170,
+        durationMinutes: 17,
+        isShakePoint: true,
+        tip: 'After 10 minutes, top the frittata with the remaining cheese and the remaining cherry tomatoes.',
       },
       {
         stepNumber: 8,
-        title: 'Season with Parmesan & Oregano',
+        title: 'Finish with the cheese crust',
         instruction:
-          'Transfer the hot crispy accordion potatoes to a large bowl. Season with salt and freshly ground black pepper. Add 1 tsp dried oregano and 1 1/2–2 tbsp finely grated Parmesan. Gently toss by shaking the bowl until the seasoning and cheese coat the potatoes without breaking their accordion shape.',
-        tip: 'Add the Parmesan while the potatoes are still hot so it lightly adheres to the crispy surface.',
+          'After 10 minutes of cooking, open the air fryer. Sprinkle the remaining Cheddar and mozzarella evenly over the top and arrange the remaining cherry tomatoes cut side up. Return the dish to the air fryer and cook for the final 7 minutes, until the cheese is fully melted, golden, and bubbly.',
+        tempF: 338,
+        tempC: 170,
+        durationMinutes: 7,
+      },
+      {
+        stepNumber: 9,
+        title: 'Garnish and serve',
+        instruction:
+          'Remove the frittata from the air fryer and garnish with fresh basil leaves. Let it rest briefly before slicing and serving.',
       },
     ],
   },
 
   // --------------------------------------------------------------------------
-  // РЕЦЕПТ 2: Запечена фрітата з беконом, томатами та двома сирами
+  // РЕЦЕПТ 2
   // --------------------------------------------------------------------------
   {
-    slug: 'bacon-tomato-two-cheese-frittata-air-fryer',
-    title: 'Bacon, Tomato & Two-Cheese Air Fryer Frittata',
+    slug: 'crispy-air-fryer-accordion-potatoes',
+    title: 'Crispy Air Fryer Accordion Potatoes',
     description:
-      'Fluffy air fryer frittata loaded with sweet roasted onion, smoky bacon, juicy cherry tomatoes, fresh basil, Cheddar, and Mozzarella, finished with a bubbling golden cheese crust.',
-    categorySlugs: ['breakfast', 'high-protein', 'air-fryer'],
-    tagSlugs: [
-      'eggs',
-      'cheese',
-      'garlic',
-      'fluffy',
-      'cheesy',
-      'weeknight',
-      'family-friendly',
-    ],
-    prepTimeMinutes: 15,
-    cookTimeMinutes: 32,
-    servings: 3,
-    caloriesPerServing: 390,
+      'These crispy air fryer accordion potatoes are thin, golden, and crunchy on the outside while tender inside. Soaked to remove excess starch, lightly coated with cornstarch, and finished with Parmesan and oregano, they make an impressive side dish with simple ingredients.',
+
+    categorySlugs: ['dinner', 'vegetarian', 'air-fryer', 'quick-easy'],
+    tagSlugs: ['crispy', 'crunchy', 'family-friendly'],
+
+    prepTimeMinutes: 45,
+    cookTimeMinutes: 20,
+    servings: 4,
+    caloriesPerServing: 210,
+
     featuredImage:
-      'https://res.cloudinary.com/bttfno8p/image/upload/v1790884036/frittata-bacon-2cheese.jpg',
-    youtubeId: 'lJ1W0Vn8KII',
-    publishedAt: '2026-10-01',
+      'https://res.cloudinary.com/bttfno8p/image/upload/v1790886209/potato-accordion.jpg',
+
+    youtubeId: 'LOFSU3Xc49Y',
+
+    publishedAt: '2026-10-02',
 
     mistakeToAvoid:
-      'Adding all of the cheese and tomatoes to the frittata before the egg mixture has started to set. The toppings can sink into the eggs and become hidden, while the cheese may overcook before the center is ready.',
+      'Do not skip the soaking and drying steps. Excess starch and moisture can prevent the accordion potatoes from becoming properly crisp in the air fryer.',
 
     theRightMove:
-      'Roast the onion first, add the bacon and half of the cherry tomatoes partway through, then fold the roasted mixture and half of the cheese into the eggs. Add the remaining cheese and tomatoes during the final stage so they stay visible and develop a golden, bubbling crust.',
+      'Dry the potato pieces thoroughly before coating them with cornstarch, then arrange them in a single layer with space between each piece so hot air can circulate evenly.',
 
     ingredients: [
       {
-        name: 'Yellow Onion',
-        amountUS: '1 medium onion',
-        amountMetric: '150 g',
-        notes: 'cut into thick half-moons approximately 7 mm thick',
+        productSlug: 'potato',
+        amount: 600,
+        amountMax: 700,
+        unitCode: 'GRAM',
+        notes: 'large, preferably Russet',
       },
       {
-        name: 'Smoked Bacon',
-        amountUS: '2–3 slices',
-        amountMetric: '50–60 g',
-        notes: 'cut into small pieces',
+        productSlug: 'cornstarch',
+        amount: 1.5,
+        amountMax: 2,
+        unitCode: 'TABLESPOON',
+        notes: 'for coating',
       },
       {
-        name: 'Cherry Tomatoes',
-        amountUS: '6–7 tomatoes',
-        amountMetric: '80–100 g',
-        notes: 'halved; divide into two portions',
+        productSlug: 'vegetable-oil',
+        amount: null,
+        unitCode: 'AS_NEEDED',
+        notes: 'in spray bottle',
       },
       {
-        name: 'Large Eggs',
-        amountUS: '5 eggs',
-        amountMetric: '5 eggs',
+        productSlug: 'salt',
+        amount: null,
+        unitCode: 'TO_TASTE',
       },
       {
-        name: 'Heavy Cream',
-        amountUS: '1 1/2 tbsp',
-        amountMetric: '22 ml',
+        productSlug: 'black-pepper',
+        amount: null,
+        unitCode: 'TO_TASTE',
+        notes: 'ground',
       },
       {
-        name: 'Fresh Basil',
-        amountUS: '1 small bunch',
-        amountMetric: '10–15 g',
-        notes: 'finely chopped, plus extra leaves for garnish',
+        productSlug: 'dried-oregano',
+        amount: 1,
+        unitCode: 'TEASPOON',
       },
       {
-        name: 'Garlic Powder',
-        amountUS: '1/3 tsp',
-        amountMetric: '1 g',
-      },
-      {
-        name: 'Salt',
-        amountUS: 'to taste',
-        amountMetric: 'to taste',
-        notes: 'use sparingly because the bacon and cheese are already salty',
-      },
-      {
-        name: 'Ground Black Pepper',
-        amountUS: 'to taste',
-        amountMetric: 'to taste',
-      },
-      {
-        name: 'Cheddar Cheese',
-        amountUS: '0.7 oz',
-        amountMetric: '20 g',
-        notes: 'grated; divide into two portions',
-      },
-      {
-        name: 'Mozzarella Cheese',
-        amountUS: '0.7 oz',
-        amountMetric: '20 g',
-        notes: 'grated; divide into two portions',
-      },
-      {
-        name: 'Vegetable Oil',
-        amountUS: '1 tsp',
-        amountMetric: '5 ml',
-        notes: 'for greasing the baking dish',
-      },
-      {
-        name: 'Vegetable Oil',
-        amountUS: 'as needed',
-        amountMetric: 'as needed',
-        notes: 'for lightly spraying the onion during roasting',
+        productSlug: 'parmesan-cheese',
+        amount: 1.5,
+        amountMax: 2,
+        unitCode: 'TABLESPOON',
+        notes: 'finely grated',
       },
     ],
 
     steps: [
       {
         stepNumber: 1,
-        title: 'Prepare the Egg Mixture',
+        title: 'Prepare the potatoes',
         instruction:
-          'Crack 5 eggs into a deep bowl. Add 1 1/2 tbsp heavy cream, garlic powder, salt, and black pepper. Finely chop a small bunch of fresh basil and add it to the eggs. Whisk until the mixture is smooth and evenly combined.',
-        tip: 'Do not over-whisk the eggs into a thick foam. A smooth mixture with a little incorporated air is enough for a light, fluffy frittata.',
+          'Wash and peel the potatoes. Trim the sides to create even rectangular blocks. Cut each block into slices about 1/2 inch (1.2 cm) thick.',
       },
       {
         stepNumber: 2,
-        title: 'Prepare the Two-Cheese Mixture',
+        title: 'Create the accordion pattern',
         instruction:
-          'Grate 20 g Cheddar and 20 g Mozzarella and combine them in a small bowl. Divide the cheese mixture into two equal portions. Reserve one portion for the final topping and add the other portion to the egg mixture.',
-        tip: 'Keeping half of the cheese for the final stage creates a more visible golden cheese crust on top.',
+          'Place one potato slice between two wooden skewers. Make straight perpendicular cuts along the entire length of the slice, spacing them about 1/8 inch (3 mm) apart. The skewers will prevent the knife from cutting all the way through.',
+        tip: 'Keep the skewers close against the potato slice to create evenly spaced cuts without slicing through the potato.',
       },
       {
         stepNumber: 3,
-        title: 'Roast the Onion',
+        title: 'Make the diagonal cuts',
         instruction:
-          'Cut 1 medium yellow onion into thick half-moons approximately 7 mm thick and separate the pieces. Place them in the air fryer basket, lightly spray with vegetable oil, and season with a small pinch of salt.',
-        tempF: 356,
-        tempC: 180,
-        durationMinutes: 15,
-        tip: 'Arrange the onion in a relatively even layer so the pieces roast and soften instead of steaming.',
+          'Turn the potato slice over and make diagonal cuts at a 45-degree angle to the skewers along the entire length. Then cut the slice lengthwise into 3–4 accordion-shaped sticks. Repeat with the remaining potato slices.',
       },
       {
         stepNumber: 4,
-        title: 'Add Bacon & Cherry Tomatoes',
+        title: 'Soak the potatoes',
         instruction:
-          'Cut 2–3 slices of smoked bacon into small pieces. Halve 6–7 cherry tomatoes and divide them into two portions. At the 9-minute mark of the onion roasting time, open the air fryer and add the bacon and half of the halved cherry tomatoes, keeping the tomatoes cut side facing upward. Return the basket and cook for the remaining 6 minutes.',
-        tempF: 356,
-        tempC: 180,
-        durationMinutes: 6,
-        tip: 'Adding the bacon partway through prevents it from becoming overly dry while still giving it enough time to crisp around the edges.',
+          'Place the potato accordion sticks in a large bowl and cover them with cold water. Let them soak for 30 minutes to remove excess starch.',
+        durationMinutes: 30,
       },
       {
         stepNumber: 5,
-        title: 'Combine the Roasted Filling with the Eggs',
+        title: 'Dry thoroughly',
         instruction:
-          'Remove the roasted onion, bacon, and tomatoes from the air fryer. Let them release steam for a moment, then gently fold them into the prepared egg, basil, cream, and half-cheese mixture.',
-        tip: 'Letting the vegetables cool slightly prevents the hot filling from prematurely setting the eggs before they go into the baking dish.',
+          'Drain the potatoes and spread them over a clean kitchen towel or paper towels. Pat and dry them thoroughly on all sides. The potato pieces should be completely dry before coating.',
+        tip: 'Thorough drying is essential for a crisp exterior.',
       },
       {
         stepNumber: 6,
-        title: 'Prepare the Baking Dish',
+        title: 'Coat with cornstarch',
         instruction:
-          'Lightly grease a small parchment-lined air fryer baking dish with 1 tsp vegetable oil. Pour the egg mixture with the roasted onion, bacon, tomatoes, and cheese into the dish and spread the filling into an even layer.',
+          'Arrange the dry potato accordion sticks in a single layer on a board or rack. Dust them lightly with cornstarch through a fine sieve, turn them over, and dust the other side. Gently tap each piece to remove excess cornstarch.',
       },
       {
         stepNumber: 7,
-        title: 'Bake the Frittata',
+        title: 'Air fry until tender',
         instruction:
-          'Place the filled baking dish into the air fryer and cook until the egg mixture is partially set but the center is still slightly soft.',
-        tempF: 338,
-        tempC: 170,
-        durationMinutes: 10,
-        tip: 'The center should still have a slight wobble at this stage because it will continue cooking after the remaining cheese and tomatoes are added.',
+          'Arrange the potato accordion sticks in the air fryer basket in a single layer, leaving space between them. Lightly spray with vegetable oil. Air fry at 180°C (356°F) for 12 minutes, until the potatoes are cooked through.',
+        tempC: 180,
+        tempF: 356,
+        durationMinutes: 12,
       },
       {
         stepNumber: 8,
-        title: 'Add the Cheese Crust & Tomatoes',
+        title: 'Crisp the potatoes',
         instruction:
-          'Open the air fryer after the first 10 minutes. Evenly sprinkle the reserved Cheddar and Mozzarella mixture over the surface. Arrange the remaining cherry tomato halves cut side facing upward between the cheese.',
-        tip: 'Distribute the cheese all the way to the edges for a golden, bubbling crust around the entire frittata.',
+          'Carefully turn the accordion potatoes over and lightly spray them with vegetable oil again. Increase the temperature to 200°C (392°F) and air fry for 8 minutes, or until golden brown and crispy.',
+        tempC: 200,
+        tempF: 392,
+        durationMinutes: 8,
+        isShakePoint: true,
       },
       {
         stepNumber: 9,
-        title: 'Finish Until Golden',
+        title: 'Season and serve',
         instruction:
-          'Return the baking dish to the air fryer and cook until the eggs are fully set, the cheese is completely melted, and the surface is golden and bubbling.',
-        tempF: 338,
-        tempC: 170,
-        durationMinutes: 7,
-        tip: 'If the cheese starts browning too quickly, loosely cover the top with a small piece of foil for the final minutes.',
-      },
-      {
-        stepNumber: 10,
-        title: 'Garnish & Serve',
-        instruction:
-          'Carefully remove the finished frittata from the air fryer and let it rest for 2–3 minutes. Garnish with fresh basil leaves, slice into portions, and serve warm.',
+          'Transfer the crispy potatoes to a bowl. Season with salt and ground black pepper to taste, then add the dried oregano and grated Parmesan. Gently toss by shaking the bowl until evenly coated.',
       },
     ],
   },

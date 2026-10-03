@@ -6,65 +6,62 @@ datasource db {
   provider = "postgresql"
 }
 
-
 // =====================================================
 // RECIPE
 // =====================================================
 
 model Recipe {
-  id                 String   @id @default(cuid())
-  slug               String   @unique
-  title              String
-  description        String
+  id          String @id @default(cuid())
+  slug        String @unique
+  title       String
+  description String
 
   prepTimeMinutes    Int
   cookTimeMinutes    Int
   servings           Int
   caloriesPerServing Int?
 
-  featuredImage      String
-  youtubeId          String?
-  publishedAt        DateTime @default(now())
+  featuredImage String
+  youtubeId     String?
+  publishedAt   DateTime @default(now())
 
-  mistakeToAvoid     String
-  theRightMove      String
+  mistakeToAvoid String
+  theRightMove   String
 
-  categories         RecipeCategory[]
-  tags               RecipeTag[]
-  ingredients        Ingredient[]
-  steps              Step[]
+  categories  RecipeCategory[]
+  tags        RecipeTag[]
+  ingredients Ingredient[]
+  steps       Step[]
 
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([publishedAt])
 }
-
 
 // =====================================================
 // CATEGORY
 // =====================================================
 
 model Category {
-  id          String       @id @default(cuid())
-  slug        String       @unique
-  name        String
-  type        CategoryType
+  id   String       @id @default(cuid())
+  slug String       @unique
+  name String
+  type CategoryType
 
   description String?
   image       String?
-  order       Int          @default(0)
-  isActive    Boolean      @default(true)
+  order       Int     @default(0)
+  isActive    Boolean @default(true)
 
-  recipes     RecipeCategory[]
+  recipes RecipeCategory[]
 
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([type])
   @@index([isActive])
 }
-
 
 // =====================================================
 // RECIPE <-> CATEGORY
@@ -81,22 +78,20 @@ model RecipeCategory {
   @@index([categoryId])
 }
 
-
 // =====================================================
 // TAG
 // =====================================================
 
 model Tag {
-  id      String      @id @default(cuid())
-  slug    String      @unique
-  name    String
+  id   String @id @default(cuid())
+  slug String @unique
+  name String
 
   recipes RecipeTag[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
 
 // =====================================================
 // RECIPE <-> TAG
@@ -114,7 +109,7 @@ model RecipeTag {
 }
 
 model ShoppingCategory {
-  id   String @id @default(cuid())
+  id String @id @default(cuid())
 
   name String
   slug String @unique
@@ -131,13 +126,13 @@ model ShoppingCategory {
 }
 
 model Product {
-  id   String @id @default(cuid())
+  id String @id @default(cuid())
 
   name String
   slug String @unique
 
   shoppingCategoryId String
-  shoppingCategory ShoppingCategory @relation(fields: [shoppingCategoryId], references: [id], onDelete: Restrict)
+  shoppingCategory   ShoppingCategory @relation(fields: [shoppingCategoryId], references: [id], onDelete: Restrict)
 
   ingredients Ingredient[]
 
@@ -147,7 +142,6 @@ model Product {
   @@index([shoppingCategoryId])
 }
 
-
 // =====================================================
 // INGREDIENT
 // =====================================================
@@ -156,82 +150,87 @@ model Ingredient {
   id String @id @default(cuid())
 
   productId String
-  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
 
-  amount    Decimal?
-  amountMax Decimal?
-  unit      IngredientUnit
+  amount    Decimal? @db.Decimal(10, 3)
+  amountMax Decimal? @db.Decimal(10, 3)
+
+  unitId String
+  unit   Unit   @relation(fields: [unitId], references: [id], onDelete: Restrict)
 
   notes String?
-  order Int @default(0)
+  order Int     @default(0)
 
   recipeId String
-  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 
   @@index([recipeId])
   @@index([productId])
+  @@index([unitId])
 }
 
-enum IngredientUnit {
-  // Mass
-  GRAM
-  KILOGRAM
-  OUNCE
-  POUND
-
-  // Volume
-  MILLILITER
-  LITER
-  TEASPOON
-  TABLESPOON
-  CUP
-  FLUID_OUNCE
-  PINT
-  QUART
-  GALLON
-
-  // Count
-  PIECE
-  CLOVE
-  BULB
-  HEAD
-  BUNCH
-  CAN
-  PACKAGE
-  SLICE
-
-  // Qualitative
-  PINCH
-  DASH
-  TO_TASTE
-  AS_NEEDED
+enum UnitCategory {
+  MASS
+  VOLUME
+  COUNT
+  COOKING
+  QUALITATIVE
 }
 
+enum UnitSystem {
+  METRIC
+  US
+  UNIVERSAL
+}
+
+model Unit {
+  id       String @id @default(cuid())
+  code     String @unique
+  name     String
+  symbol   String
+
+  system   UnitSystem
+  category UnitCategory
+
+  baseUnitId  String?
+  baseUnit   Unit?  @relation("UnitBase", fields: [baseUnitId], references: [id])
+  conversions Unit[] @relation("UnitBase")
+
+  conversionFactor Decimal? @db.Decimal(12, 6)
+
+  ingredients Ingredient[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([system])
+  @@index([category])
+  @@index([baseUnitId])
+}
 
 // =====================================================
 // STEP
 // =====================================================
 
 model Step {
-  id              String   @id @default(cuid())
-  stepNumber      Int
-  title           String
-  instruction     String
+  id          String @id @default(cuid())
+  stepNumber  Int
+  title       String
+  instruction String
 
   tempF           Int?
   tempC           Int?
   durationMinutes Int?
 
-  isShakePoint    Boolean  @default(false)
-  tip             String?
+  isShakePoint Boolean @default(false)
+  tip          String?
 
   recipeId String
   recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 
-  @@index([recipeId])
   @@unique([recipeId, stepNumber])
+  @@index([recipeId])
 }
-
 
 // =====================================================
 // ENUMS

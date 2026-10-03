@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { TFullRecipe } from '@/types/recipe.type';
+import type { TUnitSystem } from '@/types/recipe.type';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
@@ -16,13 +16,21 @@ import {
 import { siteConfig } from '@/config/site.config';
 import UnitSystemToggle from './UnitSystemToggle';
 import StepCard from './StepCard';
+import {
+  formatIngredient,
+  formatIngredientQuantity,
+  FormatterUnit,
+  toFormatterIngredient,
+} from '@/lib/formatIngredient';
+import { TGetRecipe } from '@/queries/recipes.query';
 
 interface Props {
-  recipe: TFullRecipe;
+  recipe: TGetRecipe;
+  units: FormatterUnit[];
 }
 
-export default function RecipeInteractiveView({ recipe }: Props) {
-  const [unitSystem, setUnitSystem] = useState<'us' | 'metric'>('us');
+export default function RecipeInteractiveView({ recipe, units }: Props) {
+  const [unitSystem, setUnitSystem] = useState<TUnitSystem>('us');
   const [checkedIngredients, setCheckedIngredients] = useState<string[]>([]);
 
   const toggleIngredient = (id: string) => {
@@ -112,7 +120,6 @@ export default function RecipeInteractiveView({ recipe }: Props) {
         </CardContent>
       </Card>
 
-      {/* 3. Двоколонковий макет для друку (Інгредієнти зліва, Кроки справа) */}
       <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 print:grid-cols-12 print:gap-4">
         {/* Ліва колонка: Інгредієнти */}
         <div className="space-y-4 lg:sticky lg:top-6 lg:col-span-5 print:col-span-5 print:break-inside-avoid print:space-y-2">
@@ -131,14 +138,16 @@ export default function RecipeInteractiveView({ recipe }: Props) {
             <Separator className="print:hidden" />
             <CardContent className="space-y-2 pt-4 print:space-y-1.5 print:p-2 print:pt-1">
               {recipe.ingredients.map((ing) => {
-                const ingredientLabel = `${unitSystem === 'us' ? ing.amountUS : ing.amountMetric} ${ing.name}`;
+                const formatted = formatIngredient(toFormatterIngredient(ing), {
+                  unitSystem,
+                  units,
+                });
 
                 return (
                   <div
                     key={ing.id}
                     className="flex items-start gap-2.5 text-sm leading-tight print:text-xs"
                   >
-                    {/* Квадратик для друку */}
                     <div className="mt-0.5 hidden h-3 w-3 shrink-0 rounded-sm border border-zinc-400 print:block" />
 
                     <Checkbox
@@ -146,22 +155,24 @@ export default function RecipeInteractiveView({ recipe }: Props) {
                       checked={checkedIngredients.includes(ing.id)}
                       onCheckedChange={() => toggleIngredient(ing.id)}
                       className="mt-0.5 print:hidden"
-                      aria-label={`Mark ${ingredientLabel} as prepared`}
+                      aria-label={`Add ${formatted.productName} to shopping list`}
                     />
 
                     <label
                       htmlFor={`ingredient-${ing.id}`}
                       className="cursor-pointer"
                     >
-                      <span className="mr-1 font-semibold text-orange-600 print:text-black">
-                        {unitSystem === 'us' ? ing.amountUS : ing.amountMetric}
-                      </span>
+                      <div>
+                        <span className="mr-2 font-semibold text-orange-600 print:text-black">
+                          {formatIngredientQuantity(formatted)}
+                        </span>
 
-                      <span>{ing.name}</span>
+                        <span>{formatted.productName}</span>
+                      </div>
 
-                      {ing.notes && (
-                        <span className="block text-xs text-zinc-500 print:text-[10px]">
-                          ({ing.notes})
+                      {formatted.notes && (
+                        <span className="block pl-0 text-xs text-zinc-500 print:text-[10px]">
+                          {formatted.notes}
                         </span>
                       )}
                     </label>

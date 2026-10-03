@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import type { TFullRecipe } from '@/types/recipe.type';
 import {
   Dialog,
   DialogContent,
@@ -14,14 +13,22 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Printer, Eye } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
+import type { TGetRecipe } from '@/queries/recipes.query';
+import {
+  formatIngredient,
+  formatIngredientQuantity,
+  FormatterUnit,
+  toFormatterIngredient,
+} from '@/lib/formatIngredient';
 
 interface Props {
-  recipe: TFullRecipe;
+  recipe: TGetRecipe;
+  units: FormatterUnit[];
 }
 
 type FontSize = 'sm' | 'base' | 'lg';
 
-export default function PrintModal({ recipe }: Props) {
+export default function PrintModal({ recipe, units }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [showTips, setShowTips] = useState(true);
@@ -241,27 +248,31 @@ export default function PrintModal({ recipe }: Props) {
                   Ingredients
                 </h2>
                 <ul className={fontStyles.gap}>
-                  {recipe.ingredients.map((ing) => (
-                    <li
-                      key={ing.id}
-                      className="flex items-start gap-1.5 leading-snug"
-                    >
-                      <span className="mt-0.5 inline-block h-2.5 w-2.5 shrink-0 rounded-sm border border-zinc-400" />
-                      <span>
-                        <strong>
-                          {unitSystem === 'us'
-                            ? ing.amountUS
-                            : ing.amountMetric}
-                        </strong>{' '}
-                        {ing.name}
-                        {ing.notes && (
-                          <span className="block text-[9px] text-zinc-500">
-                            ({ing.notes})
-                          </span>
-                        )}
-                      </span>
-                    </li>
-                  ))}
+                  {recipe.ingredients.map((ing) => {
+                    const formatted = formatIngredient(
+                      toFormatterIngredient(ing),
+                      { unitSystem, units }
+                    );
+
+                    return (
+                      <li
+                        key={ing.id}
+                        className="flex items-start gap-1.5 leading-snug"
+                      >
+                        <span className="mt-0.5 inline-block h-2.5 w-2.5 shrink-0 rounded-sm border border-zinc-400" />
+
+                        <span>
+                          <strong>{formatIngredientQuantity(formatted)}</strong>{' '}
+                          <span>{formatted.productName}</span>
+                          {formatted.notes && (
+                            <span className="block text-[9px] text-zinc-500">
+                              ({formatted.notes})
+                            </span>
+                          )}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 

@@ -15,8 +15,8 @@ CREATE TYPE "IngredientUnit" AS ENUM ('GRAM', 'KILOGRAM', 'OUNCE', 'POUND', 'MIL
 ALTER TABLE "Ingredient" DROP COLUMN "amountMetric",
 DROP COLUMN "amountUS",
 DROP COLUMN "name",
-ADD COLUMN     "amount" DECIMAL(65,30),
-ADD COLUMN     "amountMax" DECIMAL(65,30),
+ADD COLUMN     "amount" DECIMAL(10,3),
+ADD COLUMN     "amountMax" DECIMAL(10,3),
 ADD COLUMN     "productId" TEXT NOT NULL,
 ADD COLUMN     "unit" "IngredientUnit" NOT NULL;
 

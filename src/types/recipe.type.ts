@@ -1,13 +1,31 @@
-export interface MocIngredient {
-  name: string;
-  amountUS: string;
-  amountMetric: string;
+import type { Unit } from '@prisma/client';
+
+export interface IMocIngredient {
+  productSlug: string;
+  amount?: number | null;
+  amountMax?: number | null;
+  unitCode: string;
   notes?: string | null;
-  order?: number;
 }
-export type Ingredient = MocIngredient & {
+
+export interface IngredientProduct {
   id: string;
-};
+  name: string;
+  slug: string;
+}
+
+export interface Ingredient {
+  id: string;
+  productId: string;
+  recipeId: string;
+  amount?: number | null;
+  amountMax?: number | null;
+  unitId: string;
+  unit: Unit;
+  notes?: string | null;
+  order: number;
+  product: IngredientProduct;
+}
 
 export interface ICookingStep {
   id?: string;
@@ -36,7 +54,7 @@ export interface MocRecipe {
   publishedAt: Date | string;
   mistakeToAvoid: string;
   theRightMove: string;
-  ingredients?: MocIngredient[];
+  ingredients?: IMocIngredient[];
   steps?: ICookingStep[];
 }
 
@@ -92,12 +110,12 @@ export type RecipeCardData = Recipe & {
   categories: RecipeCategory[];
 };
 
-// Повний рецепт з усіма зв'язками (для окремої сторінки /recipes/[slug])
-export type TFullRecipe = Recipe & {
-  ingredients: Ingredient[];
-  steps: ICookingStep[];
-  categories: RecipeCategory[];
-  tags: RecipeTag[];
-};
+// Повний рецепт з усіма зв'язками
+// export type TFullRecipe = Recipe & {
+//   ingredients: Ingredient[];
+//   steps: ICookingStep[];
+//   categories: RecipeCategory[];
+//   tags: RecipeTag[];
+// };
 
 export type TUnitSystem = 'us' | 'metric';
