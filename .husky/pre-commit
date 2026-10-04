@@ -1,6 +1,8 @@
-# .husky/pre-commit
-# Перевірка TypeScript
+echo "🔐 Checking for secrets..."
+gitleaks protect --staged --verbose
+
+echo "🔷 Checking TypeScript..."
 pnpm exec tsc --noEmit
 
-# Перевірка та форматування змінених файлів
+echo "✨ Linting and formatting staged files..."
 pnpm exec lint-staged

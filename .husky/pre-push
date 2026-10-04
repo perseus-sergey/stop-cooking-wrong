@@ -1,4 +1,5 @@
-# .husky/pre-push
+echo "🔐 Checking repository for secrets..."
+gitleaks git --redact --verbose
 
-echo "Building the project..."
+echo "🏗️ Building the project..."
 pnpm build
