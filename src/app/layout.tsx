@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import Navbar from '@/components/layout/navbar/Navbar';
 import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
+import StoreProvider from './StoreProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -58,9 +59,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <Navbar />
-          <div className="flex-1">{children}</div>
-          <Footer />
+          <StoreProvider>
+            <Navbar />
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </StoreProvider>
         </ThemeProvider>
       </body>
     </html>

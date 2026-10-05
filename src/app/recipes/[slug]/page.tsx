@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import RecipeInteractiveView from '@/components/recipe/RecipeInteractiveView';
 import { Badge } from '@/components/ui/badge';
 import { siteConfig, ROUTES } from '@/config/site.config';
 import { toIsoDuration } from '@/lib/utils';
@@ -9,13 +8,18 @@ import { notFound } from 'next/navigation';
 import { prisma } from '../../../lib/prisma';
 import Link from 'next/link';
 import { getRecipe, getUnits } from '@/queries/recipes.query';
+import { formatIngredientForJsonLd } from '@/lib/formatIngredient';
+import RecipeInteractiveView from '@/components/recipe/RecipeInteractiveView';
+import { Card, CardContent } from '@/components/ui/card';
+
 import {
-  formatIngredient,
-  // formatIngredientAmount,
-  formatIngredientForJsonLd,
-  toFormatterIngredient,
-  // formatIngredientText,
-} from '@/lib/formatIngredient';
+  Clock,
+  Flame,
+  Users,
+  CheckCircle2,
+  XCircle,
+  Sparkles,
+} from 'lucide-react';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -83,9 +87,6 @@ export default async function RecipePage({ params }: PageProps) {
   const { slug } = await params;
   const [recipe, units] = await Promise.all([getRecipe(slug), getUnits()]);
 
-  // console.log('RECIPE:', recipe);
-  // console.log('INGREDIENTS:', recipe?.ingredients);
-
   if (!recipe) notFound();
 
   const {
@@ -107,12 +108,6 @@ export default async function RecipePage({ params }: PageProps) {
 
   const categoryNames = categories.map((item) => item.category.name);
   const tagNames = tags.map((item) => item.tag.name);
-
-  const kk = recipe.ingredients.map((ingredient) =>
-    formatIngredientForJsonLd(ingredient, units)
-  );
-  console.log('KK', kk);
-  console.log();
   const recipeJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Recipe',
@@ -211,7 +206,91 @@ export default async function RecipePage({ params }: PageProps) {
             />
           </div>
 
-          <RecipeInteractiveView recipe={recipe} units={units} />
+          {/*============================ */}
+          {/*============================ */}
+          {/*============================ */}
+          <div className="space-y-10 print:space-y-4">
+            {/* 1. Швидка статистика (компактна на друці) */}
+            <div className="grid grid-cols-2 gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 sm:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-900 print:border-zinc-300 print:bg-transparent print:p-2">
+              <div className="flex items-center gap-3 print:gap-1.5">
+                <Clock className="h-5 w-5 text-orange-500 print:h-4 print:w-4" />
+                <div>
+                  <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase print:text-[10px]">
+                    Prep
+                  </p>
+                  <p className="text-sm font-semibold print:text-xs">
+                    {recipe.prepTimeMinutes} mins
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 print:gap-1.5">
+                <Flame className="h-5 w-5 text-orange-500 print:h-4 print:w-4" />
+                <div>
+                  <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase print:text-[10px]">
+                    Air Fry
+                  </p>
+                  <p className="text-sm font-semibold print:text-xs">
+                    {recipe.cookTimeMinutes} mins
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 print:gap-1.5">
+                <Users className="h-5 w-5 text-orange-500 print:h-4 print:w-4" />
+                <div>
+                  <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase print:text-[10px]">
+                    Servings
+                  </p>
+                  <p className="text-sm font-semibold print:text-xs">
+                    {recipe.servings} people
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 print:gap-1.5">
+                <Sparkles className="h-5 w-5 text-orange-500 print:h-4 print:w-4" />
+                <div>
+                  <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase print:text-[10px]">
+                    Calories
+                  </p>
+                  <p className="text-sm font-semibold print:text-xs">
+                    {recipe.caloriesPerServing ?? 'N/A'} kcal
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Stop Cooking Wrong (на друці компактна рамка) */}
+            <Card className="overflow-hidden border-orange-500/30 bg-orange-50/40 shadow-sm dark:bg-orange-950/20 print:break-inside-avoid print:border-zinc-300 print:bg-zinc-50 print:shadow-none">
+              <div className="flex items-center gap-1.5 bg-orange-500 px-4 py-1.5 text-xs font-medium tracking-wider text-white uppercase print:bg-zinc-800 print:py-1 print:text-[10px]">
+                <Sparkles className="h-4 w-4" /> {siteConfig.brand.secretBadge}
+              </div>
+              <CardContent className="grid gap-3 p-4 text-xs leading-relaxed sm:grid-cols-2 print:p-2.5">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-red-600 dark:text-red-400">
+                    <XCircle className="h-4 w-4" />
+                    <span>{siteConfig.brand.commonMistakeLabel}</span>
+                  </div>
+                  <p className="text-zinc-600 dark:text-zinc-300 print:text-zinc-700">
+                    {recipe.mistakeToAvoid}
+                  </p>
+                </div>
+
+                <div className="space-y-1 sm:border-l sm:border-orange-200 sm:pl-3 dark:sm:border-orange-900/40 print:border-zinc-300">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+                    <CheckCircle2 className="h-4 w-4" />
+                    <span>{siteConfig.brand.theRightMoveLabel}</span>
+                  </div>
+                  <p className="font-medium text-zinc-800 dark:text-zinc-100 print:text-black">
+                    {recipe.theRightMove}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <RecipeInteractiveView recipe={recipe} units={units} />
+          </div>
 
           {youtubeId && (
             <section className="space-y-4 pt-6">

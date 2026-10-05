@@ -4,6 +4,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import MobileNavigation from './MobileNavigation';
 import NavbarLogo from './NavbarLogo';
 import YouTubeButton from './YouTubeButton';
+import Link from 'next/link';
 
 export default async function Navbar() {
   const categories = await getNavCategories();
@@ -23,6 +24,8 @@ export default async function Navbar() {
         <NavbarLogo />
 
         <DesktopNavigation categoryGroups={categoryGroups} />
+
+        <Link href="/shopping-list">Shopping List</Link>
 
         <div className="flex items-center gap-2.5">
           <ThemeToggle />
