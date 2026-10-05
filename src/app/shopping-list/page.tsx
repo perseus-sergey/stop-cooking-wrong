@@ -1,9 +1,5 @@
-export default function ShoppingListPage() {
-  return (
-    <>
-      <h1>Shopping List</h1>
+import ShoppingListView from '@/components/shoppingList/ShoppingListView';
 
-      <p>Your shopping list is empty.</p>
-    </>
-  );
+export default function ShoppingListPage() {
+  return <ShoppingListView />;
 }

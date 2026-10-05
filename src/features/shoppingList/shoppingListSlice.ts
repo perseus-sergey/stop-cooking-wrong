@@ -1,8 +1,12 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { AddShoppingListItemPayload, ShoppingListState } from './types';
+import type { TSelectedIngredient } from './types';
+
+type ShoppingListState = {
+  selectedIngredients: TSelectedIngredient[];
+};
 
 const initialState: ShoppingListState = {
-  items: [],
+  selectedIngredients: [],
 };
 
 const shoppingListSlice = createSlice({
@@ -11,19 +15,40 @@ const shoppingListSlice = createSlice({
   initialState,
 
   reducers: {
-    addItem: (state, action: PayloadAction<AddShoppingListItemPayload>) => {
-      const item = action.payload;
-      const existingItem = state.items.find(
-        (existing) => existing.productId === item.productId
+    addIngredient: (state, action: PayloadAction<TSelectedIngredient>) => {
+      const ingredient = action.payload;
+
+      const alreadySelected = state.selectedIngredients.some(
+        (item) =>
+          item.recipeId === ingredient.recipeId &&
+          item.ingredientId === ingredient.ingredientId
       );
 
-      if (existingItem) {
-        existingItem.quantities.push(item.quantity);
+      if (alreadySelected) {
+        return;
       }
+
+      state.selectedIngredients.push(ingredient);
+    },
+
+    removeIngredient: (
+      state,
+      action: PayloadAction<{
+        recipeId: string;
+        ingredientId: string;
+      }>
+    ) => {
+      state.selectedIngredients = state.selectedIngredients.filter(
+        (item) =>
+          !(
+            item.recipeId === action.payload.recipeId &&
+            item.ingredientId === action.payload.ingredientId
+          )
+      );
     },
   },
 });
 
-export const { addItem } = shoppingListSlice.actions;
+export const { addIngredient, removeIngredient } = shoppingListSlice.actions;
 
 export default shoppingListSlice.reducer;

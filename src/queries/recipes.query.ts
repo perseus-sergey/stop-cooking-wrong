@@ -14,7 +14,11 @@ export const getRecipe = async (slug: string) => {
       ingredients: {
         orderBy: { order: 'asc' },
         include: {
-          product: true,
+          product: {
+            include: {
+              shoppingCategory: true,
+            },
+          },
           unit: true,
         },
       },

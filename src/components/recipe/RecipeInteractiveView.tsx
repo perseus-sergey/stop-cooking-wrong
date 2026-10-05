@@ -20,8 +20,13 @@ import {
   FormatterUnit,
   toFormatterIngredient,
 } from '@/lib/formatIngredient';
-import { TGetRecipe } from '@/queries/recipes.query';
+import { TGetRecipe, TRecipeIngredient } from '@/queries/recipes.query';
 import { Button } from '@/components/ui/button';
+import {
+  addIngredient,
+  removeIngredient,
+} from '@/features/shoppingList/shoppingListSlice';
+import { useAppDispatch, useAppSelector } from '@/src/hooks/redux';
 
 interface Props {
   recipe: TGetRecipe;
@@ -30,13 +35,96 @@ interface Props {
 
 export default function RecipeInteractiveView({ recipe, units }: Props) {
   const [unitSystem, setUnitSystem] = useState<TUnitSystem>('us');
-  const [checkedIngredients, setCheckedIngredients] = useState<string[]>([]);
+  const dispatch = useAppDispatch();
 
-  const toggleIngredient = (id: string) => {
-    setCheckedIngredients((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+  const selectedIngredients = useAppSelector(
+    (state) => state.shoppingList.selectedIngredients
+  );
+
+  const handleIngredientSelectionChange = (
+    ingredient: TRecipeIngredient,
+    checked: boolean
+  ) => {
+    if (checked) {
+      dispatch(
+        addIngredient({
+          recipeId: recipe.id,
+          recipeSlug: recipe.slug,
+          recipeTitle: recipe.title,
+
+          ingredientId: ingredient.id,
+
+          productId: ingredient.product.id,
+          productName: ingredient.product.name,
+
+          categoryId: ingredient.product.shoppingCategory.id,
+          categoryName: ingredient.product.shoppingCategory.name,
+
+          quantity: {
+            amount:
+              ingredient.amount == null ? null : Number(ingredient.amount),
+
+            amountMax:
+              ingredient.amountMax == null
+                ? null
+                : Number(ingredient.amountMax),
+
+            unitId: ingredient.unit.id,
+            unitCode: ingredient.unit.code,
+            unitSymbol: ingredient.unit.symbol,
+            unitName: ingredient.unit.name,
+          },
+        })
+      );
+
+      return;
+    }
+
+    dispatch(
+      removeIngredient({
+        recipeId: recipe.id,
+        ingredientId: ingredient.id,
+      })
     );
   };
+
+  // const addSelectedIngredients = () => {
+  //   const selectedIngredients = recipe.ingredients.filter((ingredient) =>
+  //     checkedIngredients.includes(ingredient.id)
+  //   );
+
+  //   selectedIngredients.forEach((ingredient) => {
+  //     const quantity = {
+  //       amount: ingredient.amount == null ? null : Number(ingredient.amount),
+
+  //       amountMax:
+  //         ingredient.amountMax == null ? null : Number(ingredient.amountMax),
+
+  //       unitId: ingredient.unit.id,
+  //       unitCode: ingredient.unit.code,
+  //       unitSymbol: ingredient.unit.symbol,
+  //       unitName: ingredient.unit.name,
+  //     };
+
+  //     dispatch(
+  //       addItem({
+  //         productId: ingredient.product.id,
+  //         productName: ingredient.product.name,
+  //         categoryId: ingredient.product.shoppingCategory.id,
+  //         categoryName: ingredient.product.shoppingCategory.name,
+
+  //         quantity,
+
+  //         source: {
+  //           recipeId: recipe.id,
+  //           recipeSlug: recipe.slug,
+  //           recipeTitle: recipe.title,
+  //           quantity,
+  //         },
+  //       })
+  //     );
+  //   });
+  // };
 
   return (
     <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 print:grid-cols-12 print:gap-4">
@@ -62,6 +150,11 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
                 units,
               });
 
+              const isSelected = selectedIngredients.some(
+                (item) =>
+                  item.recipeId === recipe.id && item.ingredientId === ing.id
+              );
+
               return (
                 <div
                   key={ing.id}
@@ -71,8 +164,10 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
 
                   <Checkbox
                     id={`ingredient-${ing.id}`}
-                    checked={checkedIngredients.includes(ing.id)}
-                    onCheckedChange={() => toggleIngredient(ing.id)}
+                    checked={isSelected}
+                    onCheckedChange={(checked) =>
+                      handleIngredientSelectionChange(ing, checked === true)
+                    }
                     className="mt-0.5 print:hidden"
                     aria-label={`Add ${formatted.productName} to shopping list`}
                   />
@@ -101,20 +196,18 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
           </CardContent>
 
           <CardFooter>
-            <Button
+            {/* <Button
               type="button"
               className="cursor-pointer"
               disabled={checkedIngredients.length === 0}
-              onClick={() => {
-                console.log('Selected ingredients:', checkedIngredients);
-              }}
+              onClick={addSelectedIngredients}
             >
               {checkedIngredients.length === 0
                 ? 'Select ingredients'
                 : `Add ${checkedIngredients.length} ingredient${
                     checkedIngredients.length === 1 ? '' : 's'
                   } to shopping list`}
-            </Button>
+            </Button> */}
           </CardFooter>
         </Card>
       </div>
