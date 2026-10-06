@@ -4,7 +4,7 @@ import { ExternalLink } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TShoppingListProduct } from '@/features/shoppingList/types';
-import { formatTShoppingQuantity } from '@/features/shoppingList/quantityUtils';
+import { formatShoppingQuantity } from '@/lib/formatters/fraction';
 
 type Props = {
   item: TShoppingListProduct;
@@ -27,7 +27,7 @@ export default function ShoppingListItem({ item }: Props) {
               >
                 <span className="min-w-0">
                   <span className="block text-sm font-medium group-hover:underline">
-                    {formatTShoppingQuantity(source.quantity)}
+                    {formatShoppingQuantity(source.quantity)}
                   </span>
 
                   <span className="text-muted-foreground block truncate text-xs">
@@ -45,7 +45,7 @@ export default function ShoppingListItem({ item }: Props) {
           <p className="text-sm">
             <span className="font-semibold">Total:</span>{' '}
             <span className="text-muted-foreground">
-              {item.totals.map(formatTShoppingQuantity).join(' + ')}
+              {item.totals.map(formatShoppingQuantity).join(' + ')}
             </span>
           </p>
         </div>

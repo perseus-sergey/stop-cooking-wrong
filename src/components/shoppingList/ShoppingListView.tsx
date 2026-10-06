@@ -9,6 +9,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { useAppSelector } from '@/src/hooks/redux';
 import { selectShoppingList } from '@/features/shoppingList/shoppingListSelectors';
 import ShoppingListCategory from './ShoppingListCategory';
+import { ROUTES } from '@/config/site.config';
 
 export default function ShoppingListView() {
   const categories = useAppSelector(selectShoppingList);
@@ -36,7 +37,7 @@ export default function ShoppingListView() {
           </p>
 
           <Link
-            href="/recipes"
+            href={ROUTES.home}
             className={buttonVariants({ className: 'mt-6' })}
           >
             Browse recipes
@@ -51,7 +52,7 @@ export default function ShoppingListView() {
       <div className="mx-auto max-w-4xl">
         <header className="mb-8">
           <Link
-            href="/recipes"
+            href={ROUTES.home}
             className={buttonVariants({
               variant: 'ghost',
               className: 'mb-4 -ml-2',

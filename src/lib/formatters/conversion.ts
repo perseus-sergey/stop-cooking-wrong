@@ -1,97 +1,9 @@
-import type { TRecipeIngredient } from '@/queries/recipes.query';
-import type { TUnitSystem } from '@/types/recipe.type';
-import type { UnitSystem, UnitCategory } from '@prisma/client';
-
-export const toFormatterIngredient = (
-  ingredient: TRecipeIngredient
-): FormatterIngredient => ({
-  amount: ingredient.amount,
-  amountMax: ingredient.amountMax,
-  notes: ingredient.notes,
-
-  product: {
-    name: ingredient.product.name,
-  },
-
-  unit: {
-    id: ingredient.unit.id,
-    code: ingredient.unit.code,
-    name: ingredient.unit.name,
-    symbol: ingredient.unit.symbol,
-    system: ingredient.unit.system,
-    category: ingredient.unit.category,
-    baseUnitId: ingredient.unit.baseUnitId,
-    conversionFactor: ingredient.unit.conversionFactor,
-  },
-});
-
-export const formatIngredientForJsonLd = (
-  ingredient: TRecipeIngredient,
-  units: FormatterUnit[]
-): string => {
-  const formatted = formatIngredient(toFormatterIngredient(ingredient), {
-    unitSystem: 'metric',
-    units,
-  });
-
-  if (formatted.unit.category === 'QUALITATIVE') {
-    return [formatted.unit.name, formatted.productName, formatted.notes]
-      .filter(Boolean)
-      .join(' ');
-  }
-
-  const quantity =
-    formatted.amount == null
-      ? null
-      : formatted.amountMax != null
-        ? `${formatted.amount}–${formatted.amountMax}`
-        : `${formatted.amount}`;
-
-  return [
-    quantity,
-    formatted.unit.symbol,
-    formatted.productName,
-    formatted.notes,
-  ]
-    .filter(Boolean)
-    .join(' ');
-};
-
-export type FormatterUnit = {
-  id: string;
-  code: string;
-  name: string;
-  symbol: string;
-
-  system: UnitSystem;
-  category: UnitCategory;
-
-  baseUnitId: string | null;
-  conversionFactor: number | string | null;
-};
-
-type FormatterIngredient = {
-  amount: number | string | null;
-  amountMax: number | string | null;
-  notes: string | null;
-
-  product: {
-    name: string;
-  };
-
-  unit: FormatterUnit;
-};
-
-export type FormatIngredientOptions = {
-  unitSystem: TUnitSystem;
-  units: FormatterUnit[];
-};
-
-type ConvertedIngredient = {
-  amount: number | null;
-  amountMax: number | null;
-  unit: FormatterUnit;
-};
+import {
+  TConvertedQuantity,
+  TFormatIngredientOptions,
+  TFormatterUnit,
+} from '@/types/formatter.type';
+import { UnitSystem } from '@prisma/client';
 
 /**
  * Converts an amount between two compatible units.
@@ -106,10 +18,10 @@ type ConvertedIngredient = {
  * So:
  * amount * fromFactor / toFactor
  */
-const convertAmount = (
+export const convertAmount = (
   amount: number,
-  from: FormatterUnit,
-  to: FormatterUnit
+  from: TFormatterUnit,
+  to: TFormatterUnit
 ): number | null => {
   if (from.category !== to.category) {
     return null;
@@ -146,9 +58,9 @@ const convertAmount = (
  * Returns units that can be used as a target for conversion.
  */
 const getCompatibleUnits = (
-  sourceUnit: FormatterUnit,
+  sourceUnit: TFormatterUnit,
   targetSystem: UnitSystem,
-  units: FormatterUnit[]
+  units: TFormatterUnit[]
 ) => {
   if (!sourceUnit.baseUnitId) {
     return [];
@@ -182,11 +94,11 @@ const getCompatibleUnits = (
  *
  * No unit codes are hardcoded here.
  */
-const chooseDisplayUnit = (
+export const chooseDisplayUnit = (
   amount: number,
-  sourceUnit: FormatterUnit,
+  sourceUnit: TFormatterUnit,
   targetSystem: UnitSystem,
-  units: FormatterUnit[]
+  units: TFormatterUnit[]
 ) => {
   const candidates = getCompatibleUnits(sourceUnit, targetSystem, units);
 
@@ -212,7 +124,7 @@ const chooseDisplayUnit = (
       (
         candidate
       ): candidate is {
-        unit: FormatterUnit;
+        unit: TFormatterUnit;
         amount: number;
         score: number;
       } => candidate !== null
@@ -244,7 +156,7 @@ const chooseDisplayUnit = (
 /**
  * Rounds an ingredient amount for display.
  */
-const roundAmount = (value: number, unit: FormatterUnit): number => {
+export const roundAmount = (value: number, unit: TFormatterUnit): number => {
   if (!Number.isFinite(value)) {
     return value;
   }
@@ -335,19 +247,22 @@ const roundAmount = (value: number, unit: FormatterUnit): number => {
   }
 };
 
-/**
- * Converts an ingredient to the requested display system.
- */
-const convertIngredient = (
-  ingredient: FormatterIngredient,
-  options: FormatIngredientOptions
-): ConvertedIngredient => {
-  const { unit } = ingredient;
+export type ConvertibleQuantity = {
+  amount: number | string | null;
+  amountMax: number | string | null;
+  unit: TFormatterUnit;
+};
 
-  const amount = ingredient.amount == null ? null : Number(ingredient.amount);
+export const convertQuantity = (
+  quantity: ConvertibleQuantity,
+  options: TFormatIngredientOptions
+): TConvertedQuantity => {
+  const { unit } = quantity;
+
+  const amount = quantity.amount == null ? null : Number(quantity.amount);
 
   const amountMax =
-    ingredient.amountMax == null ? null : Number(ingredient.amountMax);
+    quantity.amountMax == null ? null : Number(quantity.amountMax);
 
   /*
    * No numeric amount.
@@ -403,11 +318,8 @@ const convertIngredient = (
   }
 
   /*
-   * For ranges, use the midpoint to choose the most
-   * appropriate target unit.
-   *
-   * Example:
-   * 600–700 g → choose lb based on 650 g.
+   * For ranges, use the midpoint to choose
+   * the most appropriate target unit.
    */
   const representativeAmount =
     amountMax != null ? (amount + amountMax) / 2 : amount;
@@ -421,7 +333,6 @@ const convertIngredient = (
 
   /*
    * No compatible target unit.
-   * Keep the original value and unit.
    */
   if (!selected) {
     return {
@@ -446,50 +357,12 @@ const convertIngredient = (
 
   return {
     amount: roundAmount(convertedAmount, selected.unit),
+
     amountMax:
       convertedAmountMax == null
         ? null
         : roundAmount(convertedAmountMax, selected.unit),
+
     unit: selected.unit,
   };
-};
-
-/**
- * Formats one ingredient for UI / JSON-LD / print.
- */
-export type FormattedIngredient = {
-  amount: number | null;
-  amountMax: number | null;
-  unit: FormatterUnit;
-  productName: string;
-  notes: string | null;
-};
-
-export const formatIngredient = (
-  ingredient: FormatterIngredient,
-  options: FormatIngredientOptions
-): FormattedIngredient => {
-  const formatted = convertIngredient(ingredient, options);
-
-  return {
-    amount: formatted.amount,
-    amountMax: formatted.amountMax,
-    unit: formatted.unit,
-    productName: ingredient.product.name,
-    notes: ingredient.notes,
-  };
-};
-
-export const formatIngredientQuantity = (
-  ingredient: FormattedIngredient
-): string => {
-  if (ingredient.amount == null) {
-    return ingredient.unit.name;
-  }
-
-  if (ingredient.amountMax != null) {
-    return `${ingredient.amount}–${ingredient.amountMax} ${ingredient.unit.symbol}`;
-  }
-
-  return `${ingredient.amount} ${ingredient.unit.symbol}`;
 };

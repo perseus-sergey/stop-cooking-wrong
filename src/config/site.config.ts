@@ -30,6 +30,7 @@ export const siteConfig = {
 export const ROUTES = {
   home: '/',
   recipes: '/recipes',
+  shoppingList: '/shopping-list',
   recipe: (slug: string) => `/recipes/${slug}`,
   category: (category: string) => `/categories/${category.toLowerCase()}`,
   about: '/about',

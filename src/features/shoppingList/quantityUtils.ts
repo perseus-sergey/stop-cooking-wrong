@@ -32,15 +32,3 @@ export function mergeShoppingQuantities(
     amountMax: isRange ? maxAmount : null,
   };
 }
-
-export function formatTShoppingQuantity(quantity: TShoppingQuantity): string {
-  if (quantity.amount == null && quantity.amountMax == null) {
-    return quantity.unitName;
-  }
-
-  if (quantity.amountMax != null) {
-    return `${quantity.amount}–${quantity.amountMax} ${quantity.unitSymbol}`;
-  }
-
-  return `${quantity.amount} ${quantity.unitSymbol}`;
-}

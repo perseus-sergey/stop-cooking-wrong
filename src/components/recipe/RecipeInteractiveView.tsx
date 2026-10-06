@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import type { TUnitSystem } from '@/types/recipe.type';
+// import { useState } from 'react';
+// import type { TUnitSystem } from '@/types/recipe.type';
 import {
   Card,
   CardContent,
@@ -12,29 +12,31 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 
-import UnitSystemToggle from './UnitSystemToggle';
 import StepCard from './StepCard';
 import {
   formatIngredient,
   formatIngredientQuantity,
-  FormatterUnit,
   toFormatterIngredient,
-} from '@/lib/formatIngredient';
+} from '@/lib/formatters/formatIngredient';
 import { TGetRecipe, TRecipeIngredient } from '@/queries/recipes.query';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import {
   addIngredient,
   removeIngredient,
 } from '@/features/shoppingList/shoppingListSlice';
 import { useAppDispatch, useAppSelector } from '@/src/hooks/redux';
+import Link from 'next/link';
+import { ROUTES } from '@/config/site.config';
+import { selectUnitSystem } from '@/features/preferences/preferencesSelectors';
+import type { TFormatterUnit } from '@/types/formatter.type';
 
 interface Props {
   recipe: TGetRecipe;
-  units: FormatterUnit[];
+  units: TFormatterUnit[];
 }
 
 export default function RecipeInteractiveView({ recipe, units }: Props) {
-  const [unitSystem, setUnitSystem] = useState<TUnitSystem>('us');
+  const unitSystem = useAppSelector(selectUnitSystem);
   const dispatch = useAppDispatch();
 
   const selectedIngredients = useAppSelector(
@@ -73,6 +75,12 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
             unitCode: ingredient.unit.code,
             unitSymbol: ingredient.unit.symbol,
             unitName: ingredient.unit.name,
+            unitCategory: ingredient.unit.category,
+            // baseUnitId: ingredient.unit.baseUnitId,
+            // conversionFactor:
+            //   ingredient.unit.conversionFactor == null
+            //     ? null
+            //     : Number(ingredient.unit.conversionFactor),
           },
         })
       );
@@ -136,11 +144,11 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
               Ingredients
             </CardTitle>
 
-            <UnitSystemToggle
+            {/* <UnitSystemToggle
               value={unitSystem}
               onChange={setUnitSystem}
               className="print:hidden"
-            />
+            /> */}
           </CardHeader>
           <Separator className="print:hidden" />
           <CardContent className="space-y-2 pt-4 print:space-y-1.5 print:p-2 print:pt-1">
@@ -196,18 +204,14 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
           </CardContent>
 
           <CardFooter>
-            {/* <Button
-              type="button"
-              className="cursor-pointer"
-              disabled={checkedIngredients.length === 0}
-              onClick={addSelectedIngredients}
-            >
-              {checkedIngredients.length === 0
-                ? 'Select ingredients'
-                : `Add ${checkedIngredients.length} ingredient${
-                    checkedIngredients.length === 1 ? '' : 's'
-                  } to shopping list`}
-            </Button> */}
+            {selectedIngredients.length > 0 && (
+              <Link
+                href={ROUTES.shoppingList}
+                className={buttonVariants({ className: 'm-auto' })}
+              >
+                Go to shopping list
+              </Link>
+            )}
           </CardFooter>
         </Card>
       </div>

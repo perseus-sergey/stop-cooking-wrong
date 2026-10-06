@@ -1,9 +1,4 @@
-// type TShoppingListSource = {
-//   recipeId: string;
-//   recipeSlug: string;
-//   recipeTitle: string;
-//   quantity: TShoppingQuantity;
-// };
+import type { UnitCategory } from '@prisma/client';
 
 export type TShoppingQuantity = {
   amount: number | null;
@@ -12,29 +7,10 @@ export type TShoppingQuantity = {
   unitCode: string;
   unitSymbol: string;
   unitName: string;
+  unitCategory: UnitCategory;
+  // baseUnitId: string | null;
+  // conversionFactor: number | null;
 };
-
-// export type TShoppingListState = {
-//   items: TShoppingListItem[];
-// };
-
-// export type TShoppingProduct = {
-//   productId: string;
-//   productName: string;
-//   categoryId: string;
-//   categoryName: string;
-// };
-
-// export type TShoppingListItem = TShoppingProduct & {
-//   quantities: TShoppingQuantity[];
-//   sources: TShoppingListSource[];
-//   checked: boolean;
-// };
-
-// export type TAddShoppingListItemPayload = TShoppingProduct & {
-//   quantity: TShoppingQuantity;
-//   source: TShoppingListSource;
-// };
 
 export type TSelectedIngredient = {
   recipeId: string;

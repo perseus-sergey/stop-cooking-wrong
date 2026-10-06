@@ -17,13 +17,13 @@ import type { TGetRecipe } from '@/queries/recipes.query';
 import {
   formatIngredient,
   formatIngredientQuantity,
-  FormatterUnit,
   toFormatterIngredient,
-} from '@/lib/formatIngredient';
+} from '@/lib/formatters/formatIngredient';
+import type { TFormatterUnit } from '@/types/formatter.type';
 
 interface Props {
   recipe: TGetRecipe;
-  units: FormatterUnit[];
+  units: TFormatterUnit[];
 }
 
 type FontSize = 'sm' | 'base' | 'lg';

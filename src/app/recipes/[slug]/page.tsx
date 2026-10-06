@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation';
 import { prisma } from '../../../lib/prisma';
 import Link from 'next/link';
 import { getRecipe, getUnits } from '@/queries/recipes.query';
-import { formatIngredientForJsonLd } from '@/lib/formatIngredient';
+import { formatIngredientForJsonLd } from '@/lib/formatters/formatIngredient';
 import RecipeInteractiveView from '@/components/recipe/RecipeInteractiveView';
 import { Card, CardContent } from '@/components/ui/card';
 
