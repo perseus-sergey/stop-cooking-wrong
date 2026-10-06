@@ -1,9 +1,3 @@
-import { TShoppingQuantity } from '@/features/shoppingList/types';
-import { TConvertedQuantity, TFormatterUnit } from '@/types/formatter.type';
-import { TUnitSystem } from '@/types/recipe.type';
-import { UnitCategory } from '@prisma/client';
-import { convertQuantity } from './conversion';
-
 const FRACTIONS = [
   { value: 1 / 8, symbol: '⅛' },
   { value: 1 / 6, symbol: '⅙' },
@@ -53,79 +47,4 @@ export function formatFraction(value: number): string {
   }
 
   return `${whole} ${closest.symbol}`;
-}
-
-function formatConvertedQuantity(quantity: TConvertedQuantity): string {
-  const formatAmount = (amount: number) => {
-    if (quantity.unit.category === UnitCategory.COOKING) {
-      return formatFraction(amount);
-    }
-
-    return String(Number(amount.toFixed(3)));
-  };
-
-  if (quantity.amount != null && quantity.amountMax != null) {
-    return `${formatAmount(quantity.amount)}–${formatAmount(
-      quantity.amountMax
-    )} ${quantity.unit.symbol}`;
-  }
-
-  if (quantity.amount != null) {
-    return `${formatAmount(quantity.amount)} ${quantity.unit.symbol}`;
-  }
-
-  return quantity.unit.name;
-}
-
-function formatStoredShoppingQuantity(quantity: TShoppingQuantity): string {
-  if (quantity.amount == null && quantity.amountMax == null) {
-    return quantity.unitName;
-  }
-
-  const formatAmount = (amount: number) =>
-    quantity.unitCategory === UnitCategory.COOKING
-      ? formatFraction(amount)
-      : String(Number(amount.toFixed(3)));
-
-  if (quantity.amountMax != null) {
-    if (quantity.amount == null) {
-      return `${formatAmount(quantity.amountMax)} ${quantity.unitSymbol}`;
-    }
-
-    return `${formatAmount(quantity.amount)}–${formatAmount(
-      quantity.amountMax
-    )} ${quantity.unitSymbol}`;
-  }
-  return `${formatAmount(quantity.amount!)} ${quantity.unitSymbol}`;
-}
-
-export function formatShoppingQuantity(
-  quantity: TShoppingQuantity,
-  options: {
-    unitSystem: TUnitSystem;
-    units: TFormatterUnit[];
-    unitsById: Map<string, TFormatterUnit>;
-  }
-): string {
-  const sourceUnit = options.unitsById.get(quantity.unitId);
-
-  // Якщо unit не знайшли — не ламаємо shopping list.
-  // Показуємо збережене значення з Redux.
-  if (!sourceUnit) {
-    return formatStoredShoppingQuantity(quantity);
-  }
-
-  const converted = convertQuantity(
-    {
-      amount: quantity.amount,
-      amountMax: quantity.amountMax,
-      unit: sourceUnit,
-    },
-    {
-      unitSystem: options.unitSystem,
-      units: options.units,
-    }
-  );
-
-  return formatConvertedQuantity(converted);
 }

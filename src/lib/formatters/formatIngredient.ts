@@ -1,16 +1,12 @@
 import type { TRecipeIngredient } from '@/queries/recipes.query';
 import { formatFraction } from './fraction';
-import { UnitSystem, UnitCategory } from '@prisma/client';
+import { UnitCategory } from '@prisma/client';
 import type {
   TFormatIngredientOptions,
   TFormatterUnit,
 } from '@/types/formatter.type';
-import {
-  chooseDisplayUnit,
-  convertAmount,
-  convertQuantity,
-  roundAmount,
-} from './conversion';
+import { convertQuantity } from './conversion';
+import { formatConvertedQuantity } from './quantity';
 
 export const toFormatterIngredient = (
   ingredient: TRecipeIngredient
@@ -131,23 +127,9 @@ export const formatIngredient = (
 export const formatIngredientQuantity = (
   ingredient: FormattedIngredient
 ): string => {
-  if (ingredient.amount == null) {
-    return ingredient.unit.name;
-  }
-
-  const formatAmount = (amount: number) => {
-    if (ingredient.unit.category === UnitCategory.COOKING) {
-      return formatFraction(amount);
-    }
-
-    return String(amount);
-  };
-
-  if (ingredient.amountMax != null) {
-    return `${formatAmount(ingredient.amount)}–${formatAmount(
-      ingredient.amountMax
-    )} ${ingredient.unit.symbol}`;
-  }
-
-  return `${formatAmount(ingredient.amount)} ${ingredient.unit.symbol}`;
+  return formatConvertedQuantity({
+    amount: ingredient.amount,
+    amountMax: ingredient.amountMax,
+    unit: ingredient.unit,
+  });
 };

@@ -4,9 +4,9 @@ import { ExternalLink } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TShoppingListProduct } from '@/features/shoppingList/types';
-import { formatShoppingQuantity } from '@/lib/formatters/fraction';
 import { TUnitSystem } from '@/types/recipe.type';
 import { TFormatterUnit } from '@/types/formatter.type';
+import { formatShoppingQuantity } from '@/lib/formatters/formatShoppingQuantity';
 
 type Props = {
   item: TShoppingListProduct;
