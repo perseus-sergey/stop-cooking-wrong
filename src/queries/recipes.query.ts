@@ -58,6 +58,8 @@ export type TRecipeIngredient = TGetRecipe['ingredients'][number];
 export const getUnits = async () => {
   'use cache';
 
+  cacheLife('days');
+
   const units = await prisma.unit.findMany({
     select: {
       id: true,

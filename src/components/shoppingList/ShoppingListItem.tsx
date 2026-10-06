@@ -5,12 +5,22 @@ import { ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TShoppingListProduct } from '@/features/shoppingList/types';
 import { formatShoppingQuantity } from '@/lib/formatters/fraction';
+import { TUnitSystem } from '@/types/recipe.type';
+import { TFormatterUnit } from '@/types/formatter.type';
 
 type Props = {
   item: TShoppingListProduct;
+  unitSystem: TUnitSystem;
+  units: TFormatterUnit[];
+  unitsById: Map<string, TFormatterUnit>;
 };
 
-export default function ShoppingListItem({ item }: Props) {
+export default function ShoppingListItem({
+  item,
+  unitSystem,
+  units,
+  unitsById,
+}: Props) {
   return (
     <Card className="overflow-hidden transition-shadow hover:shadow-md">
       <CardHeader className="pb-3">
@@ -27,7 +37,11 @@ export default function ShoppingListItem({ item }: Props) {
               >
                 <span className="min-w-0">
                   <span className="block text-sm font-medium group-hover:underline">
-                    {formatShoppingQuantity(source.quantity)}
+                    {formatShoppingQuantity(source.quantity, {
+                      unitSystem,
+                      units, // Object literal may only specify known properties, and 'units' does not exist in type '{ unitSystem: TUnitSystem; unitsById: Map<string, TFormatterUnit>; }'.
+                      unitsById,
+                    })}
                   </span>
 
                   <span className="text-muted-foreground block truncate text-xs">
@@ -45,7 +59,15 @@ export default function ShoppingListItem({ item }: Props) {
           <p className="text-sm">
             <span className="font-semibold">Total:</span>{' '}
             <span className="text-muted-foreground">
-              {item.totals.map(formatShoppingQuantity).join(' + ')}
+              {item.totals
+                .map((quantity) =>
+                  formatShoppingQuantity(quantity, {
+                    unitSystem,
+                    units,
+                    unitsById,
+                  })
+                )
+                .join(' + ')}
             </span>
           </p>
         </div>

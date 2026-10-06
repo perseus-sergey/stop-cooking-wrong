@@ -10,13 +10,26 @@ import { useAppSelector } from '@/src/hooks/redux';
 import { selectShoppingList } from '@/features/shoppingList/shoppingListSelectors';
 import ShoppingListCategory from './ShoppingListCategory';
 import { ROUTES } from '@/config/site.config';
+import { TFormatterUnit } from '@/types/formatter.type';
+import { selectUnitSystem } from '@/features/preferences/preferencesSelectors';
+import { useMemo } from 'react';
 
-export default function ShoppingListView() {
+type Props = {
+  units: TFormatterUnit[];
+};
+
+export default function ShoppingListView({ units }: Props) {
+  const unitSystem = useAppSelector(selectUnitSystem);
   const categories = useAppSelector(selectShoppingList);
 
   const itemCount = categories.reduce(
     (total, category) => total + category.items.length,
     0
+  );
+
+  const unitsById = useMemo(
+    () => new Map(units.map((unit) => [unit.id, unit])),
+    [units]
   );
 
   if (categories.length === 0) {
@@ -81,6 +94,9 @@ export default function ShoppingListView() {
             <ShoppingListCategory
               key={category.categoryId}
               category={category}
+              unitSystem={unitSystem}
+              units={units}
+              unitsById={unitsById}
             />
           ))}
         </div>

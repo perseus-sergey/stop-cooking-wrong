@@ -1,11 +1,21 @@
 import { TShoppingListCategory } from '@/features/shoppingList/types';
 import ShoppingListItem from './ShoppingListItem';
+import type { TFormatterUnit } from '@/types/formatter.type';
+import type { TUnitSystem } from '@/types/recipe.type';
 
 type Props = {
   category: TShoppingListCategory;
+  unitSystem: TUnitSystem;
+  units: TFormatterUnit[];
+  unitsById: Map<string, TFormatterUnit>;
 };
 
-export default function ShoppingListCategory({ category }: Props) {
+export default function ShoppingListCategory({
+  category,
+  unitSystem,
+  units,
+  unitsById,
+}: Props) {
   return (
     <section aria-labelledby={`category-${category.categoryId}`}>
       <div className="mb-3 flex items-center gap-3">
@@ -24,7 +34,12 @@ export default function ShoppingListCategory({ category }: Props) {
       <ul className="space-y-3">
         {category.items.map((item) => (
           <li key={item.productId}>
-            <ShoppingListItem item={item} />
+            <ShoppingListItem
+              item={item}
+              unitSystem={unitSystem}
+              units={units}
+              unitsById={unitsById}
+            />
           </li>
         ))}
       </ul>
