@@ -158,7 +158,7 @@ model Ingredient {
   unitId String
   unit   Unit   @relation(fields: [unitId], references: [id], onDelete: Restrict)
 
-  notes String?
+  notes String? @db.VarChar(50)
   order Int     @default(0)
 
   recipeId String

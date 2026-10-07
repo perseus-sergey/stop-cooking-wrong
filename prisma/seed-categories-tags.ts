@@ -1,5 +1,7 @@
 import { config } from 'dotenv';
 
+// npx tsx prisma/seed-categories-tags.ts
+
 config({ path: '.env.local' });
 
 import { PrismaPg } from '@prisma/adapter-pg';
@@ -181,7 +183,6 @@ const shoppingCategories = [
 ];
 
 const products = [
-  // Produce
   {
     slug: 'potato',
     name: 'Potato',
@@ -203,14 +204,12 @@ const products = [
     shoppingCategorySlug: 'produce',
   },
 
-  // Meat & Seafood
   {
     slug: 'bacon',
     name: 'Bacon',
     shoppingCategorySlug: 'meat-seafood',
   },
 
-  // Dairy & Eggs
   {
     slug: 'egg',
     name: 'Egg',
@@ -237,14 +236,12 @@ const products = [
     shoppingCategorySlug: 'dairy-eggs',
   },
 
-  // Pantry
   {
     slug: 'vegetable-oil',
     name: 'Vegetable Oil',
     shoppingCategorySlug: 'pantry',
   },
 
-  // Spices & Seasonings
   {
     slug: 'salt',
     name: 'Salt',
@@ -266,11 +263,61 @@ const products = [
     shoppingCategorySlug: 'spices-seasonings',
   },
 
-  // Baking
   {
     slug: 'cornstarch',
     name: 'Cornstarch',
     shoppingCategorySlug: 'baking',
+  },
+
+  {
+    slug: 'chicken-breast',
+    name: 'Chicken Breast',
+    shoppingCategorySlug: 'meat-seafood',
+  },
+  {
+    slug: 'olive-oil',
+    name: 'Olive Oil',
+    shoppingCategorySlug: 'pantry',
+  },
+  {
+    slug: 'soy-sauce',
+    name: 'Soy Sauce',
+    shoppingCategorySlug: 'pantry',
+  },
+  {
+    slug: 'honey',
+    name: 'Honey',
+    shoppingCategorySlug: 'pantry',
+  },
+  {
+    slug: 'sriracha',
+    name: 'Sriracha',
+    shoppingCategorySlug: 'pantry',
+  },
+  {
+    slug: 'fresh-garlic',
+    name: 'Fresh Garlic',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'smoked-paprika',
+    name: 'Smoked Paprika',
+    shoppingCategorySlug: 'spices-seasonings',
+  },
+  {
+    slug: 'ground-ginger',
+    name: 'Ground Ginger',
+    shoppingCategorySlug: 'spices-seasonings',
+  },
+  {
+    slug: 'lime',
+    name: 'Lime',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'sesame-seeds',
+    name: 'Sesame Seeds',
+    shoppingCategorySlug: 'pantry',
   },
 ];
 
