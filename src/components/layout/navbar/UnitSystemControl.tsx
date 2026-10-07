@@ -3,7 +3,7 @@
 import UnitSystemToggle from '@/components/recipe/UnitSystemToggle';
 import { selectUnitSystem } from '@/features/preferences/preferencesSelectors';
 import { setUnitSystem } from '@/features/preferences/preferencesSlice';
-import { useAppDispatch, useAppSelector } from '@/src/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 
 export default function UnitSystemControl() {
   const dispatch = useAppDispatch();

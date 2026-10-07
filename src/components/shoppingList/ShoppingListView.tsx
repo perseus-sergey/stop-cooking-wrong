@@ -6,7 +6,7 @@ import { ArrowLeft, ShoppingBasket } from 'lucide-react';
 
 import { buttonVariants } from '@/components/ui/button';
 
-import { useAppSelector } from '@/src/hooks/redux';
+import { useAppSelector } from '@/hooks/redux';
 import { selectShoppingList } from '@/features/shoppingList/shoppingListSelectors';
 import ShoppingListCategory from './ShoppingListCategory';
 import { ROUTES } from '@/config/site.config';

@@ -24,7 +24,7 @@ import {
   addIngredient,
   removeIngredient,
 } from '@/features/shoppingList/shoppingListSlice';
-import { useAppDispatch, useAppSelector } from '@/src/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import Link from 'next/link';
 import { ROUTES } from '@/config/site.config';
 import { selectUnitSystem } from '@/features/preferences/preferencesSelectors';

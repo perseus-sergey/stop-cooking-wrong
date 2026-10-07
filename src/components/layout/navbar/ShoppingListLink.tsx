@@ -2,7 +2,7 @@
 
 import { ROUTES } from '@/config/site.config';
 import { selectShoppingList } from '@/features/shoppingList/shoppingListSelectors';
-import { useAppSelector } from '@/src/hooks/redux';
+import { useAppSelector } from '@/hooks/redux';
 import { ShoppingBasket } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
