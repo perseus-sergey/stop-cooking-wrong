@@ -13,12 +13,15 @@ import { ROUTES } from '@/config/site.config';
 import { TFormatterUnit } from '@/types/formatter.type';
 import { selectUnitSystem } from '@/features/preferences/preferencesSelectors';
 import { useMemo } from 'react';
+import { useHydrated } from '@/hooks/useHydrated';
 
 type Props = {
   units: TFormatterUnit[];
 };
 
 export default function ShoppingListView({ units }: Props) {
+  const hydrated = useHydrated();
+
   const unitSystem = useAppSelector(selectUnitSystem);
   const categories = useAppSelector(selectShoppingList);
 
@@ -31,6 +34,10 @@ export default function ShoppingListView({ units }: Props) {
     () => new Map(units.map((unit) => [unit.id, unit])),
     [units]
   );
+
+  if (!hydrated) {
+    return null;
+  }
 
   if (categories.length === 0) {
     return (

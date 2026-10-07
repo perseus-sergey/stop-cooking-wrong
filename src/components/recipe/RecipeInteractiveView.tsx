@@ -29,6 +29,9 @@ import Link from 'next/link';
 import { ROUTES } from '@/config/site.config';
 import { selectUnitSystem } from '@/features/preferences/preferencesSelectors';
 import type { TFormatterUnit } from '@/types/formatter.type';
+import { useHydrated } from '@/hooks/useHydrated';
+import type { TUnitSystem } from '@/types/recipe.type';
+// import { Skeleton } from '../ui/skeleton';
 
 interface Props {
   recipe: TGetRecipe;
@@ -36,12 +39,20 @@ interface Props {
 }
 
 export default function RecipeInteractiveView({ recipe, units }: Props) {
+  const hydrated = useHydrated();
+
   const unitSystem = useAppSelector(selectUnitSystem);
   const dispatch = useAppDispatch();
 
   const selectedIngredients = useAppSelector(
     (state) => state.shoppingList.selectedIngredients
   );
+
+  const displayUnitSystem: TUnitSystem = hydrated ? unitSystem : 'us';
+
+  // if (!hydrated) {
+  //   return <RecipeInteractiveSkeleton />;
+  // }
 
   const handleIngredientSelectionChange = (
     ingredient: TRecipeIngredient,
@@ -76,11 +87,6 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
             unitSymbol: ingredient.unit.symbol,
             unitName: ingredient.unit.name,
             unitCategory: ingredient.unit.category,
-            // baseUnitId: ingredient.unit.baseUnitId,
-            // conversionFactor:
-            //   ingredient.unit.conversionFactor == null
-            //     ? null
-            //     : Number(ingredient.unit.conversionFactor),
           },
         })
       );
@@ -95,44 +101,6 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
       })
     );
   };
-
-  // const addSelectedIngredients = () => {
-  //   const selectedIngredients = recipe.ingredients.filter((ingredient) =>
-  //     checkedIngredients.includes(ingredient.id)
-  //   );
-
-  //   selectedIngredients.forEach((ingredient) => {
-  //     const quantity = {
-  //       amount: ingredient.amount == null ? null : Number(ingredient.amount),
-
-  //       amountMax:
-  //         ingredient.amountMax == null ? null : Number(ingredient.amountMax),
-
-  //       unitId: ingredient.unit.id,
-  //       unitCode: ingredient.unit.code,
-  //       unitSymbol: ingredient.unit.symbol,
-  //       unitName: ingredient.unit.name,
-  //     };
-
-  //     dispatch(
-  //       addItem({
-  //         productId: ingredient.product.id,
-  //         productName: ingredient.product.name,
-  //         categoryId: ingredient.product.shoppingCategory.id,
-  //         categoryName: ingredient.product.shoppingCategory.name,
-
-  //         quantity,
-
-  //         source: {
-  //           recipeId: recipe.id,
-  //           recipeSlug: recipe.slug,
-  //           recipeTitle: recipe.title,
-  //           quantity,
-  //         },
-  //       })
-  //     );
-  //   });
-  // };
 
   return (
     <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 print:grid-cols-12 print:gap-4">
@@ -154,14 +122,16 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
           <CardContent className="space-y-2 pt-4 print:space-y-1.5 print:p-2 print:pt-1">
             {recipe.ingredients.map((ing) => {
               const formatted = formatIngredient(toFormatterIngredient(ing), {
-                unitSystem,
+                unitSystem: displayUnitSystem,
                 units,
               });
 
-              const isSelected = selectedIngredients.some(
-                (item) =>
-                  item.recipeId === recipe.id && item.ingredientId === ing.id
-              );
+              const isSelected =
+                hydrated &&
+                selectedIngredients.some(
+                  (item) =>
+                    item.recipeId === recipe.id && item.ingredientId === ing.id
+                );
 
               return (
                 <div
@@ -204,7 +174,7 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
           </CardContent>
 
           <CardFooter>
-            {selectedIngredients.length > 0 && (
+            {hydrated && selectedIngredients.length > 0 && (
               <Link
                 href={ROUTES.shoppingList}
                 className={buttonVariants({ className: 'm-auto' })}
@@ -227,7 +197,7 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
             <StepCard
               key={step.stepNumber}
               step={step}
-              unitSystem={unitSystem}
+              unitSystem={displayUnitSystem}
             />
           ))}
         </div>
@@ -235,3 +205,33 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
     </div>
   );
 }
+
+// function RecipeInteractiveSkeleton() {
+//   return (
+//     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+//       <Card>
+//         <CardHeader>
+//           <Skeleton className="h-6 w-40" />
+//         </CardHeader>
+
+//         <CardContent className="space-y-4">
+//           {[...Array(10)].map((_, i) => (
+//             <Skeleton key={i} className="h-10 w-full" />
+//           ))}
+//         </CardContent>
+//       </Card>
+
+//       <Card>
+//         <CardHeader>
+//           <Skeleton className="h-6 w-32" />
+//         </CardHeader>
+
+//         <CardContent className="space-y-4">
+//           {[...Array(10)].map((_, i) => (
+//             <Skeleton key={i} className="h-10 w-full" />
+//           ))}
+//         </CardContent>
+//       </Card>
+//     </div>
+//   );
+// }

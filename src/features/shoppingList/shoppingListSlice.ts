@@ -46,9 +46,17 @@ const shoppingListSlice = createSlice({
           )
       );
     },
+
+    hydrateShoppingList: (
+      state,
+      action: PayloadAction<TSelectedIngredient[]>
+    ) => {
+      state.selectedIngredients = action.payload;
+    },
   },
 });
 
-export const { addIngredient, removeIngredient } = shoppingListSlice.actions;
+export const { addIngredient, removeIngredient, hydrateShoppingList } =
+  shoppingListSlice.actions;
 
 export default shoppingListSlice.reducer;
