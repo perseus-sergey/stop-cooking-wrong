@@ -37,7 +37,6 @@ id?: string;
 stepNumber: number;
 title: string;
 instruction: string;
-tempF?: number | null;
 tempC?: number | null;
 durationMinutes?: number | null;
 isShakePoint?: boolean;
@@ -250,7 +249,7 @@ amountMax Decimal? @db.Decimal(10, 3)
 unitId String
 unit Unit @relation(fields: [unitId], references: [id], onDelete: Restrict)
 
-notes String?
+notes String? @db.VarChar(40)
 order Int @default(0)
 
 recipeId String
@@ -287,7 +286,6 @@ stepNumber Int
 title String
 instruction String
 
-tempF Int?
 tempC Int?
 durationMinutes Int?
 
@@ -477,7 +475,6 @@ order: 8,
 ];
 
 const products = [
-// Produce
 {
 slug: 'potato',
 name: 'Potato',
@@ -499,14 +496,12 @@ name: 'Basil',
 shoppingCategorySlug: 'produce',
 },
 
-// Meat & Seafood
 {
 slug: 'bacon',
 name: 'Bacon',
 shoppingCategorySlug: 'meat-seafood',
 },
 
-// Dairy & Eggs
 {
 slug: 'egg',
 name: 'Egg',
@@ -533,14 +528,12 @@ name: 'Mozzarella Cheese',
 shoppingCategorySlug: 'dairy-eggs',
 },
 
-// Pantry
 {
 slug: 'vegetable-oil',
 name: 'Vegetable Oil',
 shoppingCategorySlug: 'pantry',
 },
 
-// Spices & Seasonings
 {
 slug: 'salt',
 name: 'Salt',
@@ -562,11 +555,144 @@ name: 'Garlic Powder',
 shoppingCategorySlug: 'spices-seasonings',
 },
 
-// Baking
 {
 slug: 'cornstarch',
 name: 'Cornstarch',
 shoppingCategorySlug: 'baking',
+},
+
+{
+slug: 'chicken-breast',
+name: 'Chicken Breast',
+shoppingCategorySlug: 'meat-seafood',
+},
+{
+slug: 'olive-oil',
+name: 'Olive Oil',
+shoppingCategorySlug: 'pantry',
+},
+{
+slug: 'soy-sauce',
+name: 'Soy Sauce',
+shoppingCategorySlug: 'pantry',
+},
+{
+slug: 'honey',
+name: 'Honey',
+shoppingCategorySlug: 'pantry',
+},
+{
+slug: 'sriracha',
+name: 'Sriracha',
+shoppingCategorySlug: 'pantry',
+},
+{
+slug: 'fresh-garlic',
+name: 'Fresh Garlic',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'smoked-paprika',
+name: 'Smoked Paprika',
+shoppingCategorySlug: 'spices-seasonings',
+},
+{
+slug: 'ground-ginger',
+name: 'Ground Ginger',
+shoppingCategorySlug: 'spices-seasonings',
+},
+{
+slug: 'lime',
+name: 'Lime',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'sesame-seeds',
+name: 'Sesame Seeds',
+shoppingCategorySlug: 'pantry',
+},
+
+{
+slug: 'red-onion',
+name: 'Red Onion',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'lemon',
+name: 'Lemon',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'zucchini',
+name: 'Zucchini',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'fresh-dill',
+name: 'Fresh Dill',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'ground-nutmeg',
+name: 'Ground Nutmeg',
+shoppingCategorySlug: 'spices-seasonings',
+},
+{
+slug: 'ground-turmeric',
+name: 'Ground Turmeric',
+shoppingCategorySlug: 'spices-seasonings',
+},
+{
+slug: 'feta-cheese',
+name: 'Feta Cheese',
+shoppingCategorySlug: 'dairy-eggs',
+},
+
+{
+slug: 'cooked-rice',
+name: 'Cooked Rice',
+shoppingCategorySlug: 'pantry',
+},
+{
+slug: 'gouda-cheese',
+name: 'Gouda Cheese',
+shoppingCategorySlug: 'dairy-eggs',
+},
+{
+slug: 'mushroom',
+name: 'Mushroom',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'carrot',
+name: 'Carrot',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'bell-pepper',
+name: 'Bell Pepper',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'fresh-parsley',
+name: 'Fresh Parsley',
+shoppingCategorySlug: 'produce',
+},
+
+{
+slug: 'baby-spinach',
+name: 'Baby Spinach',
+shoppingCategorySlug: 'produce',
+},
+{
+slug: 'dried-thyme',
+name: 'Dried Thyme',
+shoppingCategorySlug: 'spices-seasonings',
+},
+{
+slug: 'cream-cheese',
+name: 'Cream Cheese',
+shoppingCategorySlug: 'dairy-eggs',
 },
 ];
 
@@ -724,10 +850,20 @@ name: 'As needed',
 symbol: '',
 category: 'QUALITATIVE',
 },
+{
+code: 'HANDFUL',
+name: 'Handful',
+symbol: 'handful',
+system: 'UNIVERSAL',
+category: 'COOKING',
+baseUnitCode: null,
+conversionFactor: null,
+},
 ] as const;
 
 ---
 
 рецепт для англомовноі аудиторіі. В notes додавай специфіку інгредієнту, якщо це потрібно, наприклад: 'large', 'finely chopped' і т.п.
-
-Зроби обьєкт mockRecipes: MocRecipe для такого рецепту
+Зроби обьєкт mockRecipes: MocRecipe для рецепту який я додам далі.
+якщо в моій бд не вистачає якихось продуктів/інгредієнтів/юнітів то обовьязково напиши це а таким типом: const products: { slug: string; name: string; shoppingCategorySlug: string; }[]
+і я додам все необхідне до бд

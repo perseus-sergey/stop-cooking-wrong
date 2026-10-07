@@ -111,12 +111,6 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
             <CardTitle className="text-xl font-bold print:text-base">
               Ingredients
             </CardTitle>
-
-            {/* <UnitSystemToggle
-              value={unitSystem}
-              onChange={setUnitSystem}
-              className="print:hidden"
-            /> */}
           </CardHeader>
           <Separator className="print:hidden" />
           <CardContent className="space-y-2 pt-4 print:space-y-1.5 print:p-2 print:pt-1">

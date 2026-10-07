@@ -32,7 +32,6 @@ export interface ICookingStep {
   stepNumber: number;
   title: string;
   instruction: string;
-  tempF?: number | null;
   tempC?: number | null;
   durationMinutes?: number | null;
   isShakePoint?: boolean;

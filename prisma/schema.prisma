@@ -218,7 +218,6 @@ model Step {
   title       String
   instruction String
 
-  tempF           Int?
   tempC           Int?
   durationMinutes Int?
 

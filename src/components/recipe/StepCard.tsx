@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { celsiusToFahrenheit } from '@/lib/formatters/fahrenheitConverter';
 import type { ICookingStep, TUnitSystem } from '@/types/recipe.type';
 import { Lightbulb, RotateCw } from 'lucide-react';
 
@@ -21,11 +22,13 @@ export default function StepCard({ step, unitSystem }: TStepCard) {
             </h3>
           </div>
 
-          {(step.tempF || step.durationMinutes) && (
+          {(step.tempC || step.durationMinutes) && (
             <div className="flex items-center gap-1 font-mono text-[10px]">
-              {step.tempF && (
+              {step.tempC && (
                 <span className="rounded bg-orange-100 px-1.5 py-0.5 font-semibold text-orange-800 print:border print:bg-zinc-100 print:text-black">
-                  {unitSystem === 'us' ? `${step.tempF}°F` : `${step.tempC}°C`}
+                  {unitSystem === 'us'
+                    ? `${celsiusToFahrenheit(step.tempC)}°F`
+                    : `${step.tempC}°C`}
                 </span>
               )}
               {step.durationMinutes && (

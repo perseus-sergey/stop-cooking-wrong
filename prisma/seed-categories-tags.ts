@@ -319,6 +319,89 @@ const products = [
     name: 'Sesame Seeds',
     shoppingCategorySlug: 'pantry',
   },
+
+  {
+    slug: 'red-onion',
+    name: 'Red Onion',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'lemon',
+    name: 'Lemon',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'zucchini',
+    name: 'Zucchini',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'fresh-dill',
+    name: 'Fresh Dill',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'ground-nutmeg',
+    name: 'Ground Nutmeg',
+    shoppingCategorySlug: 'spices-seasonings',
+  },
+  {
+    slug: 'ground-turmeric',
+    name: 'Ground Turmeric',
+    shoppingCategorySlug: 'spices-seasonings',
+  },
+  {
+    slug: 'feta-cheese',
+    name: 'Feta Cheese',
+    shoppingCategorySlug: 'dairy-eggs',
+  },
+
+  {
+    slug: 'cooked-rice',
+    name: 'Cooked Rice',
+    shoppingCategorySlug: 'pantry',
+  },
+  {
+    slug: 'gouda-cheese',
+    name: 'Gouda Cheese',
+    shoppingCategorySlug: 'dairy-eggs',
+  },
+  {
+    slug: 'mushroom',
+    name: 'Mushroom',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'carrot',
+    name: 'Carrot',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'bell-pepper',
+    name: 'Bell Pepper',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'fresh-parsley',
+    name: 'Fresh Parsley',
+    shoppingCategorySlug: 'produce',
+  },
+
+  {
+    slug: 'baby-spinach',
+    name: 'Baby Spinach',
+    shoppingCategorySlug: 'produce',
+  },
+  {
+    slug: 'dried-thyme',
+    name: 'Dried Thyme',
+    shoppingCategorySlug: 'spices-seasonings',
+  },
+  {
+    slug: 'cream-cheese',
+    name: 'Cream Cheese',
+    shoppingCategorySlug: 'dairy-eggs',
+  },
 ];
 
 const units = [
@@ -557,6 +640,15 @@ const units = [
     symbol: '',
     system: 'UNIVERSAL',
     category: 'QUALITATIVE',
+    baseUnitCode: null,
+    conversionFactor: null,
+  },
+  {
+    code: 'HANDFUL',
+    name: 'Handful',
+    symbol: 'handful',
+    system: 'UNIVERSAL',
+    category: 'COOKING',
     baseUnitCode: null,
     conversionFactor: null,
   },

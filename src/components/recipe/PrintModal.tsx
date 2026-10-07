@@ -20,6 +20,7 @@ import {
   toFormatterIngredient,
 } from '@/lib/formatters/formatIngredient';
 import type { TFormatterUnit } from '@/types/formatter.type';
+import { celsiusToFahrenheit } from '@/lib/formatters/fahrenheitConverter';
 
 interface Props {
   recipe: TGetRecipe;
@@ -290,10 +291,10 @@ export default function PrintModal({ recipe, units }: Props) {
                         <span className="font-bold">
                           {step.stepNumber}. {step.title}
                         </span>
-                        {step.tempF && (
+                        {step.tempC && (
                           <span className="rounded border border-zinc-200 bg-zinc-100 px-1 py-0.5 font-mono text-[9px] font-semibold">
                             {unitSystem === 'us'
-                              ? `${step.tempF}°F`
+                              ? `${celsiusToFahrenheit(step.tempC)}°F`
                               : `${step.tempC}°C`}
                           </span>
                         )}
