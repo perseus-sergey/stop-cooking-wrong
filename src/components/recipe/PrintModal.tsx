@@ -21,6 +21,8 @@ import {
 } from '@/lib/formatters/formatIngredient';
 import type { TFormatterUnit } from '@/types/formatter.type';
 import { celsiusToFahrenheit } from '@/lib/formatters/fahrenheitConverter';
+import { useAppSelector } from '@/hooks/redux';
+import { selectUnitSystem } from '@/features/preferences/preferencesSelectors';
 
 interface Props {
   recipe: TGetRecipe;
@@ -33,8 +35,9 @@ export default function PrintModal({ recipe, units }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [showTips, setShowTips] = useState(true);
-  const [unitSystem, setUnitSystem] = useState<'us' | 'metric'>('us');
   const [fontSize, setFontSize] = useState<FontSize>('sm');
+
+  const unitSystem = useAppSelector(selectUnitSystem);
 
   const handlePrint = () => {
     window.print();
@@ -73,7 +76,7 @@ export default function PrintModal({ recipe, units }: Props) {
         {/* ============================================================ */}
         {/* ПАНЕЛЬ КЕРУВАННЯ (Адаптивна під мобільні)                     */}
         {/* ============================================================ */}
-        <div className="flex flex-col gap-2.5 border-b border-zinc-200 bg-zinc-50 p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4 dark:border-zinc-800 dark:bg-zinc-900 print:hidden">
+        <div className="flex flex-col gap-2.5 border-b border-zinc-200 bg-zinc-50 p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4 sm:pr-20 dark:border-zinc-800 dark:bg-zinc-900 print:hidden">
           {/* Верхній рядок на мобільному: Назва + кнопка Print */}
           <div className="flex items-center justify-between pr-8 sm:pr-0">
             <DialogHeader className="p-0 text-left">
@@ -116,32 +119,6 @@ export default function PrintModal({ recipe, units }: Props) {
               />
               <span className="text-[11px] font-medium">Pro Secret</span>
             </label>
-
-            {/* US / Metric */}
-            <div className="flex items-center rounded-md border border-zinc-200 bg-zinc-200/80 p-0.5 dark:border-zinc-700 dark:bg-zinc-800">
-              <button
-                type="button"
-                className={`rounded px-1.5 py-0.5 text-[11px] font-medium transition ${
-                  unitSystem === 'us'
-                    ? 'bg-white shadow-xs dark:bg-zinc-700 dark:text-white'
-                    : 'text-zinc-600 dark:text-zinc-400'
-                }`}
-                onClick={() => setUnitSystem('us')}
-              >
-                US
-              </button>
-              <button
-                type="button"
-                className={`rounded px-1.5 py-0.5 text-[11px] font-medium transition ${
-                  unitSystem === 'metric'
-                    ? 'bg-white shadow-xs dark:bg-zinc-700 dark:text-white'
-                    : 'text-zinc-600 dark:text-zinc-400'
-                }`}
-                onClick={() => setUnitSystem('metric')}
-              >
-                Metric
-              </button>
-            </div>
 
             {/* Розмір шрифту */}
             <div className="flex items-center rounded-md border border-zinc-200 bg-zinc-200/80 p-0.5 dark:border-zinc-700 dark:bg-zinc-800">
