@@ -5,8 +5,12 @@ import { Provider } from 'react-redux';
 
 import { store } from './store';
 
-import { hydrateShoppingList } from '@/features/shoppingList/shoppingListSlice';
 import {
+  hydrateCheckedProducts,
+  hydrateShoppingList,
+} from '@/features/shoppingList/shoppingListSlice';
+import {
+  lsLoadCheckedProductIds,
   lsLoadShoppingList,
   lsLoadUnitSystem,
   lsSaveShoppingList,
@@ -20,9 +24,8 @@ type StoreProviderProps = {
 
 function StorePersistence() {
   useEffect(() => {
-    const savedIngredients = lsLoadShoppingList();
-
-    store.dispatch(hydrateShoppingList(savedIngredients));
+    store.dispatch(hydrateShoppingList(lsLoadShoppingList()));
+    store.dispatch(hydrateCheckedProducts(lsLoadCheckedProductIds()));
 
     const savedUnitSystem = lsLoadUnitSystem();
 
@@ -33,6 +36,9 @@ function StorePersistence() {
     let previousSelectedIngredients =
       store.getState().shoppingList.selectedIngredients;
 
+    let previousCheckedProductIds =
+      store.getState().shoppingList.checkedProductIds;
+
     let previousUnitSystem = store.getState().preferences.unitSystem;
 
     const unsubscribe = store.subscribe(() => {
@@ -40,17 +46,26 @@ function StorePersistence() {
 
       const currentSelectedIngredients = state.shoppingList.selectedIngredients;
 
+      const currentCheckedProductIds = state.shoppingList.checkedProductIds;
+
       const currentUnitSystem = state.preferences.unitSystem;
 
-      if (currentSelectedIngredients !== previousSelectedIngredients) {
-        previousSelectedIngredients = currentSelectedIngredients;
+      const shoppingListChanged =
+        currentSelectedIngredients !== previousSelectedIngredients ||
+        currentCheckedProductIds !== previousCheckedProductIds;
 
-        lsSaveShoppingList(currentSelectedIngredients);
+      if (shoppingListChanged) {
+        previousSelectedIngredients = currentSelectedIngredients;
+        previousCheckedProductIds = currentCheckedProductIds;
+
+        lsSaveShoppingList(
+          currentSelectedIngredients,
+          currentCheckedProductIds
+        );
       }
 
       if (currentUnitSystem !== previousUnitSystem) {
         previousUnitSystem = currentUnitSystem;
-
         lsSaveUnitSystem(currentUnitSystem);
       }
     });

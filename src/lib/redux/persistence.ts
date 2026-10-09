@@ -1,7 +1,7 @@
 import type { TSelectedIngredient } from '@/features/shoppingList/types';
 import { TUnitSystem } from '@/types/recipe.type';
 
-const STORAGE_VERSION = 1;
+const STORAGE_VERSION = 2;
 
 const SHOPPING_LIST_STORAGE_KEY = 'recipe-site:shopping-list';
 const UNIT_SYSTEM_STORAGE_KEY = 'recipe-site:unit-system';
@@ -9,36 +9,58 @@ const UNIT_SYSTEM_STORAGE_KEY = 'recipe-site:unit-system';
 type PersistedShoppingList = {
   version: number;
   selectedIngredients: TSelectedIngredient[];
+  checkedProductIds?: string[];
 };
 
-export function lsLoadShoppingList(): TSelectedIngredient[] {
+function lsReadShoppingList(): PersistedShoppingList | null {
   if (typeof window === 'undefined') {
-    return [];
+    return null;
   }
 
   try {
     const raw = window.localStorage.getItem(SHOPPING_LIST_STORAGE_KEY);
 
     if (!raw) {
-      return [];
+      return null;
     }
 
-    const parsed: PersistedShoppingList = JSON.parse(raw);
+    const parsed = JSON.parse(raw) as PersistedShoppingList;
 
     if (
-      parsed.version !== STORAGE_VERSION ||
+      (parsed.version !== 1 && parsed.version !== STORAGE_VERSION) ||
       !Array.isArray(parsed.selectedIngredients)
     ) {
-      return [];
+      return null;
     }
 
-    return parsed.selectedIngredients;
+    return parsed;
   } catch {
-    return [];
+    return null;
   }
 }
 
-export function lsSaveShoppingList(selectedIngredients: TSelectedIngredient[]) {
+export function lsLoadShoppingList(): TSelectedIngredient[] {
+  return lsReadShoppingList()?.selectedIngredients ?? [];
+}
+
+export function lsLoadCheckedProductIds(): string[] {
+  const saved = lsReadShoppingList();
+
+  if (!saved || saved.version !== STORAGE_VERSION) {
+    return [];
+  }
+
+  return Array.isArray(saved.checkedProductIds)
+    ? saved.checkedProductIds.filter(
+        (id): id is string => typeof id === 'string'
+      )
+    : [];
+}
+
+export function lsSaveShoppingList(
+  selectedIngredients: TSelectedIngredient[],
+  checkedProductIds: string[]
+) {
   if (typeof window === 'undefined') {
     return;
   }
@@ -47,6 +69,7 @@ export function lsSaveShoppingList(selectedIngredients: TSelectedIngredient[]) {
     const data: PersistedShoppingList = {
       version: STORAGE_VERSION,
       selectedIngredients,
+      checkedProductIds,
     };
 
     window.localStorage.setItem(

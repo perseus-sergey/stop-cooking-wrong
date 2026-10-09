@@ -8,8 +8,6 @@ export type TShoppingQuantity = {
   unitSymbol: string;
   unitName: string;
   unitCategory: UnitCategory;
-  // baseUnitId: string | null;
-  // conversionFactor: number | null;
 };
 
 export type TSelectedIngredient = {
@@ -28,12 +26,12 @@ export type TSelectedIngredient = {
   quantity: TShoppingQuantity;
 };
 
-export type TShoppingListSource = {
-  recipeId: string;
-  recipeSlug: string;
-  recipeTitle: string;
-  quantity: TShoppingQuantity;
-};
+// export type TShoppingListSource = {
+//   recipeId: string;
+//   recipeSlug: string;
+//   recipeTitle: string;
+//   quantity: TShoppingQuantity;
+// };
 
 export type TShoppingListProduct = {
   productId: string;
@@ -49,4 +47,12 @@ export type TShoppingListCategory = {
   categoryName: string;
 
   items: TShoppingListProduct[];
+};
+
+export type TShoppingListSource = {
+  recipeId: string;
+  recipeSlug: string;
+  recipeTitle: string;
+  ingredientId: string;
+  quantity: TShoppingQuantity;
 };

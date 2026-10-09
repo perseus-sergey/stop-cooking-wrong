@@ -43,6 +43,7 @@ export const selectShoppingList = createSelector(
         recipeId: ingredient.recipeId,
         recipeSlug: ingredient.recipeSlug,
         recipeTitle: ingredient.recipeTitle,
+        ingredientId: ingredient.ingredientId,
         quantity: ingredient.quantity,
       });
 
@@ -65,3 +66,6 @@ export const selectShoppingList = createSelector(
     return Array.from(categories.values());
   }
 );
+
+export const selectCheckedProductIds = (state: RootState): string[] =>
+  state.shoppingList.checkedProductIds;
