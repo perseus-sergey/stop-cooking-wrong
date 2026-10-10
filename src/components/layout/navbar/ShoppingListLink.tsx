@@ -22,23 +22,21 @@ export default function ShoppingListLink() {
         itemCount === 1 ? 'item' : 'items'
       }`}
       className={cn(
-        'inline-flex items-center justify-center',
-        'transition-all duration-300 ease-out',
-        {
-          'scale-100 opacity-100': itemCount > 0,
-          'pointer-events-none scale-75 opacity-0': itemCount === 0,
-        }
+        'inline-flex size-9 shrink-0 items-center justify-center rounded-lg',
+        'transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900'
       )}
     >
       <span className="relative">
         <ShoppingBasket className="size-5" />
 
-        <span
-          className="bg-primary text-primary-foreground absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full text-[10px] font-semibold"
-          aria-hidden="true"
-        >
-          {itemCount}
-        </span>
+        {itemCount > 0 && (
+          <span
+            className="bg-primary text-primary-foreground absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full text-[10px] font-semibold"
+            aria-hidden="true"
+          >
+            {itemCount}
+          </span>
+        )}
       </span>
     </Link>
   );

@@ -26,24 +26,28 @@ export default function NavbarLogoClient() {
   }, []);
 
   return (
-    <Link href={ROUTES.home} className="group flex items-center gap-3">
+    <Link
+      aria-label={`${siteConfig.name} home`}
+      href={ROUTES.home}
+      className="group flex min-w-0 items-center gap-2 sm:gap-3"
+    >
       <Image
         src="/site-logo.jpeg"
-        alt={siteConfig.name}
+        alt=""
         width={80}
         height={80}
         className={[
-          'w-auto rounded-full object-cover transition-all duration-300 ease-out',
-          scrolled ? 'mt-0 h-12' : 'mt-5 h-20',
+          'w-10 shrink-0 rounded-full object-cover transition-all duration-300 ease-out sm:w-auto',
+          scrolled ? 'h-10 sm:h-12' : 'h-10 sm:mt-5 sm:h-20',
         ].join(' ')}
       />
 
       <div className="flex flex-col">
-        <span className="text-lg leading-none font-black tracking-tight text-zinc-900 dark:text-zinc-50">
+        <span className="text-sm leading-tight font-black tracking-tight text-zinc-900 sm:text-lg dark:text-zinc-50">
           {siteConfig.name.toUpperCase()}
         </span>
 
-        <span className="text-[10px] font-semibold tracking-widest text-orange-600 uppercase dark:text-orange-400">
+        <span className="truncate text-[10px] font-semibold tracking-widest text-orange-600 uppercase dark:text-orange-400">
           Air Fryer Master
         </span>
       </div>

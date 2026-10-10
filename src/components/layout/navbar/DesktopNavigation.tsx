@@ -20,7 +20,10 @@ export default function DesktopNavigation({
   categoryGroups,
 }: NavbarDesktopProps) {
   return (
-    <nav className="hidden items-center gap-2 text-sm font-medium text-zinc-600 md:flex dark:text-zinc-300">
+    <nav
+      aria-label="Main navigation"
+      className="hidden items-center gap-2 text-sm font-medium text-zinc-600 lg:flex dark:text-zinc-300"
+    >
       {Object.entries(categoryGroups).map(([type, group]) => {
         const groupLabel = capitalize(type);
 

@@ -172,7 +172,7 @@ export default function ShoppingListView({ units }: Props) {
               </p>
             </div>
 
-            <span className="text-sm font-semibold tabular-nums">
+            <span className="text-sm font-semibold text-orange-700 tabular-nums dark:text-orange-400">
               {progress}%
             </span>
           </div>
@@ -186,7 +186,7 @@ export default function ShoppingListView({ units }: Props) {
             aria-valuenow={progress}
           >
             <div
-              className="bg-primary h-full rounded-full transition-[width]"
+              className="h-full rounded-full bg-orange-600 transition-[width] dark:bg-orange-400"
               style={{ width: `${progress}%` }}
             />
           </div>

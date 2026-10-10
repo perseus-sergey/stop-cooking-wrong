@@ -17,8 +17,10 @@ export default function UnitSystemToggle({
 }: TUnitSystemToggleProps) {
   return (
     <div
+      role="group"
+      aria-label="Measurement units"
       className={cn(
-        'flex items-center rounded-lg bg-zinc-100 p-1 dark:bg-zinc-800',
+        'flex w-fit items-center rounded-lg bg-zinc-100 p-1 dark:bg-zinc-800',
         className
       )}
     >

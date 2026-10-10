@@ -19,6 +19,7 @@ import { capitalize, cn } from '@/lib/utils';
 import { NavCategory } from '@/types/category.type';
 import { ROUTES, siteConfig } from '@/config/site.config';
 import { CATEGORY_UI } from '@/config/categories.config';
+import UnitSystemControl from './UnitSystemControl';
 
 type MobileNavbarProps = {
   categoryGroups: Record<string, NavCategory[]>;
@@ -34,7 +35,7 @@ export default function MobileNavigation({
   };
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900">
           <Menu className="h-5 w-5" />
@@ -151,7 +152,14 @@ export default function MobileNavigation({
           </div>
 
           {/* Fixed footer */}
-          <div className="shrink-0 border-t border-zinc-100 bg-white px-6 py-4 dark:border-zinc-800 dark:bg-zinc-950">
+          <div className="shrink-0 border-t border-zinc-100 bg-white px-5 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] dark:border-zinc-800 dark:bg-zinc-950">
+            <div className="mb-4">
+              <p className="mb-2 text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                Measurement units
+              </p>
+
+              <UnitSystemControl />
+            </div>
             <div className="mb-3 rounded-2xl border border-zinc-100 bg-zinc-50 p-3.5 dark:border-zinc-800/80 dark:bg-zinc-900/60">
               <p className="text-xs font-bold text-zinc-900 dark:text-zinc-100">
                 Relaxing ASMR Cooking
