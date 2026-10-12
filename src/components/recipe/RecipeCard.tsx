@@ -5,6 +5,7 @@ import { ROUTES } from '@/config/site.config';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Clock, Flame, Sparkles } from 'lucide-react';
+import FavoriteButton from './FavoriteButton';
 
 interface Props {
   recipe: RecipeCardData;
@@ -13,10 +14,15 @@ interface Props {
 
 export default function RecipeCard({ recipe, priority }: Props) {
   return (
-    <Link href={ROUTES.recipe(recipe.slug)} className="group block h-full">
-      <Card className="flex h-full flex-col overflow-hidden border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
-        {/* Картинка страви з зум-ефектом */}
-        <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+    <Card className="relative flex h-full flex-col overflow-hidden border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
+      <FavoriteButton recipeId={recipe.id} />
+      {/* Картинка страви з зум-ефектом */}
+      <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+        <Link
+          href={ROUTES.recipe(recipe.slug)}
+          aria-label={`View ${recipe.title} recipe`}
+          className="absolute inset-0"
+        >
           <Image
             src={recipe.featuredImage}
             alt={recipe.title}
@@ -25,12 +31,17 @@ export default function RecipeCard({ recipe, priority }: Props) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <Badge className="absolute top-3 left-3 border-none bg-zinc-950/80 text-xs font-medium text-white backdrop-blur-md">
-            {recipe.categories[0].category.name}
-          </Badge>
-        </div>
+        </Link>
+        <Badge className="absolute top-3 left-3 border-none bg-zinc-950/80 text-xs font-medium text-white backdrop-blur-md">
+          {recipe.categories[0].category.name}
+        </Badge>
+      </div>
 
-        {/* Контент картки */}
+      {/* Контент картки */}
+      <Link
+        href={ROUTES.recipe(recipe.slug)}
+        className="group flex flex-1 flex-col"
+      >
         <CardContent className="flex flex-1 flex-col justify-between space-y-4 p-5">
           <div className="space-y-2">
             {/* Час і температура */}
@@ -58,12 +69,10 @@ export default function RecipeCard({ recipe, priority }: Props) {
           {/* Плашка фірмового секрету каналу */}
           <div className="flex items-center gap-1.5 border-t border-zinc-100 pt-2 text-[11px] font-semibold text-orange-600 dark:border-zinc-800 dark:text-orange-400">
             <Sparkles className="h-3.5 w-3.5 shrink-0" />
-            <span className="truncate">
-              {'Includes "The Right Move" Secret'}
-            </span>
+            <span className="truncate">{recipe.theRightMove}</span>
           </div>
         </CardContent>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
 }

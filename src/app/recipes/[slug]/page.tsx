@@ -97,12 +97,10 @@ export default async function RecipePage({ params }: PageProps) {
     servings,
     caloriesPerServing,
     steps,
-    ingredients,
     description,
     tags,
     featuredImage,
     publishedAt,
-    theRightMove,
     categories,
   } = recipe;
 
@@ -132,25 +130,21 @@ export default async function RecipePage({ params }: PageProps) {
           calories: `${caloriesPerServing} calories`,
         }
       : undefined,
-    // Формуємо масив інгредієнтів для Google
     recipeIngredient: recipe.ingredients.map((ingredient) =>
       formatIngredientForJsonLd(ingredient, units)
     ),
-    // Формуємо покрокову інструкцію (HowToStep)
     recipeInstructions: steps.map((step) => ({
       '@type': 'HowToStep',
       name: step.title,
       text: step.instruction,
       position: step.stepNumber,
     })),
-    // Прив'язка вашого YouTube відео прямо всередину схеми рецепта
     video: youtubeId
       ? {
           '@type': 'VideoObject',
           name: title,
           description: description,
           thumbnailUrl: [featuredImage],
-          uploadDate: publishedAt,
           embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
         }
       : undefined,
@@ -160,7 +154,9 @@ export default async function RecipePage({ params }: PageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(recipeJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(recipeJsonLd).replace(/</g, '\\u003c'),
+        }}
       />
 
       <main className="min-h-screen bg-white py-10 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50">
@@ -202,13 +198,11 @@ export default async function RecipePage({ params }: PageProps) {
               alt={title}
               fill
               priority
+              sizes="(max-width: 896px) 100vw, 896px"
               className="object-cover"
             />
           </div>
 
-          {/*============================ */}
-          {/*============================ */}
-          {/*============================ */}
           <div className="space-y-10 print:space-y-4">
             {/* 1. Швидка статистика (компактна на друці) */}
             <div className="grid grid-cols-2 gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 sm:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-900 print:border-zinc-300 print:bg-transparent print:p-2">

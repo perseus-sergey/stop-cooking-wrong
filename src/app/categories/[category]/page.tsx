@@ -90,6 +90,8 @@ export default async function CategoryPage({ params }: PageProps) {
   const categoryJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
+    name: `${category} Recipes`,
+    numberOfItems: filteredRecipes.length,
     itemListElement: filteredRecipes.map((recipe, index) => ({
       '@type': 'ListItem',
       position: index + 1,

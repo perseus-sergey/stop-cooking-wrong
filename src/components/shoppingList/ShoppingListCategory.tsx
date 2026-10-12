@@ -8,6 +8,8 @@ type Props = {
   unitSystem: TUnitSystem;
   units: TFormatterUnit[];
   unitsById: Map<string, TFormatterUnit>;
+  expandedProductIds: string[];
+  onToggleProduct: (productId: string) => void;
 };
 
 export default function ShoppingListCategory({
@@ -15,6 +17,8 @@ export default function ShoppingListCategory({
   unitSystem,
   units,
   unitsById,
+  expandedProductIds,
+  onToggleProduct,
 }: Props) {
   return (
     <section aria-labelledby={`category-${category.categoryId}`}>
@@ -39,6 +43,8 @@ export default function ShoppingListCategory({
               unitSystem={unitSystem}
               units={units}
               unitsById={unitsById}
+              expanded={expandedProductIds.includes(item.productId)}
+              onToggle={() => onToggleProduct(item.productId)}
             />
           </li>
         ))}

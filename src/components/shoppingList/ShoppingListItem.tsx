@@ -21,7 +21,6 @@ import {
   removeProduct,
   toggleProductChecked,
 } from '@/features/shoppingList/shoppingListSlice';
-import { useState } from 'react';
 import { selectCheckedProductIds } from '@/features/shoppingList/shoppingListSelectors';
 
 type Props = {
@@ -29,6 +28,8 @@ type Props = {
   unitSystem: TUnitSystem;
   units: TFormatterUnit[];
   unitsById: Map<string, TFormatterUnit>;
+  expanded: boolean;
+  onToggle: () => void;
 };
 
 export default function ShoppingListItem({
@@ -36,9 +37,10 @@ export default function ShoppingListItem({
   unitSystem,
   units,
   unitsById,
+  expanded,
+  onToggle,
 }: Props) {
   const dispatch = useAppDispatch();
-  const [expanded, setExpanded] = useState(false);
 
   const checkedProductIds = useAppSelector(selectCheckedProductIds);
   const isChecked = checkedProductIds.includes(item.productId);
@@ -89,7 +91,8 @@ export default function ShoppingListItem({
 
         <button
           type="button"
-          onClick={() => setExpanded((current) => !current)}
+          onClick={onToggle}
+          aria-controls={`product-details-${item.productId}`}
           aria-expanded={expanded}
           className="flex min-w-0 flex-1 items-center gap-2 text-left"
         >
@@ -132,7 +135,10 @@ export default function ShoppingListItem({
       </div>
 
       {expanded && (
-        <div className="bg-muted/40 border-t px-3 py-2">
+        <div
+          id={`product-details-${item.productId}`}
+          className="bg-muted/40 border-t px-3 py-2"
+        >
           <ul className="divide-y">
             {item.sources.map((source) => (
               <li

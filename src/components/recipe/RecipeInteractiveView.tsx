@@ -31,7 +31,6 @@ import { selectUnitSystem } from '@/features/preferences/preferencesSelectors';
 import type { TFormatterUnit } from '@/types/formatter.type';
 import { useHydrated } from '@/hooks/useHydrated';
 import type { TUnitSystem } from '@/types/recipe.type';
-// import { Skeleton } from '../ui/skeleton';
 
 interface Props {
   recipe: TGetRecipe;
@@ -49,10 +48,6 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
   );
 
   const displayUnitSystem: TUnitSystem = hydrated ? unitSystem : 'us';
-
-  // if (!hydrated) {
-  //   return <RecipeInteractiveSkeleton />;
-  // }
 
   const handleIngredientSelectionChange = (
     ingredient: TRecipeIngredient,
@@ -199,33 +194,3 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
     </div>
   );
 }
-
-// function RecipeInteractiveSkeleton() {
-//   return (
-//     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-//       <Card>
-//         <CardHeader>
-//           <Skeleton className="h-6 w-40" />
-//         </CardHeader>
-
-//         <CardContent className="space-y-4">
-//           {[...Array(10)].map((_, i) => (
-//             <Skeleton key={i} className="h-10 w-full" />
-//           ))}
-//         </CardContent>
-//       </Card>
-
-//       <Card>
-//         <CardHeader>
-//           <Skeleton className="h-6 w-32" />
-//         </CardHeader>
-
-//         <CardContent className="space-y-4">
-//           {[...Array(10)].map((_, i) => (
-//             <Skeleton key={i} className="h-10 w-full" />
-//           ))}
-//         </CardContent>
-//       </Card>
-//     </div>
-//   );
-// }

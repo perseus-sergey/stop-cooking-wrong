@@ -3,9 +3,24 @@
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Moon, Sun } from 'lucide-react';
+import { useHydrated } from '@/hooks/useHydrated';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const hydrated = useHydrated();
+
+  if (!hydrated) {
+    return (
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
+        className="h-9 w-9"
+        aria-label="Toggle theme"
+        title="Toggle theme"
+      />
+    );
+  }
 
   return (
     <Button

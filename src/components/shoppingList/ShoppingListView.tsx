@@ -15,7 +15,7 @@ import ShoppingListCategory from './ShoppingListCategory';
 import { ROUTES } from '@/config/site.config';
 import type { TFormatterUnit } from '@/types/formatter.type';
 import { selectUnitSystem } from '@/features/preferences/preferencesSelectors';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useHydrated } from '@/hooks/useHydrated';
 import { clearShoppingList } from '@/features/shoppingList/shoppingListSlice';
 
@@ -39,6 +39,7 @@ type Props = {
 export default function ShoppingListView({ units }: Props) {
   const hydrated = useHydrated();
   const dispatch = useAppDispatch();
+  const [expandedProductIds, setExpandedProductIds] = useState<string[]>([]);
 
   const unitSystem = useAppSelector(selectUnitSystem);
   const categories = useAppSelector(selectShoppingList);
@@ -63,6 +64,34 @@ export default function ShoppingListView({ units }: Props) {
   };
 
   const products = categories.flatMap((category) => category.items);
+
+  const allProductsExpanded =
+    products.length > 0 &&
+    products.every((item) => expandedProductIds.includes(item.productId));
+
+  const handleToggleAllProducts = () => {
+    if (allProductsExpanded) {
+      setExpandedProductIds([]);
+    } else {
+      setExpandedProductIds(products.map((item) => item.productId));
+    }
+  };
+
+  const handleExpandAllProducts = () => {
+    setExpandedProductIds(products.map((item) => item.productId));
+  };
+
+  const handleCollapseAllProducts = () => {
+    setExpandedProductIds([]);
+  };
+
+  const handleToggleProduct = (productId: string) => {
+    setExpandedProductIds((current) =>
+      current.includes(productId)
+        ? current.filter((id) => id !== productId)
+        : [...current, productId]
+    );
+  };
 
   const checkedCount = products.filter((item) =>
     checkedProductIds.includes(item.productId)
@@ -122,7 +151,8 @@ export default function ShoppingListView({ units }: Props) {
               </h1>
 
               <p className="text-muted-foreground mt-1 text-sm">
-                {itemCount} {itemCount === 1 ? 'item' : 'items'}
+                {itemCount} {itemCount === 1 ? 'product' : 'products'} ·{' '}
+                {itemCount - checkedCount} left to buy
               </p>
             </div>
             {categories.length > 0 && (
@@ -233,7 +263,16 @@ export default function ShoppingListView({ units }: Props) {
           </ul>
         </section>
 
-        <div className="space-y-8"></div>
+        <div className="mb-4 flex justify-end">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={handleToggleAllProducts}
+          >
+            {allProductsExpanded ? 'Collapse all' : 'Expand all'}
+          </Button>
+        </div>
 
         <div className="space-y-8">
           {categories.map((category) => (
@@ -243,6 +282,8 @@ export default function ShoppingListView({ units }: Props) {
               unitSystem={unitSystem}
               units={units}
               unitsById={unitsById}
+              expandedProductIds={expandedProductIds}
+              onToggleProduct={handleToggleProduct}
             />
           ))}
         </div>
