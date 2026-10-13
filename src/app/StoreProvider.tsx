@@ -11,12 +11,16 @@ import {
 } from '@/features/shoppingList/shoppingListSlice';
 import {
   lsLoadCheckedProductIds,
+  lsLoadFavorites,
   lsLoadShoppingList,
   lsLoadUnitSystem,
+  lsSaveFavorites,
   lsSaveShoppingList,
   lsSaveUnitSystem,
 } from '@/lib/redux/persistence';
 import { setUnitSystem } from '@/features/preferences/preferencesSlice';
+import { hydrateFavorites } from '@/features/favorites/favoritesSlice';
+import { subscribeToFavoritesPersistence } from '@/features/favorites/favoritesPersistence';
 
 type StoreProviderProps = {
   children: React.ReactNode;
@@ -24,6 +28,7 @@ type StoreProviderProps = {
 
 function StorePersistence() {
   useEffect(() => {
+    store.dispatch(hydrateFavorites(lsLoadFavorites()));
     store.dispatch(hydrateShoppingList(lsLoadShoppingList()));
     store.dispatch(hydrateCheckedProducts(lsLoadCheckedProductIds()));
 
@@ -40,6 +45,8 @@ function StorePersistence() {
       store.getState().shoppingList.checkedProductIds;
 
     let previousUnitSystem = store.getState().preferences.unitSystem;
+
+    const unsubscribeFavorites = subscribeToFavoritesPersistence(store);
 
     const unsubscribe = store.subscribe(() => {
       const state = store.getState();
@@ -70,7 +77,10 @@ function StorePersistence() {
       }
     });
 
-    return unsubscribe;
+    return () => {
+      unsubscribeFavorites();
+      unsubscribe();
+    };
   }, []);
 
   return null;

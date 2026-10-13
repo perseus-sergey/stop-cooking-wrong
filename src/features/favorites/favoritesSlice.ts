@@ -27,10 +27,13 @@ const favoritesSlice = createSlice({
         state.recipeIds = state.recipeIds.filter((id) => recipeId !== id);
       else state.recipeIds.push(recipeId);
     },
+    hydrateFavorites: (_state, action: PayloadAction<string[]>) => {
+      return { recipeIds: [...new Set(action.payload)] };
+    },
   },
 });
 
-export const { addFavorite, removeFavorite, toggleFavorite } =
+export const { addFavorite, removeFavorite, toggleFavorite, hydrateFavorites } =
   favoritesSlice.actions;
 
 export default favoritesSlice.reducer;

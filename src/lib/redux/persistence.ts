@@ -5,6 +5,7 @@ const STORAGE_VERSION = 2;
 
 const SHOPPING_LIST_STORAGE_KEY = 'recipe-site:shopping-list';
 const UNIT_SYSTEM_STORAGE_KEY = 'recipe-site:unit-system';
+const FAVORITES_STORAGE_KEY = 'recipe-site:favorites';
 
 type PersistedShoppingList = {
   version: number;
@@ -106,6 +107,47 @@ export function lsSaveUnitSystem(unitSystem: TUnitSystem) {
 
   try {
     window.localStorage.setItem(UNIT_SYSTEM_STORAGE_KEY, unitSystem);
+  } catch {
+    // localStorage may be unavailable or full.
+  }
+}
+
+export function lsLoadFavorites(): string[] {
+  if (typeof window === 'undefined') {
+    return [];
+  }
+
+  try {
+    const raw = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
+
+    if (!raw) {
+      return [];
+    }
+
+    const parsed: unknown = JSON.parse(raw);
+
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    return [
+      ...new Set(parsed.filter((id): id is string => typeof id === 'string')),
+    ];
+  } catch {
+    return [];
+  }
+}
+
+export function lsSaveFavorites(recipeIds: string[]) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  try {
+    window.localStorage.setItem(
+      FAVORITES_STORAGE_KEY,
+      JSON.stringify(recipeIds)
+    );
   } catch {
     // localStorage may be unavailable or full.
   }
