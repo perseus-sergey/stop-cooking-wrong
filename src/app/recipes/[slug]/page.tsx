@@ -20,6 +20,7 @@ import {
   XCircle,
   Sparkles,
 } from 'lucide-react';
+import FavoriteButton from '@/components/recipe/FavoriteButton';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -184,9 +185,16 @@ export default async function RecipePage({ params }: PageProps) {
           </div>
 
           <header className="space-y-4">
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
-              {title}
-            </h1>
+            <div className="flex items-start justify-between gap-4">
+              <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
+                {title}
+              </h1>
+
+              <div className="shrink-0 print:hidden">
+                <FavoriteButton recipeId={recipe.id} />
+              </div>
+            </div>
+
             <p className="text-base leading-relaxed text-zinc-600 sm:text-lg dark:text-zinc-400">
               {description}
             </p>
@@ -201,6 +209,10 @@ export default async function RecipePage({ params }: PageProps) {
               sizes="(max-width: 896px) 100vw, 896px"
               className="object-cover"
             />
+
+            <div className="absolute top-4 right-4 z-10 print:hidden">
+              <FavoriteButton recipeId={recipe.id} />
+            </div>
           </div>
 
           <div className="space-y-10 print:space-y-4">

@@ -18,6 +18,7 @@ export default function ShoppingListLink() {
   return (
     <Link
       href={ROUTES.shoppingList}
+      title="Shopping list"
       aria-label={`Shopping list, ${itemCount} ${
         itemCount === 1 ? 'item' : 'items'
       }`}

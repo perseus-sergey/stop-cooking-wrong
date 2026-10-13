@@ -6,6 +6,7 @@ import NavbarLogo from './NavbarLogo';
 import YouTubeButton from './YouTubeButton';
 import ShoppingListLink from './ShoppingListLink';
 import UnitSystemControl from './UnitSystemControl';
+import FavoritesLink from './FavoritesLink';
 
 export default async function Navbar() {
   const categories = await getNavCategories();
@@ -27,6 +28,7 @@ export default async function Navbar() {
         <DesktopNavigation categoryGroups={categoryGroups} />
 
         <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
+          <FavoritesLink />
           <ShoppingListLink />
 
           {/* Desktop-only controls */}

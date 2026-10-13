@@ -1,4 +1,15 @@
 import FavoritesList from '@/components/layout/FavoritesList';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Favorite Recipes',
+  description:
+    'Your saved air fryer recipes, all in one place. Quickly find the dishes you love and want to cook again.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function FavoritesPage() {
   return (
