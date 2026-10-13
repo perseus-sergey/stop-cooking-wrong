@@ -74,7 +74,7 @@ export default function PrintModal({ recipe, units }: Props) {
       {/* На мобільному займає майже весь екран (96vh), на десктопі - sm:max-w-4xl */}
       <DialogContent className="flex h-[96vh] w-full flex-col overflow-hidden p-0 sm:h-auto sm:max-h-[92vh] sm:max-w-4xl print:max-w-none print:border-none print:p-0 print:shadow-none">
         {/* ============================================================ */}
-        {/* ПАНЕЛЬ КЕРУВАННЯ (Адаптивна під мобільні)                     */}
+        {/* ПАНЕЛЬ КЕРУВАННЯ                 */}
         {/* ============================================================ */}
         <div className="flex flex-col gap-2.5 border-b border-zinc-200 bg-zinc-50 p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4 sm:pr-20 dark:border-zinc-800 dark:bg-zinc-900 print:hidden">
           {/* Верхній рядок на мобільному: Назва + кнопка Print */}
@@ -151,7 +151,7 @@ export default function PrintModal({ recipe, units }: Props) {
         </div>
 
         {/* ============================================================ */}
-        {/* ЖИВИЙ ПЕРЕГЛЯД: На мобільному економимо кожен міліметр!       */}
+        {/* ЖИВИЙ ПЕРЕГЛЯД      */}
         {/* ============================================================ */}
         <div className="flex flex-1 justify-center overflow-y-auto bg-white p-0 sm:bg-zinc-100 sm:p-6 dark:bg-zinc-950 print:overflow-visible print:bg-white print:p-0">
           <div
@@ -213,10 +213,6 @@ export default function PrintModal({ recipe, units }: Props) {
               </div>
             )}
 
-            {/* ІНГРЕДІЄНТИ ТА КРОКИ:
-                - На екрані смартфона: йдуть акуратно один під одним (flex-col)
-                - На десктопі та на папері при друці (print): суворо у 2 колонки (sm:grid print:grid grid-cols-12)!
-            */}
             <div className="flex flex-col items-start gap-4 sm:grid sm:grid-cols-12 sm:gap-5 print:grid print:grid-cols-12">
               {/* Колонка 1: Інгредієнти */}
               <div className="w-full border-zinc-200 sm:col-span-5 sm:border-r sm:pr-3 print:col-span-5 print:border-r print:pr-3">

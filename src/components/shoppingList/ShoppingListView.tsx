@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { ArrowLeft, ShoppingBasket } from 'lucide-react';
+import { ArrowLeft, Printer, ShoppingBasket } from 'lucide-react';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 
@@ -31,6 +31,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { formatShoppingQuantity } from '@/lib/formatters/formatShoppingQuantity';
+import ShoppingListPrint from './ShoppingListPrint';
 
 type Props = {
   units: TFormatterUnit[];
@@ -75,14 +76,6 @@ export default function ShoppingListView({ units }: Props) {
     } else {
       setExpandedProductIds(products.map((item) => item.productId));
     }
-  };
-
-  const handleExpandAllProducts = () => {
-    setExpandedProductIds(products.map((item) => item.productId));
-  };
-
-  const handleCollapseAllProducts = () => {
-    setExpandedProductIds([]);
   };
 
   const handleToggleProduct = (productId: string) => {
@@ -130,7 +123,7 @@ export default function ShoppingListView({ units }: Props) {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-4xl print:hidden">
         <header className="mb-8">
           <Link
             href={ROUTES.home}
@@ -155,32 +148,43 @@ export default function ShoppingListView({ units }: Props) {
                 {itemCount - checkedCount} left to buy
               </p>
             </div>
-            {categories.length > 0 && (
-              <AlertDialog>
-                <AlertDialogTrigger render={<Button variant="outline" />}>
-                  Clear shopping list
-                </AlertDialogTrigger>
 
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Clear shopping list?</AlertDialogTitle>
+            <div className="flex flex-wrap items-center justify-end gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => window.print()}
+              >
+                <Printer className="size-4" />
+                Print
+              </Button>
+              {categories.length > 0 && (
+                <AlertDialog>
+                  <AlertDialogTrigger render={<Button variant="outline" />}>
+                    Clear shopping list
+                  </AlertDialogTrigger>
 
-                    <AlertDialogDescription>
-                      This will remove all ingredients from your shopping list.
-                      This action cannot be undone.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Clear shopping list?</AlertDialogTitle>
 
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogDescription>
+                        This will remove all ingredients from your shopping
+                        list. This action cannot be undone.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
 
-                    <AlertDialogAction onClick={handleClearShoppingList}>
-                      Clear shopping list
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            )}
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+
+                      <AlertDialogAction onClick={handleClearShoppingList}>
+                        Clear shopping list
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              )}
+            </div>
           </div>
         </header>
 
@@ -288,6 +292,14 @@ export default function ShoppingListView({ units }: Props) {
           ))}
         </div>
       </div>
+
+      <ShoppingListPrint
+        categories={categories}
+        unitSystem={unitSystem}
+        units={units}
+        unitsById={unitsById}
+        checkedProductIds={checkedProductIds}
+      />
     </main>
   );
 }
