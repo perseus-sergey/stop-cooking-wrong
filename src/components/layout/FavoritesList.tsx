@@ -9,6 +9,15 @@ import { RecipeCardData } from '@/types/recipe.type';
 import RecipeCardSkeleton from './RecipeCardSkeleton';
 import Link from 'next/link';
 import { ROUTES } from '@/config/site.config';
+import { Input } from '../ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '../ui/button';
 
 export default function FavoritesList() {
   const favoriteIds = useAppSelector(selectFavoriteRecipeIds);
@@ -18,6 +27,7 @@ export default function FavoritesList() {
   const [error, setError] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [retryCount, setRetryCount] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     let cancelled = false;
@@ -61,12 +71,30 @@ export default function FavoritesList() {
     favoriteIdSet.has(recipe.id)
   );
 
+  const categories = [
+    ...new Set(
+      visibleRecipes.flatMap((recipe) =>
+        recipe.categories.map(({ category }) => category.name)
+      )
+    ),
+  ].sort((a, b) => a.localeCompare(b, 'en-US'));
+
   // Пошук працює тільки з уже завантаженими рецептами.
   const normalizedQuery = searchQuery.trim().toLocaleLowerCase('en-US');
 
-  const filteredRecipes = visibleRecipes.filter((recipe) =>
-    recipe.title.toLocaleLowerCase('en-US').includes(normalizedQuery)
-  );
+  const filteredRecipes = visibleRecipes.filter((recipe) => {
+    const matchesQuery = recipe.title
+      .toLocaleLowerCase('en-US')
+      .includes(normalizedQuery);
+
+    const matchesCategory =
+      selectedCategory === 'all' ||
+      recipe.categories.some(
+        ({ category }) => category.name === selectedCategory
+      );
+
+    return matchesQuery && matchesCategory;
+  });
 
   if (!hasLoaded) {
     return (
@@ -126,41 +154,86 @@ export default function FavoritesList() {
   }
 
   return (
-    <section>
+    <section aria-label="Favorite recipes">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <p
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="text-sm text-zinc-600 dark:text-zinc-400"
+        >
           <span className="font-semibold text-zinc-900 dark:text-zinc-100">
             {visibleRecipes.length}
           </span>{' '}
           {visibleRecipes.length === 1 ? 'recipe' : 'recipes'} saved
         </p>
 
-        <div className="w-full sm:max-w-sm">
-          <label htmlFor="favorite-search" className="sr-only">
-            Search favorite recipes
-          </label>
-          <input
-            id="favorite-search"
-            type="search"
-            value={searchQuery}
-            onChange={(event) => setSearchQuery(event.target.value)}
-            placeholder="Search your favorites..."
-            className="w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm transition outline-none placeholder:text-zinc-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-zinc-700 dark:bg-zinc-900"
-          />
+        <div className="flex w-full flex-col gap-3 sm:max-w-md sm:flex-row">
+          <div className="w-full sm:flex-1">
+            <span id="favorite-category-label" className="sr-only">
+              Filter by category
+            </span>
+
+            <Select
+              value={selectedCategory}
+              onValueChange={(value) => {
+                if (value) setSelectedCategory(value);
+              }}
+            >
+              <SelectTrigger
+                id="favorite-category"
+                aria-labelledby="favorite-category-label"
+                className="w-full"
+              >
+                <SelectValue placeholder="All categories" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="all">All categories</SelectItem>
+
+                {categories.map((category) => (
+                  <SelectItem key={category} value={category}>
+                    {category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="w-full sm:flex-1">
+            <label htmlFor="favorite-search" className="sr-only">
+              Search favorite recipes by title
+            </label>
+
+            <Input
+              id="favorite-search"
+              type="search"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search your favorites..."
+              className="w-full"
+            />
+          </div>
         </div>
       </div>
 
       {filteredRecipes.length === 0 ? (
         <div className="py-12 text-center">
           <h2 className="text-lg font-semibold">No matching recipes</h2>
-          <p className="mt-2 text-sm text-zinc-500">Try another search term.</p>
-          <button
+          <p className="mt-2 text-sm text-zinc-500">
+            Try changing your search or category filter.
+          </p>
+          <Button
             type="button"
-            onClick={() => setSearchQuery('')}
-            className="mt-4 text-sm font-semibold text-orange-600 hover:text-orange-700"
+            variant="link"
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedCategory('all');
+            }}
+            className="mt-4 h-auto p-0 text-orange-600 hover:text-orange-700"
           >
-            Clear search
-          </button>
+            Clear filters
+          </Button>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

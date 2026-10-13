@@ -22,7 +22,6 @@ export async function queryFavoriteRecipes(
       featuredImage: true,
       theRightMove: true,
       categories: {
-        take: 1,
         select: {
           category: {
             select: {
