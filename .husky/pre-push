@@ -1,5 +1,8 @@
 echo "🔐 Checking repository for secrets..."
-gitleaks git --redact --verbose
+gitleaks git --redact --verbose || exit 1
+
+echo "🧪 Running tests..."
+pnpm vitest run || exit 1
 
 echo "🏗️ Building the project..."
-pnpm build
+pnpm build || exit 1

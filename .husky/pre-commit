@@ -1,8 +1,8 @@
 echo "🔐 Checking for secrets..."
-gitleaks protect --staged --verbose
+gitleaks protect --staged --verbose || exit 1
 
 echo "🔷 Checking TypeScript..."
-pnpm exec tsc --noEmit
+pnpm exec tsc --noEmit || exit 1
 
 echo "✨ Linting and formatting staged files..."
-pnpm exec lint-staged
+pnpm exec lint-staged || exit 1
