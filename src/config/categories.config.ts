@@ -1,8 +1,4 @@
 import {
-  // Flame,
-  // Menu,
-  // ChevronRight,
-  // Home,
   Egg,
   UtensilsCrossed,
   Cookie,

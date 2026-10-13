@@ -105,16 +105,19 @@ export interface RecipeTag {
   tag: Tag;
 }
 
-export type RecipeCardData = Recipe & {
-  categories: RecipeCategory[];
+export type RecipeCardData = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  cookTimeMinutes: number;
+  featuredImage: string;
+  theRightMove: string;
+  categories: {
+    category: {
+      name: string;
+    };
+  }[];
 };
-
-// Повний рецепт з усіма зв'язками
-// export type TFullRecipe = Recipe & {
-//   ingredients: Ingredient[];
-//   steps: ICookingStep[];
-//   categories: RecipeCategory[];
-//   tags: RecipeTag[];
-// };
 
 export type TUnitSystem = 'us' | 'metric';
