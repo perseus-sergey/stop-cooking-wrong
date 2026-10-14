@@ -46,6 +46,11 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-recipe-accent: var(--recipe-accent);
+  --color-recipe-secondary: var(--recipe-secondary);
+  --color-recipe-success: var(--recipe-success);
+  --color-recipe-button: var(--recipe-button);
+  --color-recipe-button-foreground: var(--recipe-button-foreground);
 }
 
 :root {
@@ -81,6 +86,11 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --recipe-accent: #c2410c;
+  --recipe-secondary: #52525b;
+  --recipe-success: #166534;
+  --recipe-button: #c2410c;
+  --recipe-button-foreground: #ffffff;
 }
 
 .dark {
@@ -115,6 +125,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --recipe-accent: #fb923c;
+  --recipe-secondary: #a1a1aa;
+  --recipe-success: #4ade80;
+  --recipe-button: #fb923c;
+  --recipe-button-foreground: #18181b;
 }
 
 @layer base {

@@ -32,7 +32,7 @@ export default function DesktopNavigation({
             <DropdownMenuTrigger
               openOnHover
               delay={100}
-              className="inline-flex cursor-pointer items-center gap-1 rounded-md px-3 py-2 transition-colors hover:bg-zinc-100 hover:text-orange-600 focus:outline-none dark:hover:bg-zinc-900 dark:hover:text-orange-400"
+              className="hover:text-recipe-accent inline-flex cursor-pointer items-center gap-1 rounded-md px-3 py-2 transition-colors hover:bg-zinc-100 focus:outline-none dark:hover:bg-zinc-900 dark:hover:text-orange-400"
             >
               {groupLabel}
 

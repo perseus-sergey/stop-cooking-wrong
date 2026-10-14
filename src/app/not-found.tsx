@@ -11,12 +11,12 @@ export default async function NotFound() {
   return (
     <main className="flex min-h-[70vh] items-center justify-center px-4 py-16">
       <div className="w-full max-w-md space-y-6 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 dark:bg-orange-950/50">
+        <div className="text-recipe-accent mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-100 dark:bg-orange-950/50">
           <Flame className="h-7 w-7" />
         </div>
 
         <div className="space-y-2">
-          <p className="text-xs font-bold tracking-widest text-orange-600 uppercase dark:text-orange-400">
+          <p className="text-recipe-accent text-xs font-bold tracking-widest uppercase">
             Error 404
           </p>
           <h1 className="text-2xl font-black tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-50">

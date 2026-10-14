@@ -22,7 +22,13 @@ export default function FavoritesPage() {
         </p>
       </div>
 
-      <FavoritesList />
+      <section aria-labelledby="favorite-recipes-heading">
+        <h2 id="favorite-recipes-heading" className="sr-only">
+          Your saved recipes
+        </h2>
+
+        <FavoritesList />
+      </section>
     </main>
   );
 }

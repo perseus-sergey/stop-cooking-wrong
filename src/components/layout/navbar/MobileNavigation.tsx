@@ -179,7 +179,11 @@ export default function MobileNavigation({
                 'w-full gap-2 bg-red-600 py-5 text-sm font-semibold text-white shadow-md hover:bg-red-700'
               )}
             >
-              <YoutubeIcon className="h-4 w-4" aria-hidden="true" />
+              <YoutubeIcon
+                className="size-4 text-red-600"
+                iconColor="white"
+                aria-hidden="true"
+              />
               Subscribe on YouTube
             </a>
           </div>

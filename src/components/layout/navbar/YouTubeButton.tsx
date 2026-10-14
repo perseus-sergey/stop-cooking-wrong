@@ -16,7 +16,11 @@ export default function YouTubeButton() {
         'hidden gap-2 bg-red-600 text-xs font-medium text-white shadow-sm hover:bg-red-700 sm:inline-flex'
       )}
     >
-      <YoutubeIcon aria-hidden="true" className="h-4 w-4 fill-current" />
+      <YoutubeIcon
+        aria-hidden="true"
+        className="size-4 text-red-600"
+        iconColor="white"
+      />
       Subscribe
     </a>
   );

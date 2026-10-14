@@ -117,14 +117,14 @@ export default async function CategoryPage({ params }: PageProps) {
               variant: 'ghost',
               size: 'sm',
               className:
-                'gap-2 text-xs text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100',
+                'text-recipe-secondary gap-2 text-xs hover:text-zinc-900 dark:hover:text-zinc-100',
             })}
           >
-            <ArrowLeft className="h-4 w-4" /> Back to Home
+            <ArrowLeft className="size-4" /> Back to Home
           </Link>
         </div>
 
-        {/* Заголовок розділу */}
+        {/* Заголовок */}
         <header className="space-y-3 border-b border-zinc-200 pb-8 dark:border-zinc-800">
           <div className="inline-flex items-center gap-2 rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700 dark:bg-orange-950/40 dark:text-orange-400">
             <Flame className="h-3.5 w-3.5 fill-current" /> Category
@@ -139,15 +139,21 @@ export default async function CategoryPage({ params }: PageProps) {
 
         {/* Список рецептів цієї категорії */}
         {filteredRecipes.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredRecipes.map((recipe, index) => (
-              <RecipeCard
-                key={recipe.id}
-                recipe={recipe}
-                priority={index === 0}
-              />
-            ))}
-          </div>
+          <section aria-labelledby="category-recipes-heading">
+            <h2 id="category-recipes-heading" className="sr-only">
+              Recipes in {categoryData.name}
+            </h2>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredRecipes.map((recipe, index) => (
+                <RecipeCard
+                  key={recipe.id}
+                  recipe={recipe}
+                  priority={index === 0}
+                />
+              ))}
+            </div>
+          </section>
         ) : (
           <div className="rounded-3xl border border-zinc-200 bg-zinc-50 py-20 text-center dark:border-zinc-800 dark:bg-zinc-900">
             <p className="text-sm text-zinc-500">

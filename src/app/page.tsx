@@ -169,7 +169,7 @@ export default async function HomePage() {
                   >
                     <YoutubeIcon
                       aria-hidden="true"
-                      className="h-5 w-5 fill-current text-red-500"
+                      className="size-5 fill-current text-white"
                     />
                     Subscribe
                   </a>
@@ -233,13 +233,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* =================================================================== */}
-        {/* MAIN CONTENT                                                         */}
-        {/* =================================================================== */}
         <div className="mx-auto max-w-7xl space-y-20 px-5 pt-16 sm:px-8 sm:pt-20 lg:px-10">
-          {/* ================================================================= */}
-          {/* RECENT RECIPES                                                     */}
-          {/* ================================================================= */}
           <section
             aria-labelledby="recent-recipes-heading"
             className="space-y-8"
@@ -247,7 +241,7 @@ export default async function HomePage() {
             {/* Section heading */}
             <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <div className="mb-2 text-xs font-bold tracking-[0.16em] text-orange-600 uppercase dark:text-orange-400">
+                <div className="text-recipe-accent mb-2 text-xs font-bold tracking-[0.16em] uppercase">
                   From the kitchen
                 </div>
 
@@ -264,7 +258,7 @@ export default async function HomePage() {
               </div>
 
               {recentRecipes.length > 0 && (
-                <p className="hidden text-sm font-medium text-zinc-400 sm:block">
+                <p className="text-recipe-secondary hidden text-sm font-medium sm:block">
                   {recentRecipes.length}{' '}
                   {recentRecipes.length === 1 ? 'recipe' : 'recipes'}
                 </p>
@@ -364,11 +358,11 @@ export default async function HomePage() {
                     href={siteConfig.links.youtube}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-bold text-orange-600 shadow-lg transition-all hover:bg-orange-50 hover:shadow-xl"
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-bold text-orange-700 shadow-lg transition-all hover:bg-orange-50 hover:shadow-xl"
                   >
                     <YoutubeIcon
                       aria-hidden="true"
-                      className="h-4 w-4 fill-current text-red-600"
+                      className="size-4 text-white"
                     />
                     Join Our YouTube Channel
                   </a>

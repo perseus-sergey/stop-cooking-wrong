@@ -47,7 +47,7 @@ export default function NavbarLogoClient() {
           {siteConfig.name.toUpperCase()}
         </span>
 
-        <span className="truncate text-[10px] font-semibold tracking-widest text-orange-600 uppercase dark:text-orange-400">
+        <span className="text-recipe-accent truncate text-[10px] font-semibold tracking-widest uppercase">
           Air Fryer Master
         </span>
       </div>

@@ -38,12 +38,12 @@ export default async function Footer() {
           <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase dark:text-zinc-100">
             Explore
           </p>
-          <ul className="space-y-1.5 text-xs">
+          <ul className="text-xs">
             {exploreCategories.map(({ id, slug, name }) => (
               <li key={id}>
                 <Link
                   href={ROUTES.category(slug)}
-                  className="hover:text-orange-600"
+                  className="hover:text-recipe-accent inline-flex min-h-6 items-center py-2"
                 >
                   {name}
                 </Link>
@@ -64,15 +64,15 @@ export default async function Footer() {
             href={siteConfig.links.youtube}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 pt-1 text-xs font-semibold text-red-600 hover:text-red-700"
+            className="text-recipe-accent inline-flex items-center gap-1.5 pt-1 text-xs font-semibold whitespace-nowrap hover:text-red-700"
           >
-            <YoutubeIcon className="h-4 w-4" aria-hidden="true" />
+            <YoutubeIcon className="size-4 text-white" aria-hidden="true" />
             Visit YouTube Channel →
           </a>
         </div>
       </div>
 
-      <div className="mx-auto mt-10 max-w-6xl border-t border-zinc-200 px-4 pt-6 text-center text-xs text-zinc-400 sm:px-6 dark:border-zinc-800">
+      <div className="text-recipe-secondary mx-auto mt-10 max-w-6xl border-t border-zinc-200 px-4 pt-6 text-center text-xs sm:px-6">
         © <CurrentYear /> {siteConfig.name}. All rights reserved.
       </div>
     </footer>

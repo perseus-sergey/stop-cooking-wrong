@@ -230,7 +230,7 @@ export default function FavoritesList() {
               setSearchQuery('');
               setSelectedCategory('all');
             }}
-            className="mt-4 h-auto p-0 text-orange-600 hover:text-orange-700"
+            className="text-recipe-accent mt-4 h-auto p-0"
           >
             Clear filters
           </Button>

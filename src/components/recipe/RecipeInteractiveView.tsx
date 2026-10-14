@@ -144,7 +144,7 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
                     className="cursor-pointer"
                   >
                     <div>
-                      <span className="mr-2 font-semibold text-orange-600 print:text-black">
+                      <span className="text-recipe-accent mr-2 font-semibold print:text-black">
                         {formatIngredientQuantity(formatted)}
                       </span>
 
@@ -152,7 +152,7 @@ export default function RecipeInteractiveView({ recipe, units }: Props) {
                     </div>
 
                     {formatted.notes && (
-                      <span className="block pl-0 text-xs text-zinc-500 print:text-[10px]">
+                      <span className="text-recipe-secondary block pl-0 text-xs print:text-[10px]">
                         {formatted.notes}
                       </span>
                     )}

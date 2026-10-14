@@ -45,7 +45,7 @@ export default function RecipeCard({ recipe, priority }: Props) {
         <CardContent className="flex flex-1 flex-col justify-between space-y-4 p-5">
           <div className="space-y-2">
             {/* Час і температура */}
-            <div className="flex items-center gap-3 text-xs font-medium text-zinc-500">
+            <div className="text-recipe-secondary flex items-center gap-3 text-xs font-medium">
               <span className="flex items-center gap-1">
                 <Clock className="h-3.5 w-3.5 text-orange-500" />
                 {recipe.cookTimeMinutes} mins
@@ -57,7 +57,7 @@ export default function RecipeCard({ recipe, priority }: Props) {
               </span>
             </div>
 
-            <h3 className="line-clamp-2 text-lg leading-snug font-bold transition-colors group-hover:text-orange-600">
+            <h3 className="group-hover:text-recipe-accent line-clamp-2 text-lg leading-snug font-bold transition-colors">
               {recipe.title}
             </h3>
 
@@ -67,7 +67,7 @@ export default function RecipeCard({ recipe, priority }: Props) {
           </div>
 
           {/* Плашка фірмового секрету каналу */}
-          <div className="flex items-center gap-1.5 border-t border-zinc-100 pt-2 text-[11px] font-semibold text-orange-600 dark:border-zinc-800 dark:text-orange-400">
+          <div className="text-recipe-accent flex items-center gap-1.5 border-t border-zinc-100 pt-2 text-[11px] font-semibold dark:border-zinc-800">
             <Sparkles className="h-3.5 w-3.5 shrink-0" />
             <span className="truncate">{recipe.theRightMove}</span>
           </div>

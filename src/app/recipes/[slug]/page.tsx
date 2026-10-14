@@ -21,6 +21,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import FavoriteButton from '@/components/recipe/FavoriteButton';
+import YouTubeEmbed from '@/components/recipe/YouTubeEmbed';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -269,7 +270,7 @@ export default async function RecipePage({ params }: PageProps) {
 
             {/* 2. Stop Cooking Wrong (на друці компактна рамка) */}
             <Card className="overflow-hidden border-orange-500/30 bg-orange-50/40 shadow-sm dark:bg-orange-950/20 print:break-inside-avoid print:border-zinc-300 print:bg-zinc-50 print:shadow-none">
-              <div className="flex items-center gap-1.5 bg-orange-500 px-4 py-1.5 text-xs font-medium tracking-wider text-white uppercase print:bg-zinc-800 print:py-1 print:text-[10px]">
+              <div className="flex items-center gap-1.5 bg-orange-700 px-4 py-1.5 text-xs font-medium tracking-wider text-white uppercase print:bg-zinc-800 print:py-1 print:text-[10px]">
                 <Sparkles className="h-4 w-4" /> {siteConfig.brand.secretBadge}
               </div>
               <CardContent className="grid gap-3 p-4 text-xs leading-relaxed sm:grid-cols-2 print:p-2.5">
@@ -284,7 +285,7 @@ export default async function RecipePage({ params }: PageProps) {
                 </div>
 
                 <div className="space-y-1 sm:border-l sm:border-orange-200 sm:pl-3 dark:sm:border-orange-900/40 print:border-zinc-300">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+                  <div className="text-recipe-success flex items-center gap-2 text-sm font-semibold">
                     <CheckCircle2 className="h-4 w-4" />
                     <span>{siteConfig.brand.theRightMoveLabel}</span>
                   </div>
@@ -303,15 +304,8 @@ export default async function RecipePage({ params }: PageProps) {
               <h2 className="text-2xl font-bold tracking-tight">
                 Watch the ASMR Recipe
               </h2>
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
-                <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
-                  title={title}
-                  className="absolute inset-0 h-full w-full border-0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
+
+              <YouTubeEmbed videoId={youtubeId} title={title} />
             </section>
           )}
         </article>

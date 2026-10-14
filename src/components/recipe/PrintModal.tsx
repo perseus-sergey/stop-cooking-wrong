@@ -161,7 +161,7 @@ export default function PrintModal({ recipe, units }: Props) {
             {/* Шапка з назвою */}
             <div className="mb-3 flex items-start justify-between gap-3 border-b-2 border-zinc-900 pb-3">
               <div className="space-y-1">
-                <span className="text-[9px] font-bold tracking-wider text-orange-600 uppercase sm:text-[10px]">
+                <span className="text-recipe-accent text-[9px] font-bold tracking-wider uppercase sm:text-[10px]">
                   {siteConfig.name} • {siteConfig.brand.printBadge}
                 </span>
                 <h1 className={fontStyles.heading}>{recipe.title}</h1>
@@ -170,7 +170,6 @@ export default function PrintModal({ recipe, units }: Props) {
                 </p>
               </div>
 
-              {/* Фото */}
               {showImage && (
                 <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-md border border-zinc-300 sm:h-20 sm:w-28">
                   <Image
